@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html class="no-js">
+<head>
+	<!-- Meta-Information -->
+	<title>Puckalytics.com - Frequently Asked Questions</title>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="description" content="Puckalytics by HockeyAnalysis.com">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- Vendor: Bootstrap Stylesheets http://getbootstrap.com -->
+	<script src="angularjs/angular.js"></script>
+	<script src="angularjs/angular-route.min.js"></script>
+	<script src="angularjs/ui-bootstrap-tpls-0.12.1.min.js"></script>
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<!-- <link rel="stylesheet" href="css/bootstrap-theme.min.css"> -->
+	<link rel="stylesheet" href="css/yeti-bootstrap.min.css">
+
+	<!-- Our Website CSS Styles -->
+	<link rel="stylesheet" href="css/puckalytics.css">
+
+	<!-- Our Website Javascripts -->
+	<script src="apps/puckalyticsmainapp.js"></script>
+</head>
+
+<body ng-app="puckalyticsMainApp">
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-64695798-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+	<div ng-include='"templates/pageheader.html"'></div>
+	
+	
+<div class="container" >
+	<div class="row">
+		<div class="col-lg-12">
+		<h1>FAQ</h1>
+
+<p>
+I get quite a few questions sent my way so I want to answer a few of the most frequent ones here.
+<p>
+<strong>I want to learn more about hockey analytics, is there somewhere that provides a good overview?</strong><br>
+I wrote an <a href="https://mapleleafshotstove.com/2014/08/05/introduction-to-advanced-statistics/">Introduction to Hockey Analytics</a> for MapleLeafsHotStove.com which, and I am biased here, I think provides
+the best, most complete, introduction to hockey analytics available. In it I tried to cover all the main statistics
+as well as outline the pros and cons of each statistic.
+<p>
+
+<strong>Where do you get your data?</strong><br>
+I get my data from the play by play, shift/TOI tables, and event summaries that are posted on NHL.com for every game. 
+You can find these pages by going to a <a href="http://www.nhl.com/ice/boxscore.htm?id=2012020423">box score for a game at NHL.com</a> 
+and clicking on the links under "Official Game Reports".
+<p>
+
+
+<strong>Are your stats updated automatically every night?</strong><br>
+No. To update the stats I need to download the play by play, TOI tables and event summary pages to my own computer, 
+run a program to update the stats, and then upload the updated stats to the web server. The process is mostly automated 
+and doesn't take a lot of my time, but the program does take some time to run and updated data takes a fair bit of time
+to upload to the website (WOWY tables include a lot of data). All totaled it is probably a 45 minute process so I
+don't update them daily. My goal is to get them updated several times a week but offer no guarantees.
+<p>
+
+<strong>What is Corsi?</strong><br>
+Corsi is a shot attempt metric and includes all shots, shots that missed the net and shots that were blocked.
+<p>
+
+<strong>What is Fenwick?</strong><br>
+Fenwick, like corsi, is a shot attempt metric and includes all shots and shots that missed the net but not shots that were blocked.
+<p>
+
+<strong>What is PDO?</strong><br>
+PDO is nothing more than shooting percentage + save percentage.
+<p>
+
+<strong>Should I use goal, shot, fenwick or corsi statistics?</strong><br>
+This is a bit controversial. There are many who believe that the majority of a players value can be determined from shot/fenwick/corsi based
+metrics but I believe goal based metrics have value as well. The main issue with goal based metrics is that goals are relatively
+infrequent events as far as statistics are concerned and because of this fact it is difficult to get a large enough sample size
+to be able to weed out all the randomness that occurs with them. From my research the benefits of using a goal based analysis
+begins to over take the benefits of the greater sample size of shot attempts at about one full seasons worth of data. So, if
+you are looking at less than a full seasons worth of data (i.e. ratings for a not yet complete season, or for a player that missed
+a significant number of games due to injury, or fourth liners who don't get a significant amound of ice time) it is probably best
+to consider a corsi or fenwick based rating (doesn't really matter which since both are highly correlated). If you are looking at
+ratings using more than one season of data I'd definitely consider a goal based metric a better metric. At about the one full season
+mark the two metrics probably have equal value so it probably doesn't matter which one you use, but I'd tend to lean towards a goal
+based metric.
+<p>
+
+<strong>How do you adjust for zone starts?</strong><br>
+I adjust for zone starts by ignoring the first 10 seconds after a face off in either the offensive or defensive zone. I do this
+because it has been shown by both myself and others that the benefit of a zone start is almost completely negated after 10 seconds
+of play and any lingering effects are too small to have a significant impact on a players overall statistics.
+<p>
+
+<strong>What does 5v5 close mean?</strong><br>
+Close play is when the game is tied or within one goal in the first or second peroiods or tied in the third period.
+<p>
+
+<strong>The stats on here are different than what I see on other websites?</strong><br>
+There are a few reasons that might cause this. First, because puckalytics.com is not automatically updated and generally
+only updated every couple days the stats may be slightly out of date. Another reason is that some other sites don't factor out 
+goalie pulled situations.  All of the 5v5 data on puckalytics.com data does not include play when when the goalie
+is pulled (essentially a 6 on 5) whether in a late game or delayed penalty situations.
+<p>
+
+
+
+</div>
+</div>
+</div>
+
+
+
+
+	<div ng-include='"templates/footer.html"'></div>
+</div>	
+<!-- Start of StatCounter Code for Default Guide -->
+<script type="text/javascript">
+var sc_project=10040733; 
+var sc_invisible=1; 
+var sc_security="61a2eeeb"; 
+var scJsHost = (("https:" == document.location.protocol) ?
+"https://secure." : "http://www.");
+document.write("<sc"+"ript type='text/javascript' src='" +
+scJsHost+
+"statcounter.com/counter/counter.js'></"+"script>");
+</script>
+<noscript><div class="statcounter"><a title="website
+statistics" href="http://statcounter.com/"
+target="_blank"><img class="statcounter"
+src="http://c.statcounter.com/10040733/0/61a2eeeb/1/"
+alt="website statistics"></a></div></noscript>
+<!-- End of StatCounter Code for Default Guide -->
+	
+</body>
+</html>
