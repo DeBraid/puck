@@ -1,16 +1,77 @@
 <!DOCTYPE html>
-<html>
-	<head>
-		<!-- Meta-Information -->
-		<title>NHL Advanced Statistics and Hockey Analytics</title>
-		<meta charset="utf-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-		<meta name="description" content="Puckalytics by HockeyAnalysis.com">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		
-	</head>
+<html class="no-js">
+<head>
+	<!-- Meta-Information -->
+	<title>NHL Advanced Statistics and Hockey Analytics</title>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="description" content="Puckalytics by HockeyAnalysis.com">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 
-	<body>
-		<h1> Welcome to Puckalytics 2.0	</h1>
-	</body>
+	<!-- Vendor: Bootstrap Stylesheets http://getbootstrap.com -->
+	<script src="angularjs/angular.js"></script>
+	<script src="angularjs/angular-ui-router.js"></script>
+
+	<script src="angularjs/ui-bootstrap-tpls-0.12.1.min.js"></script>
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<!-- <link rel="stylesheet" href="css/bootstrap-theme.min.css"> -->
+	<link rel="stylesheet" href="css/yeti-bootstrap.min.css">
+
+	<!-- Our Website CSS Styles -->
+	<link rel="stylesheet" href="css/puckalytics.css">
+
+	<!-- Our Website Javascripts -->
+	<!-- Main JS -->
+	<script src="apps/app.main.js"></script>
+	<script src="apps/app.main.router.js"></script>
+	
+	<script src="apps/app.constants.js"></script>
+	<!-- Controllers -->
+	<script src="apps/filter_menu.directive.js"></script>
+	<script src="apps/app.filter_menu.constants.js"></script>
+	
+	<script src="apps/HomepageController.js"></script>
+	<script src="apps/homepage.constants.js"></script>
+	
+	<script src="apps/GoalieController.js"></script>
+	<script src="apps/goalie.constants.js"></script>
+	
+	<script src="apps/TeamsController.js"></script>
+	<script src="apps/teams.constants.js"></script>
+	
+	<script src="apps/app.getData.service.js"></script>
+	<script src="apps/app.getParamsFromUrl.service.js"></script>
+	
+</head>
+
+<body ng-app="puckalyticsMainApp">
+
+<!-- Google Analytics -->
+<script src="scripts/GoogleAnalytics.js"></script>
+
+<!-- Our Website Content Goes Here -->
+<div class="container-fluid">
+	<div ng-include='"templates/pageheader.html"'></div>
+
+	<!-- 
+		See app.main.router.js 
+		template declarations based on url 
+	-->
+	<div ui-view></div>	
+
+	<!-- <div ng-include='"templates/contrib_donate.html"'></div> -->
+	<div ng-include='"templates/google_ads_script.html"'></div>
+	<div ng-include='"templates/footer.html"'></div>
+</div>	
+
+<!-- Start of StatCounter Code for Default Guide -->
+<script src="scripts/StatCounter.js"></script>
+<noscript><div class="statcounter"><a title="website
+statistics" href="http://statcounter.com/"
+target="_blank"><img class="statcounter"
+src="http://c.statcounter.com/10040733/0/61a2eeeb/1/"
+alt="website statistics"></a></div></noscript>
+<!-- End of StatCounter Code for Default Guide -->
+	
+</body>
 </html>
