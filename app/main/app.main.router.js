@@ -18,14 +18,14 @@ function MainAppRouterConfig (
         .state('goalies', {
             url: '/goalies?' + createUrl(MainAppConstants.goalie_params),
             params: MainAppConstants.goalie_params,
-            templateUrl: 'goalies.html',
+            templateUrl: 'app/goalies/goalies.html',
             controller: 'GoalieController'
         })
         .state('teams', {
             // url: '/teams?' + createUrl(MainAppConstants.goalie_params),
             url: '/teams?',
             params: MainAppConstants.team_params,
-            templateUrl: 'teams.html',
+            templateUrl: 'app/teams/teams.html',
             controller: 'TeamsController'
         });
 

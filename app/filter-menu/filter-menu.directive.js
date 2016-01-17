@@ -10,7 +10,7 @@ angular
 function filter_menu_directive (getData) {
     return {
         restrict: 'E',
-        templateUrl: 'templates/app.filter_menu.html',
+        templateUrl: 'app/filter-menu/filter-menu.html',
         scope: {
             toi: '=toi' , 
             season: '=season',
