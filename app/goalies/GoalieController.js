@@ -7,7 +7,7 @@ angular
 	.controller('GoalieController', GoalieController );
 
 function GoalieController (
-	$scope, $stateParams, goalieConstants,
+	$scope, $stateParams, goalieConstants, secretConstants,
 	getParamsFromUrl, getData
 ) {
 
@@ -19,7 +19,7 @@ function GoalieController (
 		loading : false,
 		hidedata : false,
 	    playerdata : [],
-	    section_data_url : goalieConstants.data_url,
+	    section_data_url : secretConstants.goalies_data_url,
 	    metrics: goalieConstants.metrics,
 		toggleTableFilters : toggleTableFilters,
 		tableFilter : tableFilter,

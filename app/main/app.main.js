@@ -1,5 +1,6 @@
 // Main JS file 
 var app = angular.module('puckalyticsMainApp', [
+	// 'puckalyticsMainApp.secrets',
 	'puckalyticsMainApp.getData',
 	'puckalyticsMainApp.getParamsFromUrl',
 	'puckalyticsMainApp.goalies',

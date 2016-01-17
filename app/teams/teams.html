@@ -1,0 +1,54 @@
+<div class="container-fluid">
+	<h2>Team Stats</h2>
+	
+	<filter-menu 
+		toi="TOIMin" 
+		season="season"
+		situation="situation">
+	</filter-menu>
+
+	<div class="row">
+		<div class="col-sm-12">
+
+			<span ng-show="loading">
+				<span ng-include="'apps/app.loading_spinner.html'"></span>
+			</span>
+			
+			<span ng-hide="loading">
+				<button ng-click="toggleTableFilters()"
+					class="btn btn-default pull-right grey-bg">
+						<i class="glyphicon" ng-class=" showFilters ? 'glyphicon-minus' : 'glyphicon-plus' "></i>
+						<span ng-show="showFilters">Hide </span>
+						<span ng-hide="showFilters">Show </span>
+						Data Filters
+				</button>
+				
+				<div class="row">
+					<div class="col-sm-2">
+						<input type="checkbox" ng-model="displayGoals"> Goal
+					</div>
+					<div class="col-sm-2">
+						<input type="checkbox" ng-model="displayShots"> Shot
+					</div>
+					<div class="col-sm-2">
+						<input type="checkbox" ng-model="displayFenwick"> Fenwick
+					</div>
+					<div class="col-sm-2">
+						<input type="checkbox" ng-model="displayCorsi"> Corsi
+					</div>
+					<div class="col-sm-2">
+						<input type="checkbox" ng-model="displayZoneStarts"> Zones
+					</div>
+				</div>
+				<span ng-include="'new_team_stats_table.html'"></span>
+			</span>
+
+			<span ng-if="error_message">
+				<div class="row text-center">
+					<h2>{{ error_message }}</h2>
+				</div>
+			</span>
+
+		</div>
+	</div>
+</div>

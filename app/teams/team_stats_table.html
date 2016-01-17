@@ -1,0 +1,280 @@
+<table class="table table-bordered table-striped table-condensed table-hover">
+	<thead>
+	<tr style="background-color:#cccccc">
+		<!-- <th>Rank</th>
+		<th>Select</th>
+		<th>Team</th>
+		<th class="text-right">TOI</th>
+		<th class="text-right">GP</th> -->
+		<th>Rank</th>
+		<th ng-show="showFilters">Select</th>
+		<th>
+			<a ng-click="orderByField='teamname'; reverseSort = !reverseSort">
+				Team
+			</a>
+		</th>
+		<th class="text-right">
+			<a ng-click="orderByField='TOIDec'; reverseSort = !reverseSort">
+				TOI
+			</a>
+		</th>
+		<th class="text-right">
+			<a ng-click="orderByField='GP'; reverseSort = !reverseSort">
+				GP
+			</a>
+		</th>
+		
+		<!-- <th ng-repeat="metric in ::metrics track by $index"
+			ng-show="{{::metric.filter}}"
+			class="text-right">{{ ::metric.metric }}</th>
+ -->
+		<th ng-repeat="metric in ::metrics track by $index"
+		ng-show="{{::metric.filter}}"
+		class="text-right">
+			<a href="" 
+				ng-click="orderByField='{{::metric.metric}}'; reverseSort = !reverseSort">{{ ::metric.metric }}
+			</a>
+		</th>
+	</tr>
+
+	<tr ng-show="showFilters" class="grey-bg">
+		<td></td>
+		<td>Filter: <input type="checkbox" ng-model="checkboxFilterOn"></td>
+		<td></td>
+		<td align="right">
+			<input size=5 ng-model="TOIMin"><br>
+			to<br>
+			<input size=5 ng-model="TOIMax"><br>
+		</td>
+
+		<td align="right">
+			<input size=5 ng-model="GPMin"><br>
+			to<br>
+			<input size=5 ng-model="GPMax"><br>
+		</td>
+
+		<td ng-hide="displayGoals==false"  align="right">
+			<input size=5 ng-model="GFMin"><br>
+			to<br>
+			<input size=5 ng-model="GFMax"><br>
+		</td>
+		<td ng-hide="displayGoals==false"  align="right">
+			<input size=5 ng-model="GAMin"><br>
+			to<br>
+			<input size=5 ng-model="GAMax"><br>
+		</td>
+		<td ng-hide="displayGoals==false"  align="right">
+			<input size=5 ng-model="GF60Min"><br>
+			to<br>
+			<input size=5 ng-model="GF60Max"><br>
+		</td>
+		<td ng-hide="displayGoals==false"  align="right">
+			<input size=5 ng-model="GA60Min"><br>
+			to<br>
+			<input size=5 ng-model="GA60Max"><br>
+		</td>
+		<td ng-hide="displayGoals==false"  align="right">
+			<input size=5 ng-model="GFPctMin"><br>
+			to<br>
+			<input size=5 ng-model="GFPctMax"><br>
+		</td>
+
+		
+		<td ng-hide="displayShots==false"  align="right">
+			<input size=5 ng-model="SFMin"><br>
+			to<br>
+			<input size=5 ng-model="SFMax"><br>
+		</td>
+		<td ng-hide="displayShots==false"  align="right">
+			<input size=5 ng-model="SAMin"><br>
+			to<br>
+			<input size=5 ng-model="SAMax"><br>
+		</td>
+		<td ng-hide="displayShots==false"  align="right">
+			<input size=5 ng-model="SF60Min"><br>
+			to<br>
+			<input size=5 ng-model="SF60Max"><br>
+		</td>
+		<td ng-hide="displayShots==false"  align="right">
+			<input size=5 ng-model="SA60Min"><br>
+			to<br>
+			<input size=5 ng-model="SA60Max"><br>
+		</td>
+		<td ng-hide="displayShots==false"  align="right">
+			<input size=5 ng-model="SFPctMin"><br>
+			to<br>
+			<input size=5 ng-model="SFPctMax"><br>
+		</td>
+
+		
+		<td ng-hide="displayFenwick==false"  align="right">
+			<input size=5 ng-model="FFMin"><br>
+			to<br>
+			<input size=5 ng-model="FFMax"><br>
+		</td>
+		<td ng-hide="displayFenwick==false"  align="right">
+			<input size=5 ng-model="FAMin"><br>
+			to<br>
+			<input size=5 ng-model="FAMax"><br>
+		</td>
+		<td ng-hide="displayFenwick==false"  align="right">
+			<input size=5 ng-model="FF60Min"><br>
+			to<br>
+			<input size=5 ng-model="FF60Max"><br>
+		</td>
+		<td ng-hide="displayFenwick==false"  align="right">
+			<input size=5 ng-model="FA60Min"><br>
+			to<br>
+			<input size=5 ng-model="FA60Max"><br>
+		</td>
+		<td ng-hide="displayFenwick==false"  align="right">
+			<input size=5 ng-model="FFPctMin"><br>
+			to<br>
+			<input size=5 ng-model="FFPctMax"><br>
+		</td>
+		
+		
+		<td ng-hide="displayCorsi==false"  align="right">
+			<input size=5 ng-model="CFMin"><br>
+			to<br>
+			<input size=5 ng-model="CFMax"><br>
+		</td>
+		<td ng-hide="displayCorsi==false"  align="right">
+			<input size=5 ng-model="CAMin"><br>
+			to<br>
+			<input size=5 ng-model="CAMax"><br>
+		</td>
+		<td ng-hide="displayCorsi==false"  align="right">
+			<input size=5 ng-model="CF60Min"><br>
+			to<br>
+			<input size=5 ng-model="CF60Max"><br>
+		</td>
+		<td ng-hide="displayCorsi==false"  align="right">
+			<input size=5 ng-model="CA60Min"><br>
+			to<br>
+			<input size=5 ng-model="CA60Max"><br>
+		</td>
+		<td ng-hide="displayCorsi==false"  align="right">
+			<input size=5 ng-model="CFPctMin"><br>
+			to<br>
+			<input size=5 ng-model="CFPctMax"><br>
+		</td>
+		
+		<td ng-hide="(displayShots==false && displayGoals==false) || displayPcts==false"  align="right">
+			<input size=5 ng-model="SHPctMin"><br>
+			to<br>
+			<input size=5 ng-model="SHPctMax"><br>
+		</td>
+		<td ng-hide="(displayShots==false && displayGoals==false) || displayPcts==false"  align="right">
+			<input size=5 ng-model="SVPctMin"><br>
+			to<br>
+			<input size=5 ng-model="SVPctMax"><br>
+		</td>
+		<td ng-hide="(displayShots==false && displayGoals==false) || displayPcts==false"  align="right">
+			<input size=5 ng-model="PDOMin"><br>
+			to<br>
+			<input size=5 ng-model="PDOMax"><br>
+		</td>
+
+		<td ng-hide="displayFenwick==false || displayPcts==false"  align="right">
+			<input size=5 ng-model="FSHPctMin"><br>
+			to<br>
+			<input size=5 ng-model="FSHPctMax"><br>
+		</td>
+		<td ng-hide="displayFenwick==false || displayPcts==false"  align="right">
+			<input size=5 ng-model="FSVPctMin"><br>
+			to<br>
+			<input size=5 ng-model="FSVPctMax"><br>
+		</td>
+		<td ng-hide="displayFenwick==false || displayPcts==false"  align="right">
+			<input size=5 ng-model="FPDOMin"><br>
+			to<br>
+			<input size=5 ng-model="FPDOMax"><br>
+		</td>
+
+		<td ng-hide="displayCorsi==false || displayPcts==false"  align="right">
+			<input size=5 ng-model="CSHPctMin"><br>
+			to<br>
+			<input size=5 ng-model="CSHPctMax"><br>
+		</td>
+		<td ng-hide="displayCorsi==false || displayPcts==false"  align="right">
+			<input size=5 ng-model="CSVPctMin"><br>
+			to<br>
+			<input size=5 ng-model="CSVPctMax"><br>
+		</td>
+		<td ng-hide="displayCorsi==false || displayPcts==false"  align="right">
+			<input size=5 ng-model="CPDOMin"><br>
+			to<br>
+			<input size=5 ng-model="CPDOMax"><br>
+		</td>
+		
+
+		
+		<td ng-hide="displayZoneStarts==false"  align="right">
+			<input size=5 ng-model="NZFOPctMin"><br>
+			to<br>
+			<input size=5 ng-model="NZFOPctMax"><br>
+		</td>									
+		<td ng-hide="displayZoneStarts==false"  align="right">
+			<input size=5 ng-model="DZFOPctMin"><br>
+			to<br>
+			<input size=5 ng-model="DZFOPctMax"><br>
+		</td>									
+		<td ng-hide="displayZoneStarts==false"  align="right">
+			<input size=5 ng-model="OZFOPctMin"><br>
+			to<br>
+			<input size=5 ng-model="OZFOPctMax"><br>
+		</td>									
+	</tr>
+
+	<tr></tr>
+	<!-- <tr class="grey-bg">
+		<th>Rank</th>
+		<th ng-hide="showFilters==false">Select</th>
+		<th>
+			<a ng-click="orderByField='teamname'; reverseSort = !reverseSort">
+				Team&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+			</a>
+		</th>
+		<th class="text-right">
+			<a ng-click="orderByField='TOIDec'; reverseSort = !reverseSort">
+				TOI
+			</a>
+		</th>
+		<th class="text-right">
+			<a ng-click="orderByField='GP'; reverseSort = !reverseSort">
+				GP
+			</a>
+		</th>
+
+		<th ng-repeat="metric in ::metrics track by $index"
+			ng-show="{{::metric.filter}}"
+			class="text-right">
+				<a href="" 
+					ng-click="orderByField='{{::metric.metric}}'; reverseSort = !reverseSort">{{ ::metric.metric }}
+				</a>
+		</th>
+	</tr> -->
+	</thead>
+	<tbody>
+	<tr ng-repeat="team in ::team_data |orderBy:orderByField:reverseSort | filter:tableFilter" >
+		<td>{{$index +1}}
+		<td ng-hide="showFilters==false"><input type="checkbox" ng-model="team.checkboxFilter"></td>
+
+		<td ng-hide="orderByField=='teamname'"  align="left">{{team.teamname}}</td>
+		<td ng-hide="orderByField!='teamname'"  align="left"><strong>{{team.teamname}}</strong></td>
+		<td align="right" ng-class="orderByField=='TOIDec' ? 'bold-text' :''">
+			{{team.TOIDec | number:1 }}
+		</td>
+		<td align="right" ng-class="orderByField=='GP' ? 'bold-text' :''">
+			{{team.GP }}
+		</td>
+		<!-- new repeater -->
+		<td ng-repeat="metric in ::metrics track by $index"
+			ng-class="orderByField=='{{::metric.metric}}' ? 'bold-text' :''"
+			ng-show="{{::metric.filter}}"
+			class="text-right">{{ ::team[metric.metric] | number:2 }}</td>
+		<!-- end new repeater -->
+	</tr>
+	</tbody>
+</table>
