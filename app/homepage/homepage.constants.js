@@ -36,7 +36,7 @@ angular
 			title : 'Goalie Stats',
 			desc : 'Keepers: GA, SA, FA, CA, GA60, SA60, FA60, CA60, Sv%, FSv%, CSv%.',
 		},{
-			sref : 'teamstats' ,
+			sref : 'teams' ,
 			title : 'Team Stats',
 			desc : 'Best Club in the League!',
 		},{
