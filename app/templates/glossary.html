@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html class="no-js">
+<head>
+	<!-- Meta-Information -->
+	<title>Puckalytics.com - Advanced Hockey Statistics Glossary</title>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="description" content="Puckalytics by HockeyAnalysis.com">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- Vendor: Bootstrap Stylesheets http://getbootstrap.com -->
+	<script src="angularjs/angular.js"></script>
+	<script src="angularjs/angular-route.min.js"></script>
+	<script src="angularjs/ui-bootstrap-tpls-0.12.1.min.js"></script>
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<!-- <link rel="stylesheet" href="css/bootstrap-theme.min.css"> -->
+	<link rel="stylesheet" href="css/yeti-bootstrap.min.css">
+
+	<!-- Our Website CSS Styles -->
+	<link rel="stylesheet" href="css/puckalytics.css">
+
+	<!-- Our Website Javascripts -->
+	<script src="apps/puckalyticsmainapp.js"></script>
+</head>
+
+<body ng-app="puckalyticsMainApp">
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-64695798-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+	<div ng-include='"templates/pageheader.html"'></div>
+
+
+<div class="container" >
+	<div class="row">
+		<div class="col-lg-12">
+		<h1>Glossary</h1>
+<p>
+
+In addition to this glossary, I recommend reading this 
+<a href="http://mapleleafshotstove.com/2014/08/05/introduction-to-advanced-statistics/">Introduction to Advanced Hockey Statistics</a> to learn more about hockey analytics.<br>
+
+<h3>Fenwick</h3>
+Fenwick is shots plus all shots attempts that missed the net (i.e. hit the post/crossbar, shot wide, etc.)
+</p>
+<p>
+<h3>Corsi</h3>
+Corsi is Fenwick plus all shots attempts that were blocked by the defending team.
+</p>
+<p>
+<h3>TM Statistics</h3>
+TM statistics are like a composite WOWY (With or Without You) statistic. Let's take Dion Phaneuf's TMCF60 (TeamMate Corsi For per 60 minutes of ice time) as an example. In this case Phaneuf's TMCF60 is a weighted average of each players CF60 when Phaneuf isn't on the ice with them weighted by the ice time they have played with Phaneuf (for players with fewer than 100 minutes apart from Phaneuf their overall CF60 is used instead to keep sample sizes from getting too small).
+</p>
+<p>
+One could consider TM statistics an expected value for the player if the player had no (positive or negative) influence on his team mates results when he plays with them.
+</p>
+<p>
+<h3>Opp Statistics</h3>
+Opp statistics are almost identical to TM statistics but considers every opponent as opposed to every teammate. This is best considered as a quality of competition statistic.
+</p>
+<p>
+<h3>RelTM statistics</h3>
+RelTM statistics are nothing more than the players statistic minus the equivalent TM statistic. So, CF20RelTM = CF20 - TMCF20.
+</p>
+<p>
+<h3>% of Team Statistics</h3>
+These represent the players on-ice statistics as a percentage of the teams overall statistics in games that the player has played in. If a player had a %ofTeam TOI of 32.0 it would mean that the player played in 32.0% of the teams ice time in games that he played in. A %ofTeam GF of 35.0 would mean the player was on the ice for 35% of all the goals scored by the team in games that the player played in.
+</p>
+<p>
+<h3>IPP, IAP, IGP, IPPP</h3>
+IPP is individual points percentage and is the # of points a player has divided by the number of goals scored while the player was on the ice. 
+IGP is individual goals percentage and IAP is individual assists percentage. These are calculated the same way but use goals and assists instead of points. 
+IPPP is individual primary points percentage only considers goals and first assists (ignores secondary assists) but is otherwise calculated the same as IPP.
+</p>
+<p>
+IPP and IPP tell us which players are most integral (or most involved) to the teams offensive production when the player is on the ice and IGP and IAP is an indication of whether the player is more of a goal scorer or play maker.
+</p>
+<p>
+<h3>Zone Start Adjusted</h3>
+Zone Start Adjusted statistics remove the 10 seconds immediately after a zone face off. It has been shown that the majority of the benefit or penalty of a zone start occurs during the first 10 seconds.		
+</p>
+
+<h3>Complete Table of Statistics</h3>	
+<table border=1>						
+<tr>	<th>	Statistic	</th>	<th width=750>	Definition	</th> </tr>
+<tr>	<td>	GP	</td>	<td>	Games Played	</td> </tr>
+<tr>	<td>	TOI	</td>	<td>	Time On Ice	</td> </tr>
+
+<tr>	<td>	GF	</td>	<td>	Goals For (while on the ice)	</td> </tr>
+<tr>	<td>	GA	</td>	<td>	Goals AGainst (while on the ice)	</td> </tr>
+<tr>	<td>	GF60	</td>	<td>	Goals For while player is on ice per 60 minutes of ice time.	</td> </tr>
+<tr>	<td>	GA60	</td>	<td>	Goals Against while player is on ice per 60 minutes of ice time.	</td> </tr>
+<tr>	<td>	GF%	</td>	<td>	GF% = Goals For / (Goals For + Goals Against)	</td> </tr>
+<tr>	<td>	TMGF60	</td>	<td>	Weighted (by TOI together) average of all teammates GF60.	</td> </tr>
+<tr>	<td>	TMGA60	</td>	<td>	Weighted (by TOI together) average of all teammates GA60.	</td> </tr>
+<tr>	<td>	TMGF%	</td>	<td>	Weighted (by TOI together) average of all teammates GF%.	</td> </tr>
+<tr>	<td>	OPPGF60	</td>	<td>	Weighted (by TOI against each other) average of all opponents GF60.	</td> </tr>
+<tr>	<td>	OPPGA60	</td>	<td>	Weighted (by TOI against each other) average of all opponents GA60.	</td> </tr>
+<tr>	<td>	OPPGF%	</td>	<td>	Weighted (by TOI against each other) average of all opponents GF%.	</td> </tr>
+<tr>	<td>	GF60RelTM	</td>	<td>	GF60 - TMGF60 (higher is better)	</td> </tr>
+<tr>	<td>	GA60RelTM	</td>	<td>	GA60 - TMGA60 (lower is better)	</td> </tr>
+<tr>	<td>	GF%RelTM	</td>	<td>	GF% - TMGF% (higher is better)	</td> </tr>
+
+<tr>	<td>	SF	</td>	<td>	Shots For (while on the ice)	</td> </tr>
+<tr>	<td>	SA	</td>	<td>	Shots AGainst (while on the ice)	</td> </tr>
+<tr>	<td>	SF60	</td>	<td>	Shots For while player is on ice per 60 minutes of ice time.	</td> </tr>
+<tr>	<td>	SA60	</td>	<td>	Shots Against while player is on ice per 60 minutes of ice time.	</td> </tr>
+<tr>	<td>	SF%	</td>	<td>	SF% = Shots For / (Shots For + Shots Against)	</td> </tr>
+<tr>	<td>	TMSF60	</td>	<td>	Weighted (by TOI together) average of all teammates SF60.	</td> </tr>
+<tr>	<td>	TMSA60	</td>	<td>	Weighted (by TOI together) average of all teammates SA60.	</td> </tr>
+<tr>	<td>	TMSF%	</td>	<td>	Weighted (by TOI together) average of all teammates SF%.	</td> </tr>
+<tr>	<td>	OppSF60 	</td>	<td>	Weighted (by TOI against each other) average of all opponents SF60.	</td> </tr>
+<tr>	<td>	OppSA60 	</td>	<td>	Weighted (by TOI against each other) average of all opponents SA60.	</td> </tr>
+<tr>	<td>	OppSFor% 	</td>	<td>	Weighted (by TOI against each other) average of all opponents SF%.	</td> </tr>
+<tr>	<td>	SF60RelTM	</td>	<td>	SF60 - TMSF60 (higher is better)	</td> </tr>
+<tr>	<td>	SA60RelTM	</td>	<td>	SA60 - TMSA60 (lower is better)	</td> </tr>
+<tr>	<td>	SF%RelTM	</td>	<td>	SF% - TMSF% (higher is better)	</td> </tr>
+
+<tr>	<td>	FF	</td>	<td>	Fenwick For (while on the ice)	</td> </tr>
+<tr>	<td>	FA	</td>	<td>	Fenwick AGainst (while on the ice)	</td> </tr>
+<tr>	<td>	FF60 	</td>	<td>	Fenwick For while player is on ice per 60 minutes of ice time.	</td> </tr>
+<tr>	<td>	FA60 	</td>	<td>	Fenwick Against while player is on ice per 60 minutes of ice time.	</td> </tr>
+<tr>	<td>	FF% 	</td>	<td>	Fenwick For% = Fenwick For / (Fenwick For + Fenwick Against)	</td> </tr>
+<tr>	<td>	TMFF60 	</td>	<td>	Weighted (by TOI together) average of all teammates FenF60.	</td> </tr>
+<tr>	<td>	TMFA60 	</td>	<td>	Weighted (by TOI together) average of all teammates FenA60.	</td> </tr>
+<tr>	<td>	TMFF% 	</td>	<td>	Weighted (by TOI together) average of all teammates FenF%.	</td> </tr>
+<tr>	<td>	OppFF60 	</td>	<td>	Weighted (by TOI against each other) average of all opponents FenF60.	</td> </tr>
+<tr>	<td>	OppFA60 	</td>	<td>	Weighted (by TOI against each other) average of all opponents FenA60.	</td> </tr>
+<tr>	<td>	OppFF% 	</td>	<td>	Weighted (by TOI against each other) average of all opponents FenF%.	</td> </tr>
+<tr>	<td>	FF60RelTM	</td>	<td>	FF60 - TMFF60 (higher is better)	</td> </tr>
+<tr>	<td>	FA60RelTM	</td>	<td>	FA60 - TMFA60 (lower is better)	</td> </tr>
+<tr>	<td>	FF%RelTM	</td>	<td>	FF% - TMFF% (higher is better)	</td> </tr>
+
+
+<tr>	<td>	CF	</td>	<td>	Corsi For (while on the ice)	</td> </tr>
+<tr>	<td>	CA	</td>	<td>	Corsi AGainst (while on the ice)	</td> </tr>
+<tr>	<td>	CF60 	</td>	<td>	Corsi For while player is on ice per 60 minutes of ice time.	</td> </tr>
+<tr>	<td>	CA60 	</td>	<td>	Corsi Against while player is on ice per 60 minutes of ice time.	</td> </tr>
+<tr>	<td>	CF% 	</td>	<td>	Corsi For% = Corsi For / (Corsi For + Corsi Against)	</td> </tr>
+<tr>	<td>	TMCF60 	</td>	<td>	Weighted (by TOI together) average of all teammates CorF60.	</td> </tr>
+<tr>	<td>	TMCA60 	</td>	<td>	Weighted (by TOI together) average of all teammates CorA60.	</td> </tr>
+<tr>	<td>	TMCF% 	</td>	<td>	Weighted (by TOI together) average of all teammates CorF%.	</td> </tr>
+<tr>	<td>	OppCF60 	</td>	<td>	Weighted (by TOI against each other) average of all opponents CorF60.	</td> </tr>
+<tr>	<td>	OppCA60 	</td>	<td>	Weighted (by TOI against each other) average of all opponents CorA60.	</td> </tr>
+<tr>	<td>	OppCF% 	</td>	<td>	Weighted (by TOI against each other) average of all opponents CorF%.	</td> </tr>
+<tr>	<td>	CF60RelTM	</td>	<td>	CF60 - TMCF60 (higher is better)	</td> </tr>
+<tr>	<td>	CA60RelTM	</td>	<td>	CA60 - TMCA60 (lower is better)	</td> </tr>
+<tr>	<td>	CF%RelTM	</td>	<td>	CF% - TMCF% (higher is better)	</td> </tr>
+
+<tr>	<td>	Sh%	</td>	<td>	Sh% = Shooting Percentage by team while on ice.	</td> </tr>
+<tr>	<td>	Sv%	</td>	<td>	Sv% = Save percentage while on the ice.	</td> </tr>
+<tr>	<td>	Sh%RelTM	</td>	<td>	Sh% - TMSh% (higher is better) Note that TMSh% is not currently available in any table.	</td> </tr>
+<tr>	<td>	Sv%RelTM	</td>	<td>	Sv% - TMSv% (higher is better) Note that TMSv% is not currently available in any table. </td> </tr>
+<tr>	<td>	PDO	</td>	<td>	PDO = Shooting Percentage + Save Percentage while on the ice. </td> </tr>
+
+<tr>	<td>	FSh%	</td>	<td>	Fenwick Shooting Percentage by team while on ice.	</td> </tr>
+<tr>	<td>	FSv%	</td>	<td>	Fenwick Save percentage while on the ice.	</td> </tr>
+<tr>	<td>	FPDO	</td>	<td>	Fenwick PDO = FSh% + FSv% </td> </tr>
+
+<tr>	<td>	CFSh%	</td>	<td>	Corsi Shooting Percentage by team while on ice.	</td> </tr>
+<tr>	<td>	CFSv%	</td>	<td>	Corsi Save percentage while on the ice.	</td> </tr>
+<tr>	<td>	CFPDO	</td>	<td>	Corsi PDO = FSh% + FSv% </td> </tr>
+
+
+<tr>	<td>	OZFO 	</td>	<td>	Number of offensive zone faceoffs while on the ice </td> </tr>
+<tr>	<td>	DZFO 	</td>	<td>	Number of defensive zone faceoffs while on the ice </td> </tr>
+<tr>	<td>	NZFO 	</td>	<td>	Number of neutral zone faceoffs while on the ice</td> </tr>
+<tr>	<td>	OZFO% 	</td>	<td>	OZFO% = Offensive Zone Face Off Percentage -percentage of faceoffs in offensive zone while on ice</td> </tr>
+<tr>	<td>	DZFO% 	</td>	<td>	DZFO% = Defensive Zone Face Off Percentage -percentage of faceoffs in defensive zone while on ice</td> </tr>
+<tr>	<td>	NZFO% 	</td>	<td>	NZFO% = Neutral Zone Face Off Percentage -percentage of faceoffs in neutral zone while on ice</td> </tr>
+<tr>	<td>	iGoals 	</td>	<td> The number of goals the player himself scored	</td> </tr>
+<tr>	<td>	iAssists 	</td>	<td> The number of assists the player himself has	</td> </tr>
+<tr>	<td>	iFirstA	</td>	<td> The number of primary/first assists the player himself has	</td> </tr>
+<tr>	<td>	iPoints 	</td>	<td> The number of points the player himself has	</td> </tr>
+<tr>	<td>	iPriPts 	</td>	<td> The number of primary points (igoals + iFirstA) the player himself has	</td> </tr>
+<tr>	<td>	iShots 	</td>	<td> The number of goals the player himself scored	</td> </tr>
+<tr>	<td>	iFenwick 	</td>	<td> Individual Fenwick - The number of fenwick events a player takes (shots + shots that missed the net)	</td> </tr>
+<tr>	<td>	iCorsi 	</td>	<td> Individual Corsi - The number of corsi events a player takes (shots + shots attempts that missed the net or were blocked)	</td> </tr>
+<tr>	<td>	iSh% 	</td>	<td> Individual shooting percentage (goals/shots)	</td> </tr>
+<tr>	<td>	iGoals/60 	</td>	<td> iGoals per 60 minutes ice time	</td> </tr>
+<tr>	<td>	iAssists/60 	</td>	<td> iAssists per 60 minutes ice time	</td> </tr>
+<tr>	<td>	iFirstA/60	</td>	<td> iFirstA per 60 minutes ice time	</td> </tr>
+<tr>	<td>	iPoints/60 	</td>	<td> iPoints per 60 minutes ice time	</td> </tr>
+<tr>	<td>	iPriPts/60 	</td>	<td> iPrimPts per 60 minutes ice time	</td> </tr>
+<tr>	<td>	iShots/60 	</td>	<td> iShots per 60 minutes ice time	</td> </tr>
+<tr>	<td>	iFen/60 	</td>	<td> iFenwick per 60 minutes ice time	</td> </tr>
+<tr>	<td>	iCor/60 	</td>	<td> iCorsi per 60 minutes ice time	</td> </tr>
+<tr>	<td>	IPP 	</td>	<td> Individual Points Percentage - The percentage of goals scored by players team while player is on the ice that the player had a point on.	</td> </tr>
+<tr>	<td>	IGP 	</td>	<td> Individual Points Percentage - The percentage of goals scored by players team while player is on the ice that the player himself scored.	</td> </tr>
+<tr>	<td>	IAP 	</td>	<td> Individual Points Percentage - The percentage of goals scored by players team while player is on the ice that the player had a assist on.	</td> </tr>
+<tr>	<td>	IPP 	</td>	<td> Individual Primary Points Percentage - The percentage of goals by players team while player is on the ice that the player had a primary point on.	</td> </tr>
+<tr>	<td>	%ofTeam TOI	</td>	<td>	Percent of the teams TOI that the player was on the ice for (only for games player participated in)	</td> </tr>
+<tr>	<td>	%ofTeam GF	</td>	<td>	Percent of the teams GF that the player was on the ice for (only for games player participated in)	</td> </tr>
+<tr>	<td>	%ofTeam GA	</td>	<td>	Percent of the teams GA that the player was on the ice for (only for games player participated in)	</td> </tr>
+<tr>	<td>	%ofTeam SF	</td>	<td>	Percent of the teams SF that the player was on the ice for (only for games player participated in)	</td> </tr>
+<tr>	<td>	%ofTeam SA	</td>	<td>	Percent of the teams SA that the player was on the ice for (only for games player participated in)	</td> </tr>
+<tr>	<td>	%ofTeam FF	</td>	<td>	Percent of the teams FF that the player was on the ice for (only for games player participated in)	</td> </tr>
+<tr>	<td>	%ofTeam FA	</td>	<td>	Percent of the teams FA that the player was on the ice for (only for games player participated in)	</td> </tr>
+<tr>	<td>	%ofTeam CF	</td>	<td>	Percent of the teams CF that the player was on the ice for (only for games player participated in)	</td> </tr>
+<tr>	<td>	%ofTeam CA	</td>	<td>	Percent of the teams CA that the player was on the ice for (only for games player participated in)	</td> </tr>
+<!--<tr>	<td>		</td>	<td>		</td> </tr> -->
+</table>
+
+
+</div>
+</div>
+</div>
+
+
+
+
+
+
+
+	<div ng-include='"templates/footer.html"'></div>
+</div>	
+<!-- Start of StatCounter Code for Default Guide -->
+<script type="text/javascript">
+var sc_project=10040733; 
+var sc_invisible=1; 
+var sc_security="61a2eeeb"; 
+var scJsHost = (("https:" == document.location.protocol) ?
+"https://secure." : "http://www.");
+document.write("<sc"+"ript type='text/javascript' src='" +
+scJsHost+
+"statcounter.com/counter/counter.js'></"+"script>");
+</script>
+<noscript><div class="statcounter"><a title="website
+statistics" href="http://statcounter.com/"
+target="_blank"><img class="statcounter"
+src="http://c.statcounter.com/10040733/0/61a2eeeb/1/"
+alt="website statistics"></a></div></noscript>
+<!-- End of StatCounter Code for Default Guide -->
+	
+</body>
+</html>

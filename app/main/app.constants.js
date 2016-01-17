@@ -153,6 +153,12 @@ angular
 			sref : 'superwowy' ,
 			title : 'Super WOWY',
 			desc : 'Includes data for all regular season games going back to 2007-08.',
+		},
+		{
+			sref : 'glossary',
+			template : 'app/template/glossary.html',
+			title : 'Glossary',
+			desc : 'Definition of terms and stat abbreviations.'
 		}
 	]
 });

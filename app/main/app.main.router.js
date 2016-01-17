@@ -22,11 +22,15 @@ function MainAppRouterConfig (
             controller: 'GoalieController'
         })
         .state('teams', {
-            // url: '/teams?' + createUrl(MainAppConstants.goalie_params),
+            url: '/teams?' + createUrl(MainAppConstants.goalie_params),
             url: '/teams?',
             params: MainAppConstants.team_params,
             templateUrl: 'app/teams/teams.html',
             controller: 'TeamsController'
+        })
+        .state('glossary', {
+            url: '/glossary',
+            templateUrl: 'app/templates/glossary.html'
         });
 
     // Working example URL : http://localhost:3737/#/goalies?FAMin=690&CAMax=920
