@@ -18,7 +18,6 @@ function filter_menu_directive (getData) {
         },
         controller: FilterMenuController,
         controllerAs: 'filter_menu'
-        // link: filter_menu_link_fn,
     }
 }
 
@@ -27,7 +26,6 @@ function FilterMenuController (
     getData, filterMenuConstants
 ) {
 	var self = this;
-    // console.log('filter menu scope: ', $scope);
     self.seasons = filterMenuConstants.season_options;
     self.situations = filterMenuConstants.situation_options;
     self.passData = broadcast_filter_menu_data;
@@ -43,7 +41,3 @@ function FilterMenuController (
         $rootScope.$broadcast('filter_menu_update', data_to_broadcast);
     }
 }
-
-// function filter_menu_link_fn (scope, element, attrs) {
-//     console.log('stuff in filter_menu_link_fn', scope, element, attrs);
-// }
