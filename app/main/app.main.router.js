@@ -11,7 +11,7 @@ function MainAppRouterConfig (
     $stateProvider
         .state('home', {
             url: '/',
-            templateUrl: 'homepage.html',
+            templateUrl: 'app/homepage/homepage.html',
             controller: 'HomepageController',
             controllerAs: 'home'
         })

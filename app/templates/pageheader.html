@@ -1,0 +1,48 @@
+<nav class="navbar navbar-inverse" role="navigation">
+  	<div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      	<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+	        <span class="sr-only">Toggle navigation</span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+	        <span class="icon-bar"></span>
+      	</button>
+      	<a class="navbar-brand" ui-sref="home">
+      		Puckalytics by HockeyAnalysis.com
+  		</a>
+    </div>
+
+	<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+		<ul class="nav navbar-nav">
+			<li dropdown>
+				<a href="#" dropdown-toggle data-toggle="dropdown">
+					Skater Stats 
+					<span class="caret"></span>
+				</a>
+				<ul class="dropdown-menu" role="menu">
+					<!-- <li><a ui-sref="skatertopstats">Most Important Skater Stats</a></li> -->
+					<li><a ui-sref="skatergoalstats">Goal Stats</a></li>
+					<li><a ui-sref="skatershotstats">Shot Stats</a></li>
+					<li><a ui-sref="skaterfenwickstats">Fenwick Stats</a></li>
+					<li><a ui-sref="skatercorsistats">Corsi Stats</a></li>
+					<li><a ui-sref="skaterindividualstats">Individual Stats</a></li>
+					<li><a ui-sref="skaterpctofteamstats">% of Team Stats</a></li>
+					<li><a ui-sref="skatersuperstats">Super Stats Table</a></li>
+				</ul>
+			</li>
+			<li><a ui-sref="goalies({ TOIMin : '100' })">Goalie Stats</a></li>
+			<li><a ui-sref="teams">Team Stats</a></li>
+			<li><a ui-sref="superwowy">Super WOWY</a></li>
+			<li><a ui-sref="glossary">Glossary</a></li>
+			<li><a ui-sref="faq">FAQ</a></li>
+			<!-- <li><a ui-sref="#/about">About</a></li> -->
+			<li><a ui-sref="contact">Contact</a></li>
+			<li><a ui-sref="http://www.hockeyanalysis.com">HockeyAnalysis.com</a></li>
+			
+		  </ul>
+	</div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+	

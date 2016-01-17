@@ -1,0 +1,15 @@
+<div class="col-sm-6 col-md-4" ng-repeat="section in home.sections">
+	<a ui-sref="{{ section.sref }}" style="cursor:pointer;">
+		<div class="thumbnail" style="height: 200px;">
+	      	<div class="caption">
+	        	<h3>
+	        		{{ section.title }}
+	        		<span class="pull-right">
+		        		<i class="glyphicon glyphicon-arrow-right"></i>
+	        		</span>
+	    		</h3>
+	        	<p>{{ section.desc }}</p>
+			</div>
+		</div>
+	</a>
+</div>
