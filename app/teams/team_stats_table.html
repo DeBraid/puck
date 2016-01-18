@@ -4,33 +4,32 @@
 		<th>Rank</th>
 		<th ng-show="showFilters">Select</th>
 		<th>
-			<a ng-click="orderByField='teamname'; reverseSort = !reverseSort">
-				Team
-			</a>
+			<a ng-click="setOrderByField( 'teamname' )">Team</a>
 		</th>
 		<th class="text-right">
-			<a ng-click="orderByField='TOIDec'; reverseSort = !reverseSort">
-				TOI
-			</a>
+			<a ng-click="setOrderByField( 'TOIDec' )">TOI</a>
 		</th>
 		<th class="text-right">
-			<a ng-click="orderByField='GP'; reverseSort = !reverseSort">
-				GP
-			</a>
+			<a ng-click="setOrderByField( 'GP' )">GP</a>
 		</th>
 		<th ng-repeat="metric in ::metrics track by $index"
-		ng-show="{{::metric.filter}}"
-		class="text-right">
+			ng-show="{{::metric.filter}}"
+			class="text-right">
 			<a href="" 
-				ng-click="setOrderByField( metric.metric )">{{ ::metric.metric }}
+				ng-click="setOrderByField( metric.metric )">
+					{{ ::metric.metric }}
 			</a>
 		</th>
 	</tr>
 
 	<tr ng-show="showFilters" class="grey-bg">
 		<td></td>
-		<td>Filter: <input type="checkbox" ng-model="checkboxFilterOn"></td>
-		<td></td>
+		<td>
+			Filter: <input type="checkbox" ng-model="checkboxFilterOn">
+		</td>
+		<td> 
+			<input size=12 type="text" placeholder="Team" ng-model="teamname">
+		</td>
 		<td align="right">
 			<input size=5 ng-model="TOIMin"><br>
 			to<br>
@@ -198,22 +197,20 @@
 			<input size=5 ng-model="CPDOMax"><br>
 		</td>
 		
-
-		
 		<td ng-hide="displayZoneStarts==false"  align="right">
-			<input size=5 ng-model="NZFOPctMin"><br>
+			<input size=5 ng-model="NZPctMin"><br>
 			to<br>
-			<input size=5 ng-model="NZFOPctMax"><br>
+			<input size=5 ng-model="NZPctMax"><br>
 		</td>									
 		<td ng-hide="displayZoneStarts==false"  align="right">
-			<input size=5 ng-model="DZFOPctMin"><br>
+			<input size=5 ng-model="DZPctMin"><br>
 			to<br>
-			<input size=5 ng-model="DZFOPctMax"><br>
+			<input size=5 ng-model="DZPctMax"><br>
 		</td>									
 		<td ng-hide="displayZoneStarts==false"  align="right">
-			<input size=5 ng-model="OZFOPctMin"><br>
+			<input size=5 ng-model="OZPctMin"><br>
 			to<br>
-			<input size=5 ng-model="OZFOPctMax"><br>
+			<input size=5 ng-model="OZPctMax"><br>
 		</td>									
 	</tr>
 
