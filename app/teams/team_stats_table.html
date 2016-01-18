@@ -1,11 +1,6 @@
 <table class="table table-bordered table-striped table-condensed table-hover">
 	<thead>
-	<tr style="background-color:#cccccc">
-		<!-- <th>Rank</th>
-		<th>Select</th>
-		<th>Team</th>
-		<th class="text-right">TOI</th>
-		<th class="text-right">GP</th> -->
+	<tr class="grey-bg">
 		<th>Rank</th>
 		<th ng-show="showFilters">Select</th>
 		<th>
@@ -23,16 +18,11 @@
 				GP
 			</a>
 		</th>
-		
-		<!-- <th ng-repeat="metric in ::metrics track by $index"
-			ng-show="{{::metric.filter}}"
-			class="text-right">{{ ::metric.metric }}</th>
- -->
 		<th ng-repeat="metric in ::metrics track by $index"
 		ng-show="{{::metric.filter}}"
 		class="text-right">
 			<a href="" 
-				ng-click="orderByField='{{::metric.metric}}'; reverseSort = !reverseSort">{{ ::metric.metric }}
+				ng-click="setOrderByField( metric.metric )">{{ ::metric.metric }}
 			</a>
 		</th>
 	</tr>
@@ -228,43 +218,18 @@
 	</tr>
 
 	<tr></tr>
-	<!-- <tr class="grey-bg">
-		<th>Rank</th>
-		<th ng-hide="showFilters==false">Select</th>
-		<th>
-			<a ng-click="orderByField='teamname'; reverseSort = !reverseSort">
-				Team&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-			</a>
-		</th>
-		<th class="text-right">
-			<a ng-click="orderByField='TOIDec'; reverseSort = !reverseSort">
-				TOI
-			</a>
-		</th>
-		<th class="text-right">
-			<a ng-click="orderByField='GP'; reverseSort = !reverseSort">
-				GP
-			</a>
-		</th>
-
-		<th ng-repeat="metric in ::metrics track by $index"
-			ng-show="{{::metric.filter}}"
-			class="text-right">
-				<a href="" 
-					ng-click="orderByField='{{::metric.metric}}'; reverseSort = !reverseSort">{{ ::metric.metric }}
-				</a>
-		</th>
-	</tr> -->
 	</thead>
 	<tbody>
-	<tr ng-repeat="team in ::team_data |orderBy:orderByField:reverseSort | filter:tableFilter" >
+	<tr ng-repeat="team in ::team_data | orderBy:orderByField:reverseSort | filter:tableFilter" >
 		<td>{{$index +1}}
-		<td ng-hide="showFilters==false"><input type="checkbox" ng-model="team.checkboxFilter"></td>
-
-		<td ng-hide="orderByField=='teamname'"  align="left">{{team.teamname}}</td>
-		<td ng-hide="orderByField!='teamname'"  align="left"><strong>{{team.teamname}}</strong></td>
+		<td ng-show="showFilters">
+			<input type="checkbox" ng-model="team.checkboxFilter">
+		</td>
+		<td ng-class="orderByField=='teamname' ? 'bold-text' : '' ">
+			{{ team.teamname }}
+		</td>
 		<td align="right" ng-class="orderByField=='TOIDec' ? 'bold-text' :''">
-			{{team.TOIDec | number:1 }}
+			{{team.TOIDec | number:0 }}
 		</td>
 		<td align="right" ng-class="orderByField=='GP' ? 'bold-text' :''">
 			{{team.GP }}
@@ -273,7 +238,7 @@
 		<td ng-repeat="metric in ::metrics track by $index"
 			ng-class="orderByField=='{{::metric.metric}}' ? 'bold-text' :''"
 			ng-show="{{::metric.filter}}"
-			class="text-right">{{ ::team[metric.metric] | number:2 }}</td>
+			class="text-right">{{ ::team[metric.metric] | number: metric.decimal }}</td>
 		<!-- end new repeater -->
 	</tr>
 	</tbody>

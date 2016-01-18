@@ -18,6 +18,7 @@ function TeamsController (
 		displayZoneStarts : false,
 	}
 	var defaults = {
+		setOrderByField: setOrderByField,
 		orderByField : 'GFPct',
 	    section_data_url: secretConstants.teams_data_url,
 		error_message : null,
@@ -92,6 +93,14 @@ function TeamsController (
 		});
 		return truthy;
 	};
+
+	function setOrderByField (field) {
+		if (field == $scope.orderByField) {
+			$scope.reverseSort = !$scope.reverseSort;
+			return;
+		};
+		$scope.orderByField = field;
+	}
 
 	function toggleTableFilters() {
 		$scope.showFilters = !$scope.showFilters;
