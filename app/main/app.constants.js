@@ -2,11 +2,12 @@
 angular
 	.module('puckalyticsMainApp')
 	.constant('MainAppConstants', {		
-		team_params: {
+		teams_params: {
 			teamname: '',
-			position: '',
 			season: '201516',
 			situation: '5v5',
+			TOIMin : '100',
+			TOIMax : '99999',
 			GPMin : '0',
 			GPMax : '999',
 			GAMin : '0',
@@ -53,8 +54,6 @@ angular
 			CSVPctMax : '100',
 			CFPctMin : '0',
 			CFPctMax : '100',
-			TOIMin : '100',
-			TOIMax : '99999',
 			PDOMin : '0',
 			PDOMax : '200',
 			GFPctMin : '0',
@@ -71,12 +70,12 @@ angular
 			CSHPctMax : '100',
 			CPDOMin : '0',
 			CPDOMax : '200',
-			NZFOPctMin : '0',
-			NZFOPctMax : '100',
-			DZFOPctMin : '0',
-			DZFOPctMax : '100',
-			OZFOPctMin : '0',
-			OZFOPctMax : '100',
+			NZPctMin : '0',
+			NZPctMax : '100',
+			DZPctMin : '0',
+			DZPctMax : '100',
+			OZPctMin : '0',
+			OZPctMax : '100',
 		},
 		goalie_params: {
 			team : '',

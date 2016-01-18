@@ -5,9 +5,10 @@ angular
 function MainAppRouterConfig (
     $stateProvider, $urlRouterProvider, MainAppConstants
 ) {
+    var goalie_params = MainAppConstants.goalie_params;
+    var team_params = MainAppConstants.teams_params;
     
     $urlRouterProvider.otherwise('/');
-    
     $stateProvider
         .state('home', {
             url: '/',
@@ -16,15 +17,14 @@ function MainAppRouterConfig (
             controllerAs: 'home'
         })
         .state('goalies', {
-            url: '/goalies?' + createUrl(MainAppConstants.goalie_params),
-            params: MainAppConstants.goalie_params,
+            url: '/goalies?' + createUrl(goalie_params),
+            params: goalie_params,
             templateUrl: 'app/goalies/goalies.html',
             controller: 'GoalieController'
         })
         .state('teams', {
-            // url: '/teams?' + createUrl(MainAppConstants.goalie_params),
-            url: '/teams?',
-            params: MainAppConstants.team_params,
+            url: '/teams?' + createUrl(team_params),
+            params: team_params,
             templateUrl: 'app/teams/teams.html',
             controller: 'TeamsController'
         })
