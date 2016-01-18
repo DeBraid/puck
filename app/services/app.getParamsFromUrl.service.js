@@ -16,6 +16,7 @@ function urlParamsToScopeFactory () {
 		for(param in params) {
 		    if (param.length) {
 				_scope[param] = params[param];	
+				_scope.filter_inputs[param] = params[param];	
 		    };
 		}		
 	}

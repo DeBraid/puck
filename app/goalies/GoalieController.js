@@ -77,6 +77,7 @@ function GoalieController (
 			var filter_min = $scope[metric + 'Min'],
 				filter_max = $scope[metric + 'Max'],
 				value = row[metric];
+			console.log('value, filter_min, filter_max', value, filter_min, filter_max);
 			
 			if ( value < filter_min || value > filter_max ) { 
 				truthy = false;	

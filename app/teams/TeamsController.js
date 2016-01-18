@@ -19,6 +19,7 @@ function TeamsController (
 	}
 	var defaults = {
 		setOrderByField: setOrderByField,
+		filter_inputs: {},
 		orderByField : 'GFPct',
 	    section_data_url: secretConstants.teams_data_url,
 		showFilters : true,
@@ -50,6 +51,8 @@ function TeamsController (
     // Functions List:
 	function init() {
 		$scope.loading = true;
+		// 2. get values from URL and attach to $scope 
+		// getParamsFromUrl.get($stateParams, $scope);
 		
 		getData
 			.stats($scope.section_data_url, $scope.season, $scope.situation, $scope.TOIMin)
@@ -74,21 +77,22 @@ function TeamsController (
 	};
 	
 	function tableFilter (row) {
+		// console.log('row', row);
 		var truthy = true;
 		var metrics = $scope.metrics;
 
 	    if ( $scope.hidedata == true ) { return false; };
 		if ( parseFloat(row.TOIDec) < $scope.TOIMin || parseFloat(row.TOIDec) > $scope.TOIMax ) { return false; };
 		if ( $scope.checkboxFilterOn == true && row.checkboxFilter == false ) {return false;};
-
 		angular.forEach( metrics , function ( metric ) {
-			var filter_min = $scope[metric + 'Min'],
-				filter_max = $scope[metric + 'Max'],
-				value = row[metric];
 			
+			var stat = metric.metric;
+			var filter_min = $scope.filter_inputs[stat + 'Min'],
+				filter_max = $scope.filter_inputs[stat + 'Max'],
+				value = row[stat];
 			if ( value < filter_min || value > filter_max ) { 
 				truthy = false;	
-				return;	
+				return truthy;	
 			};
 		});
 		return truthy;
