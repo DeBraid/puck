@@ -23,22 +23,32 @@
 						Data Filters
 				</button>
 				
-				<div class="row">
-					<div class="col-sm-2">
-						<input type="checkbox" ng-model="displayGoals"> Goal
-					</div>
-					<div class="col-sm-2">
-						<input type="checkbox" ng-model="displayShots"> Shot
-					</div>
-					<div class="col-sm-2">
-						<input type="checkbox" ng-model="displayFenwick"> Fenwick
-					</div>
-					<div class="col-sm-2">
-						<input type="checkbox" ng-model="displayCorsi"> Corsi
-					</div>
-					<div class="col-sm-2">
-						<input type="checkbox" ng-model="displayZoneStarts"> Zones
-					</div>
+				<div class="btn-group" data-toggle="buttons">
+				    <label class="btn btn-primary"
+				    	ng-class="displayGoals ? 'active' : '' ">
+				        <input type="checkbox" autocomplete="off" 
+				        	ng-model="displayGoals"> Goal
+				    </label>
+				    <label class="btn btn-primary" 
+				    	ng-class="displayShots ? 'active' : '' ">
+					        <input type="checkbox" autocomplete="off" 
+					        	ng-model="displayShots"> Shot
+				    </label>
+				    <label class="btn btn-primary" 
+				    	ng-class="displayFenwick ? 'active' : '' ">
+					        <input type="checkbox" autocomplete="off" 
+					        	ng-model="displayFenwick"> Fenwick
+				    </label>
+				    <label class="btn btn-primary" 
+				    	ng-class="displayCorsi ? 'active' : '' ">
+					        <input type="checkbox" autocomplete="off" 
+					        	ng-model="displayCorsi"> Corsi
+				    </label>
+				    <label class="btn btn-primary" 
+				    	ng-class="displayZoneStarts ? 'active' : '' ">
+					        <input type="checkbox" autocomplete="off" 
+					        	ng-model="displayZoneStarts"> Zones
+				    </label>
 				</div>
 				<span ng-include="'app/teams/team_stats_table.html'"></span>
 			</span>
