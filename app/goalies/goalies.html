@@ -47,73 +47,73 @@
 						<td><input size=20 ng-model="player_name"></td>
 						<td><input size=12 ng-model="team"></td>
 						<td><input size=3 ng-model="position"></td>
-						<td  align="right">
-							<input size=5 ng-model="GPMin"><br>
+						<td align="right">
+							<input size=5 ng-model="filter_inputs.GPMin"><br>
 							to<br>
-							<input size=5 ng-model="GPMax"><br>
+							<input size=5 ng-model="filter_inputs.GPMax"><br>
 						</td>
 						<td  align="right">
-							<input size=5 ng-model="TOIMin"><br>
+							<input size=5 ng-model="filter_inputs.TOIMin"><br>
 							to<br>
-							<input size=5 ng-model="TOIMax"><br>
+							<input size=5 ng-model="filter_inputs.TOIMax"><br>
 						</td>
 
 						<td align="right">
-							<input size=5 ng-model="GAMin"><br>
+							<input size=5 ng-model="filter_inputs.GAMin"><br>
 							to<br>
-							<input size=5 ng-model="GAMax"><br>
+							<input size=5 ng-model="filter_inputs.GAMax"><br>
 						</td>
 						<td align="right">
-							<input size=5 ng-model="SAMin"><br>
+							<input size=5 ng-model="filter_inputs.SAMin"><br>
 							to<br>
-							<input size=5 ng-model="SAMax"><br>
+							<input size=5 ng-model="filter_inputs.SAMax"><br>
 						</td>
 						<td align="right">
-							<input size=5 ng-model="FAMin"><br>
+							<input size=5 ng-model="filter_inputs.FAMin"><br>
 							to<br>
-							<input size=5 ng-model="FAMax"><br>
+							<input size=5 ng-model="filter_inputs.FAMax"><br>
 						</td>
 						<td align="right">
-							<input size=5 ng-model="CAMin"><br>
+							<input size=5 ng-model="filter_inputs.CAMin"><br>
 							to<br>
-							<input size=5 ng-model="CAMax"><br>
-						</td>
-						
-						<td align="right">
-							<input size=5 ng-model="GA60Min"><br>
-							to<br>
-							<input size=5 ng-model="GA60Max"><br>
-						</td>
-						<td align="right">
-							<input size=5 ng-model="SA60Min"><br>
-							to<br>
-							<input size=5 ng-model="SA60Max"><br>
-						</td>
-						<td align="right">
-							<input size=5 ng-model="FA60Min"><br>
-							to<br>
-							<input size=5 ng-model="FA60Max"><br>
-						</td>
-						<td align="right">
-							<input size=5 ng-model="CA60Min"><br>
-							to<br>
-							<input size=5 ng-model="CA60Max"><br>
+							<input size=5 ng-model="filter_inputs.CAMax"><br>
 						</td>
 						
 						<td align="right">
-							<input size=5 ng-model="SvPctMin"><br>
+							<input size=5 ng-model="filter_inputs.GA60Min"><br>
 							to<br>
-							<input size=5 ng-model="SvPctMax"><br>
+							<input size=5 ng-model="filter_inputs.GA60Max"><br>
 						</td>
 						<td align="right">
-							<input size=5 ng-model="FSvPctMin"><br>
+							<input size=5 ng-model="filter_inputs.SA60Min"><br>
 							to<br>
-							<input size=5 ng-model="FSvPctMax"><br>
+							<input size=5 ng-model="filter_inputs.SA60Max"><br>
 						</td>
 						<td align="right">
-							<input size=5 ng-model="CSvPctMin"><br>
+							<input size=5 ng-model="filter_inputs.FA60Min"><br>
 							to<br>
-							<input size=5 ng-model="CSvPctMax"><br>
+							<input size=5 ng-model="filter_inputs.FA60Max"><br>
+						</td>
+						<td align="right">
+							<input size=5 ng-model="filter_inputs.CA60Min"><br>
+							to<br>
+							<input size=5 ng-model="filter_inputs.CA60Max"><br>
+						</td>
+						
+						<td align="right">
+							<input size=5 ng-model="filter_inputs.SvPctMin"><br>
+							to<br>
+							<input size=5 ng-model="filter_inputs.SvPctMax"><br>
+						</td>
+						<td align="right">
+							<input size=5 ng-model="filter_inputs.FSvPctMin"><br>
+							to<br>
+							<input size=5 ng-model="filter_inputs.FSvPctMax"><br>
+						</td>
+						<td align="right">
+							<input size=5 ng-model="filter_inputs.CSvPctMin"><br>
+							to<br>
+							<input size=5 ng-model="filter_inputs.CSvPctMax"><br>
 						</td>		
 					</tr>
 
@@ -182,7 +182,7 @@
 					<tbody>
 					<tr ng-repeat="player in playerdata |orderBy:orderByField:reverseSort | filter:{Player_Name: player_name, Team: team, Pos: position } | filter:tableFilter" >
 						<td>{{$index +1}}</td>
-						<td ng-hide="showFilters==false">
+						<td ng-show="showFilters">
 							<input type="checkbox" ng-model="player.checkboxFilter">
 						</td>
 						<td align="left">

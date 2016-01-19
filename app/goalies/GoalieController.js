@@ -19,6 +19,7 @@ function GoalieController (
 		loading : false,
 		hidedata : false,
 	    playerdata : [],
+	    filter_inputs : {},
 	    section_data_url : secretConstants.goalies_data_url,
 	    metrics: goalieConstants.metrics,
 		toggleTableFilters : toggleTableFilters,
@@ -74,11 +75,10 @@ function GoalieController (
 		if ( $scope.checkboxFilterOn == true && row.checkboxFilter == false ) {return false;};
 
 		angular.forEach( metrics , function ( metric ) {
-			var filter_min = $scope[metric + 'Min'],
-				filter_max = $scope[metric + 'Max'],
+			var filter_min = $scope.filter_inputs[metric + 'Min'],
+				filter_max = $scope.filter_inputs[metric + 'Max'],
 				value = row[metric];
-			console.log('value, filter_min, filter_max', value, filter_min, filter_max);
-			
+
 			if ( value < filter_min || value > filter_max ) { 
 				truthy = false;	
 				return;	

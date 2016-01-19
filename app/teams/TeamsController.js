@@ -77,7 +77,6 @@ function TeamsController (
 	};
 	
 	function tableFilter (row) {
-		// console.log('row', row);
 		var truthy = true;
 		var metrics = $scope.metrics;
 
