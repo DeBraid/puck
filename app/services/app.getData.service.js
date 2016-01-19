@@ -22,13 +22,9 @@ function get_data_service ($http, $location) {
 			.then(success, error); 
 		
 		function setURL (section_url) {
-		 	var dev_root_url;
-
-			if ($location.$$host =='localhost' && $location.$$port == 3737) {
-				console.log('Changing API to puckalytics.com');
-				dev_root_url = 'http://puckalytics.com/';
-			};
-			var full_url = dev_root_url + section_url + 
+		 	var dev_root_url = 'http://puckalytics.com/';
+			var full_url = dev_root_url + 
+				section_url + 
 				'?season=' + season + 
 				'&sit=' + situation + 
 				'&minutes=' + TOIMin;
