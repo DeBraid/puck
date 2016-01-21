@@ -7,7 +7,7 @@ function MainAppRouterConfig (
 ) {
     var goalie_params = MainAppConstants.goalie_params;
     var team_params = MainAppConstants.teams_params;
-    var skater_params = MainAppConstants.teams_params;
+    var skater_params = MainAppConstants.skater_params;
     
     $urlRouterProvider.otherwise('/');
     $stateProvider

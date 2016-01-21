@@ -21,6 +21,7 @@ function SkatersController (
 	    playerdata : [],
 	    filter_inputs : {},
 	    // section_data_url : secretConstants.skater_data_urls.all,
+	    setOrderByField : setOrderByField, 
 	    section_data_url : secretConstants.skater_data_url_all,   
 	    metrics: skatersConstants.metrics,
 		toggleTableFilters : toggleTableFilters,
@@ -90,6 +91,14 @@ function SkatersController (
 
 	function toggleTableFilters() {
 		$scope.showFilters = !$scope.showFilters;
+	}
+
+	function setOrderByField (field) {
+		if (field == $scope.orderByField) {
+			$scope.reverseSort = !$scope.reverseSort;
+			return;
+		};
+		$scope.orderByField = field;
 	}
 
 	function checkForErrors ( data ) {

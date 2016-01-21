@@ -29,7 +29,7 @@ function get_data_service ($http, $location) {
 				'&sit=' + situation + 
 				'&minutes=' + TOIMin;
 
-			console.log('getData url ', full_url);
+			// console.log('getData url ', full_url);
 			return full_url;
 		}
 
