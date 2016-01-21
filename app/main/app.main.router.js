@@ -7,7 +7,7 @@ function MainAppRouterConfig (
 ) {
     var goalie_params = MainAppConstants.goalie_params;
     var team_params = MainAppConstants.teams_params;
-    // metrics
+    var skater_params = MainAppConstants.teams_params;
     
     $urlRouterProvider.otherwise('/');
     $stateProvider
@@ -18,9 +18,8 @@ function MainAppRouterConfig (
             controllerAs: 'home'
         })
         .state('skaters', {
-            // url: '/skaters?' + createUrl(goalie_params),
-            url: '/skaters?',
-            // params: skater_params,
+            url: '/skaters?' + createUrl(skater_params),
+            params: skater_params,
             templateUrl: 'app/skaters/skaters.html',
             controller: 'SkatersController'
         })
