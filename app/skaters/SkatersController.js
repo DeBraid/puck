@@ -20,7 +20,8 @@ function SkatersController (
 		hidedata : false,
 	    playerdata : [],
 	    filter_inputs : {},
-	    section_data_url : secretConstants.skaters_data_url.all,
+	    // section_data_url : secretConstants.skater_data_urls.all,
+	    section_data_url : secretConstants.skater_data_url_all,   
 	    metrics: skatersConstants.metrics,
 		toggleTableFilters : toggleTableFilters,
 		tableFilter : tableFilter,
@@ -44,7 +45,7 @@ function SkatersController (
     // Functions List:
 	function init() {
 		$scope.loading = true;
-		
+		console.log('skater section_data_url', $scope.section_data_url);
 		getData
 			.stats($scope.section_data_url, $scope.season, $scope.situation, $scope.TOIMin)
 			.then(checkForErrors)

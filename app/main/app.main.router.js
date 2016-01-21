@@ -22,7 +22,7 @@ function MainAppRouterConfig (
             url: '/skaters?',
             // params: skater_params,
             templateUrl: 'app/skaters/skaters.html',
-            controller: 'GoalieController'
+            controller: 'SkatersController'
         })
         .state('goalies', {
             url: '/goalies?' + createUrl(goalie_params),
