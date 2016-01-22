@@ -6,6 +6,7 @@ var app = angular.module('puckalyticsMainApp', [
 	'puckalyticsMainApp.goalies',
 	'puckalyticsMainApp.teams',
 	'puckalyticsMainApp.filterMenu',
+	'puckalyticsMainApp.copyUrl',
 	'puckalyticsMainApp.homepage',
 	'ui.router',
 	'ui.bootstrap'
