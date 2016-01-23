@@ -1,3 +1,17 @@
-<div>
-  <input type="text" ng-model="model.input">
+<div>    
+    <form class="form-inline">
+        <div class="form-group">
+            <input type="text" 
+                class="form-control"
+                ng-model="textToCopy"
+            />
+        </div>
+        <button clipboard 
+            text="textToCopy"
+            class="btn btn-success"
+            on-copied="success()" 
+            on-error="fail(err)">
+                Share Link 
+        </button>        
+    </form>
 </div>

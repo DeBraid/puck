@@ -20,6 +20,8 @@ function GoalieController (
 		hidedata : false,
 	    playerdata : [],
 	    filter_inputs : {},
+	    url_from_filters : {},
+	    createUrlFromFilterInputs : createUrlFromFilterInputs,
 	    section_data_url : secretConstants.goalies_data_url,
 	    metrics: goalieConstants.metrics,
 		toggleTableFilters : toggleTableFilters,
@@ -40,6 +42,14 @@ function GoalieController (
 	$scope.$on('filter_menu_update', function(){
     	init();
 	});
+
+	// $scope.$watch()filter_inputs
+	function createUrlFromFilterInputs (value, input_field) {
+		// console.log('handleFilterInputUpdates newVal, oldVal', newVal, oldVal);
+		console.log('input_field', input_field, value);
+		$scope.url_from_filters[input_field] = value;
+
+	}
 
     // Functions List:
 	function init() {

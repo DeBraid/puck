@@ -1,10 +1,17 @@
 <div class="container-fluid">
-	<h2>Goalie Stats</h2>
+	<div class="page-header">
+  		<h2>Goalie Stats</h2>
+  		<span class="pull-right">
+				
+				<copy-url></copy-url>
+
+		</span>
+
+	</div>
 
 	<filter-menu toi="TOIMin" season="season" situation="situation">
 	</filter-menu>
 
-	<copy-url></copy-url>
 	
 	
 	<div class="row">
@@ -51,7 +58,9 @@
 						<td><input size=12 ng-model="team"></td>
 						<td><input size=3 ng-model="position"></td>
 						<td align="right">
-							<input size=5 ng-model="filter_inputs.GPMin"><br>
+							<input size=5 
+								ng-model="filter_inputs.GPMin" 
+								ng-change="createUrlFromFilterInputs(filter_inputs.GPMin, 'GPMin')"><br>
 							to<br>
 							<input size=5 ng-model="filter_inputs.GPMax"><br>
 						</td>
