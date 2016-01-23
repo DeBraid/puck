@@ -1,17 +1,15 @@
 <div>    
     <form class="form-inline">
-        <div class="form-group">
-            <input type="text" 
-                class="form-control"
-                ng-model="textToCopy"
-            />
-        </div>
+        <span ng-show="successful" class="glyphicon glyphicon-ok-sign"></span>
+        <span ng-show="failure" class="glyphicon glyphicon-remove-sign"></span>
+
         <button clipboard 
             text="textToCopy"
-            class="btn btn-success"
+            class="btn "
+            ng-class="{'btn-success' : successful, 'btn-warning' : failed }"
             on-copied="success()" 
             on-error="fail(err)">
-                Share Link 
+                {{ btn_text }}
         </button>        
     </form>
 </div>

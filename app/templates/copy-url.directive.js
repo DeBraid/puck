@@ -5,55 +5,47 @@ var app = angular
 
 app.directive('copyUrl', copyUrlDirective);
 
-function copyUrlDirective($state) {
-    var input = angular.element('<div>{{ model.input }}</div>');
-    
-    // console.log('url_to_copy in copyUrl', url_to_copy);
-    // var route = '/goalies?';
-    // var params = 'TOIMin=222&GAMax=55';
+function copyUrlDirective($state, $timeout) {
+    // var input = angular.element('<div>{{ model.input }}</div>');
+    var default_btn_text = 'Copy URL to Share with Current Filters';
+    // var link = linkFn; 
+    var default_url = $state.href($state.current.name, $state.params, {absolute: true})
 
-    var link = function(scope) {
-        
-        scope.$on('filter_inputs_changed', function (event, args) {
-            console.log('received filter_inputs_changed args', args);
-            scope.textToCopy = createUrl(args);
-        });
-
-        var my_href = $state.href($state.current.name, {absolute: true});
-        // active_filters
-
-        console.log('my href in copy URL', my_href);
-        console.log('active_filters in copy url', scope.active_filters);
-
-        scope.success = function () {
-            console.log('Copied!');
-        };
-        scope.fail = function (err) {
-            console.error('Error!', err);
-        };
-    };
     return {
         restrict: 'E',
         replace: true,
         templateUrl: 'app/templates/copy-url.html',
-        compile: function(tElem) {
-            tElem.append(input);
-            return link;
-        }
+        link: linkFn
     }
+    
+    function linkFn (scope) {
+        scope.btn_text = 'Copy Table URL to Clipboard';
+        scope.successful = false;
+        scope.failed = false;
+        scope.textToCopy = default_url;
 
-    function createUrl (filter_defaults) {
-        var params = [];
-        // console.log('filter_defaults', filter_defaults);
-        for (key in filter_defaults) {
-            // console.log('key in filter_defaults', key, filter_defaults[key]);
-            var val = filter_defaults[key];
-            var param = key + '=' + val + '&';
+        scope.$on('filter_inputs_changed', function (event, args) {
+            var my_href = $state.href($state.current.name, args , {absolute: true});
+            scope.textToCopy = my_href;
+        });
 
-            params.push(param);        
+        scope.success = function () {
+            scope.successful = true;
+            scope.btn_text = 'URL Copied to Clipboard!';
+            resetBtn();
+        };
+        scope.fail = function (err) {
+            scope.failed = true;
+            scope.btn_text = 'Failed to copy URL!';
+            resetBtn();
+        };
+
+        function resetBtn () {
+            $timeout(function () {
+                scope.btn_text = default_btn_text;
+                scope.successful = false;
+                scope.failed = false;
+            }, 3000);
         }
-        var params_url = params.join(',').split(',').join('');
-        // console.log('params_url', params_url);
-        return params_url;
-    }
+    };
 }
