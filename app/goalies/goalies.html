@@ -7,12 +7,9 @@
   		</h2>
 	</div>
 	
-
 	<filter-menu toi="TOIMin" season="season" situation="situation">
 	</filter-menu>
 
-	
-	
 	<div class="row">
 		<div class="col-sm-12">
 			<span ng-show="loading">
@@ -32,7 +29,7 @@
 					<tr ng-hide="showFilters==false" class="grey-bg">
 						<th>Rank</th>
 						<th>Select</th>
-						<th>Player Name</th>
+						<th>Goalie Name</th>
 						<th>Team</th>
 						<th class="text-right">GP</th>
 						<th class="text-right">TOI</th>
@@ -161,7 +158,7 @@
 						<th ng-hide="showFilters==false">Select</th>
 						
 						<th><a href="" ng-click="orderByField=['Last_Name','First_Name']; reverseSort = !reverseSort">
-						Player_Name&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+						Goalie Name&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
 						</a></th>
 
 						<th><a href="" ng-click="orderByField='Team'; reverseSort = !reverseSort">
