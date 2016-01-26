@@ -23,15 +23,18 @@ function copyUrlDirective($state, $timeout) {
 
         scope.btn_text = default_btn_text;
         scope.textToCopy = default_url;
+        
+        scope.$on('filter_menu_update', buildUrlToCopy);
+        scope.$on('filter_inputs_changed', buildUrlToCopy);
 
-        scope.$on('filter_inputs_changed', function (event, args) {
+        function buildUrlToCopy (event, args) {
             var new_url = $state.href($state.current.name, args, {absolute: true});
             // FIXME DB - temporary hack the URL whilst in development
             var split_url = new_url.split('#');
             var hacked_URL = split_url[0] + 'puck-master/#' + split_url[1]; 
             console.log('hacked_URL, split_url', hacked_URL, split_url);
             scope.textToCopy = hacked_URL;
-        });
+        }
 
         scope.success = function () {
             scope.successful = true;
