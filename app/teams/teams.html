@@ -1,5 +1,14 @@
 <div class="container-fluid">
-	<h2>Team Stats</h2>
+
+	<div class="row">
+		<div class="col-md-3">
+		<h2>Team Stats</h2>
+		</div>
+		<div class="col-md-9">
+		<div ng-include="'app/templates/google_ads_script.html'"></div>
+		</div>
+	</div>
+	
 	
 	<filter-menu toi="TOIMin" season="season" situation="situation">
 	</filter-menu>
@@ -12,9 +21,6 @@
 			</span>
 			
 			<span ng-hide="loading">
-				<span class="pull-left" style="margin-right: 2em;">
-					<copy-url></copy-url>
-				</span>
 				<button ng-click="toggleTableFilters()"
 					class="btn btn-default pull-right grey-bg">
 						<!-- <i class="glyphicon" ng-class=" showFilters ? 'glyphicon-minus' : 'glyphicon-plus' "></i> -->
@@ -22,6 +28,9 @@
 						<span ng-hide="showFilters">Show </span>
 						Data Filters
 				</button>
+				<span class="pull-right" style="margin-right: 1em;">
+					<copy-url></copy-url>
+				</span>
 				
 				<div class="btn-group" data-toggle="buttons">
 				    <label class="btn btn-primary"
@@ -58,7 +67,6 @@
 					<h2>{{ error_message }}</h2>
 				</div>
 			</span>
-
 		</div>
 	</div>
 </div>
