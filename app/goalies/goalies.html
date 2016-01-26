@@ -13,9 +13,6 @@
 			</span>
 			
 			<span ng-hide="loading">
-				<span class="pull-left">
-					<copy-url></copy-url>
-				</span>
 				<button ng-click="toggleTableFilters()"
 					class="btn btn-default pull-right grey-bg">
 						<i class="glyphicon" ng-class=" showFilters ? 'glyphicon-minus' : 'glyphicon-plus' "></i>
@@ -23,6 +20,9 @@
 						<span ng-if="!showFilters">Show </span>
 						Data Filters
 				</button>
+				<span class="pull-right" style="margin-right: 1em;">
+					<copy-url></copy-url>
+				</span>
 				<table class="table table-bordered table-striped table-condensed table-hover">
 					<thead>
 					<tr ng-hide="showFilters==false" class="grey-bg">
