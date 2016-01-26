@@ -28,6 +28,8 @@ function TeamsController (
 		error_message : null,
 		hidedata : false,
 	    team_data : [],
+		active_filters : {},
+		activeFilterInputs : activeFilterInputs,
 	    metrics: teamsConstants.team_metrics_object,
 		toggleTableFilters : toggleTableFilters,
 		tableFilter : tableFilter,
@@ -47,6 +49,12 @@ function TeamsController (
 	$scope.$on('filter_menu_update', function(){
     	init();
 	});
+
+	function activeFilterInputs (value, input_field) {
+		$scope.active_filters[input_field] = value;
+
+		$scope.$broadcast('filter_inputs_changed', $scope.active_filters);
+	}
 
     // Functions List:
 	function init() {

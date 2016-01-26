@@ -43,14 +43,10 @@ function GoalieController (
     	init();
 	});
 
-	// $scope.$watch()filter_inputs
 	function activeFilterInputs (value, input_field) {
-		// console.log('handleFilterInputUpdates newVal, oldVal', newVal, oldVal);
-		// console.log('input_field', input_field, value);
 		$scope.active_filters[input_field] = value;
 
 		$scope.$broadcast('filter_inputs_changed', $scope.active_filters);
-
 	}
 
     // Functions List:

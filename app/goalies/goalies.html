@@ -1,10 +1,6 @@
 <div class="container-fluid">
 	<div class="page-header">
-  		<h2>Goalie Stats
-		<span class="pull-right">
-			<copy-url></copy-url>
-		</span>
-  		</h2>
+  		<h2>Goalie Stats</h2>
 	</div>
 	
 	<filter-menu toi="TOIMin" season="season" situation="situation">
@@ -17,6 +13,9 @@
 			</span>
 			
 			<span ng-hide="loading">
+				<span class="pull-left">
+					<copy-url></copy-url>
+				</span>
 				<button ng-click="toggleTableFilters()"
 					class="btn btn-default pull-right grey-bg">
 						<i class="glyphicon" ng-class=" showFilters ? 'glyphicon-minus' : 'glyphicon-plus' "></i>

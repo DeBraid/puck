@@ -29,186 +29,186 @@
 			<input size=12 type="text" placeholder="Team" ng-model="teamname">
 		</td>
 		<td align="right">
-			<input size=5 ng-model="filter_inputs.TOIMin"><br>
+			<input size=5 ng-change="activeFilterInputs(filter_inputs.TOIMin, 'TOIMin')" ng-model="filter_inputs.TOIMin"><br>
 			to<br>
-			<input size=5 ng-model="filter_inputs.TOIMax"><br>
+			<input size=5 ng-change="activeFilterInputs(filter_inputs.TOIMax, 'TOIMax')" ng-model="filter_inputs.TOIMax"><br>
 		</td>
 
 		<td align="right">
-			<input size=5 ng-model="filter_inputs.GPMin"><br>
+			<input size=5 ng-change="activeFilterInputs(filter_inputs.GPMin, 'GPMin')" ng-model="filter_inputs.GPMin"><br>
 			to<br>
-			<input size=5 ng-model="filter_inputs.GPMax"><br>
+			<input size=5 ng-change="activeFilterInputs(filter_inputs.GPMax, 'GPMax')" ng-model="filter_inputs.GPMax"><br>
 		</td>
 
 		<td ng-hide="displayGoals==false"  align="right">
-			<input size=5 ng-model="filter_inputs.GFMin"><br>
+			<input size=5 ng-change="activeFilterInputs(filter_inputs.GFMin, 'GFMin')" ng-model="filter_inputs.GFMin"><br>
 			to<br>
-			<input size=5 ng-model="filter_inputs.GFMax"><br>
+			<input size=5 ng-change="activeFilterInputs(filter_inputs.GFMax, 'GFMax')" ng-model="filter_inputs.GFMax"><br>
 		</td>
 		<td ng-hide="displayGoals==false"  align="right">
-			<input size=5 ng-model="filter_inputs.GAMin"><br>
+			<input size=5 ng-change="activeFilterInputs(filter_inputs.GAMin, 'GAMin')" ng-model="filter_inputs.GAMin"><br>
 			to<br>
-			<input size=5 ng-model="filter_inputs.GAMax"><br>
+			<input size=5 ng-change="activeFilterInputs(filter_inputs.GAMax, 'GAMax')" ng-model="filter_inputs.GAMax"><br>
 		</td>
 		<td ng-hide="displayGoals==false"  align="right">
-			<input size=5 ng-model="filter_inputs.GF60Min"><br>
+			<input size=5 ng-change="activeFilterInputs(filter_inputs.GF60Min, 'GF60Min')" ng-model="filter_inputs.GF60Min"><br>
 			to<br>
-			<input size=5 ng-model="filter_inputs.GF60Max"><br>
+			<input size=5 ng-change="activeFilterInputs(filter_inputs.GF60Max, 'GF60Max')" ng-model="filter_inputs.GF60Max"><br>
 		</td>
 		<td ng-hide="displayGoals==false"  align="right">
-			<input size=5 ng-model="filter_inputs.GA60Min"><br>
+			<input size=5 ng-change="activeFilterInputs(filter_inputs.GA60Min, 'GA60Min')" ng-model="filter_inputs.GA60Min"><br>
 			to<br>
-			<input size=5 ng-model="filter_inputs.GA60Max"><br>
+			<input size=5 ng-change="activeFilterInputs(filter_inputs.GA60Max, 'GA60Max')" ng-model="filter_inputs.GA60Max"><br>
 		</td>
 		<td ng-hide="displayGoals==false"  align="right">
-			<input size=5 ng-model="filter_inputs.GFPctMin"><br>
+			<input size=5 ng-change="activeFilterInputs(filter_inputs.GFPctMin, 'GFPctMin')" ng-model="filter_inputs.GFPctMin"><br>
 			to<br>
-			<input size=5 ng-model="filter_inputs.GFPctMax"><br>
+			<input size=5 ng-change="activeFilterInputs(filter_inputs.GFPctMax, 'GFPctMax')" ng-model="filter_inputs.GFPctMax"><br>
 		</td>
 
 		
 		<td ng-hide="displayShots==false"  align="right">
-			<input size=5 ng-model="filter_inputs.SFMin"><br>
+			<input size=5 ng-change="activeFilterInputs(filter_inputs.SFMin, 'SFMin')" ng-model="filter_inputs.SFMin"><br>
 			to<br>
-			<input size=5 ng-model="filter_inputs.SFMax"><br>
+			<input size=5 ng-change="activeFilterInputs(filter_inputs.SFMax, 'SFMax')" ng-model="filter_inputs.SFMax"><br>
 		</td>
 		<td ng-hide="displayShots==false"  align="right">
-			<input size=5 ng-model="filter_inputs.SAMin"><br>
+			<input size=5 ng-change="activeFilterInputs(filter_inputs.SAMin, 'SAMin')" ng-model="filter_inputs.SAMin"><br>
 			to<br>
-			<input size=5 ng-model="filter_inputs.SAMax"><br>
+			<input size=5 ng-change="activeFilterInputs(filter_inputs.SAMax, 'SAMax')" ng-model="filter_inputs.SAMax"><br>
 		</td>
 		<td ng-hide="displayShots==false"  align="right">
-			<input size=5 ng-model="filter_inputs.SF60Min"><br>
+			<input size=5 ng-change="activeFilterInputs(filter_inputs.SF60Min, 'SF60Min')" ng-model="filter_inputs.SF60Min"><br>
 			to<br>
-			<input size=5 ng-model="filter_inputs.SF60Max"><br>
+			<input size=5 ng-change="activeFilterInputs(filter_inputs.SF60Max, 'SF60Max')" ng-model="filter_inputs.SF60Max"><br>
 		</td>
 		<td ng-hide="displayShots==false"  align="right">
-			<input size=5 ng-model="filter_inputs.SA60Min"><br>
+			<input size=5 ng-change="activeFilterInputs(filter_inputs.SA60Min, 'SA60Min')" ng-model="filter_inputs.SA60Min"><br>
 			to<br>
-			<input size=5 ng-model="filter_inputs.SA60Max"><br>
+			<input size=5 ng-change="activeFilterInputs(filter_inputs.SA60Max, 'SA60Max')" ng-model="filter_inputs.SA60Max"><br>
 		</td>
 		<td ng-hide="displayShots==false"  align="right">
-			<input size=5 ng-model="filter_inputs.SFPctMin"><br>
+			<input size=5 ng-change="activeFilterInputs(filter_inputs.SFPctMin, 'SFPctMin')" ng-model="filter_inputs.SFPctMin"><br>
 			to<br>
-			<input size=5 ng-model="filter_inputs.SFPctMax"><br>
+			<input size=5 ng-change="activeFilterInputs(filter_inputs.SFPctMax, 'SFPctMax')" ng-model="filter_inputs.SFPctMax"><br>
 		</td>
 
 		
 		<td ng-hide="displayFenwick==false"  align="right">
-			<input size=5 ng-model="filter_inputs.FFMin"><br>
+			<input size=5 ng-change="activeFilterInputs(filter_inputs.FFMin, 'FFMin')" ng-model="filter_inputs.FFMin"><br>
 			to<br>
-			<input size=5 ng-model="filter_inputs.FFMax"><br>
+			<input size=5 ng-change="activeFilterInputs(filter_inputs.FFMax, 'FFMax')" ng-model="filter_inputs.FFMax"><br>
 		</td>
 		<td ng-hide="displayFenwick==false"  align="right">
-			<input size=5 ng-model="filter_inputs.FAMin"><br>
+			<input size=5 ng-change="activeFilterInputs(filter_inputs.FAMin, 'FAMin')" ng-model="filter_inputs.FAMin"><br>
 			to<br>
-			<input size=5 ng-model="filter_inputs.FAMax"><br>
+			<input size=5 ng-change="activeFilterInputs(filter_inputs.FAMax, 'FAMax')" ng-model="filter_inputs.FAMax"><br>
 		</td>
 		<td ng-hide="displayFenwick==false"  align="right">
-			<input size=5 ng-model="filter_inputs.FF60Min"><br>
+			<input size=5 ng-change="activeFilterInputs(filter_inputs.FF60Min, 'FF60Min')" ng-model="filter_inputs.FF60Min"><br>
 			to<br>
-			<input size=5 ng-model="filter_inputs.FF60Max"><br>
+			<input size=5 ng-change="activeFilterInputs(filter_inputs.FF60Max, 'FF60Max')" ng-model="filter_inputs.FF60Max"><br>
 		</td>
 		<td ng-hide="displayFenwick==false"  align="right">
-			<input size=5 ng-model="filter_inputs.FA60Min"><br>
+			<input size=5 ng-change="activeFilterInputs(filter_inputs.FA60Min, 'FA60Min')" ng-model="filter_inputs.FA60Min"><br>
 			to<br>
-			<input size=5 ng-model="filter_inputs.FA60Max"><br>
+			<input size=5 ng-change="activeFilterInputs(filter_inputs.FA60Max, 'FA60Max')" ng-model="filter_inputs.FA60Max"><br>
 		</td>
 		<td ng-hide="displayFenwick==false"  align="right">
-			<input size=5 ng-model="filter_inputs.FFPctMin"><br>
+			<input size=5 ng-change="activeFilterInputs(filter_inputs.FFPctMin, 'FFPctMin')" ng-model="filter_inputs.FFPctMin"><br>
 			to<br>
-			<input size=5 ng-model="filter_inputs.FFPctMax"><br>
+			<input size=5 ng-change="activeFilterInputs(filter_inputs.FFPctMax, 'FFPctMax')" ng-model="filter_inputs.FFPctMax"><br>
 		</td>
 		
 		
 		<td ng-hide="displayCorsi==false"  align="right">
-			<input size=5 ng-model="filter_inputs.CFMin"><br>
+			<input size=5 ng-change="activeFilterInputs(filter_inputs.CFMin, 'CFMin')" ng-model="filter_inputs.CFMin"><br>
 			to<br>
-			<input size=5 ng-model="filter_inputs.CFMax"><br>
+			<input size=5 ng-change="activeFilterInputs(filter_inputs.CFMax, 'CFMax')" ng-model="filter_inputs.CFMax"><br>
 		</td>
 		<td ng-hide="displayCorsi==false"  align="right">
-			<input size=5 ng-model="filter_inputs.CAMin"><br>
+			<input size=5 ng-change="activeFilterInputs(filter_inputs.CAMin, 'CAMin')" ng-model="filter_inputs.CAMin"><br>
 			to<br>
-			<input size=5 ng-model="filter_inputs.CAMax"><br>
+			<input size=5 ng-change="activeFilterInputs(filter_inputs.CAMax, 'CAMax')" ng-model="filter_inputs.CAMax"><br>
 		</td>
 		<td ng-hide="displayCorsi==false"  align="right">
-			<input size=5 ng-model="filter_inputs.CF60Min"><br>
+			<input size=5 ng-change="activeFilterInputs(filter_inputs.CF60Min, 'CF60Min')" ng-model="filter_inputs.CF60Min"><br>
 			to<br>
-			<input size=5 ng-model="filter_inputs.CF60Max"><br>
+			<input size=5 ng-change="activeFilterInputs(filter_inputs.CF60Max, 'CF60Max')" ng-model="filter_inputs.CF60Max"><br>
 		</td>
 		<td ng-hide="displayCorsi==false"  align="right">
-			<input size=5 ng-model="filter_inputs.CA60Min"><br>
+			<input size=5 ng-change="activeFilterInputs(filter_inputs.CA60Min, 'CA60Min')" ng-model="filter_inputs.CA60Min"><br>
 			to<br>
-			<input size=5 ng-model="filter_inputs.CA60Max"><br>
+			<input size=5 ng-change="activeFilterInputs(filter_inputs.CA60Max, 'CA60Max')" ng-model="filter_inputs.CA60Max"><br>
 		</td>
 		<td ng-hide="displayCorsi==false"  align="right">
-			<input size=5 ng-model="filter_inputs.CFPctMin"><br>
+			<input size=5 ng-change="activeFilterInputs(filter_inputs.CFPctMin, 'CFPctMin')" ng-model="filter_inputs.CFPctMin"><br>
 			to<br>
-			<input size=5 ng-model="filter_inputs.CFPctMax"><br>
+			<input size=5 ng-change="activeFilterInputs(filter_inputs.CFPctMax, 'CFPctMax')" ng-model="filter_inputs.CFPctMax"><br>
 		</td>
 		
 		<td ng-hide="(displayShots==false && displayGoals==false) || displayPcts==false"  align="right">
-			<input size=5 ng-model="filter_inputs.SHPctMin"><br>
+			<input size=5 ng-change="activeFilterInputs(filter_inputs.SHPctMin, 'SHPctMin')" ng-model="filter_inputs.SHPctMin"><br>
 			to<br>
-			<input size=5 ng-model="filter_inputs.SHPctMax"><br>
+			<input size=5 ng-change="activeFilterInputs(filter_inputs.SHPctMax, 'SHPctMax')" ng-model="filter_inputs.SHPctMax"><br>
 		</td>
 		<td ng-hide="(displayShots==false && displayGoals==false) || displayPcts==false"  align="right">
-			<input size=5 ng-model="filter_inputs.SVPctMin"><br>
+			<input size=5 ng-change="activeFilterInputs(filter_inputs.SVPctMin, 'SVPctMin')" ng-model="filter_inputs.SVPctMin"><br>
 			to<br>
-			<input size=5 ng-model="filter_inputs.SVPctMax"><br>
+			<input size=5 ng-change="activeFilterInputs(filter_inputs.SVPctMax, 'SVPctMax')" ng-model="filter_inputs.SVPctMax"><br>
 		</td>
 		<td ng-hide="(displayShots==false && displayGoals==false) || displayPcts==false"  align="right">
-			<input size=5 ng-model="filter_inputs.PDOMin"><br>
+			<input size=5 ng-change="activeFilterInputs(filter_inputs.PDOMin, 'PDOMin')" ng-model="filter_inputs.PDOMin"><br>
 			to<br>
-			<input size=5 ng-model="filter_inputs.PDOMax"><br>
+			<input size=5 ng-change="activeFilterInputs(filter_inputs.PDOMax, 'PDOMax')" ng-model="filter_inputs.PDOMax"><br>
 		</td>
 
 		<td ng-hide="displayFenwick==false || displayPcts==false"  align="right">
-			<input size=5 ng-model="filter_inputs.FSHPctMin"><br>
+			<input size=5 ng-change="activeFilterInputs(filter_inputs.FSHPctMin, 'FSHPctMin')" ng-model="filter_inputs.FSHPctMin"><br>
 			to<br>
-			<input size=5 ng-model="filter_inputs.FSHPctMax"><br>
+			<input size=5 ng-change="activeFilterInputs(filter_inputs.FSHPctMax, 'FSHPctMax')" ng-model="filter_inputs.FSHPctMax"><br>
 		</td>
 		<td ng-hide="displayFenwick==false || displayPcts==false"  align="right">
-			<input size=5 ng-model="filter_inputs.FSVPctMin"><br>
+			<input size=5 ng-change="activeFilterInputs(filter_inputs.FSVPctMin, 'FSVPctMin')" ng-model="filter_inputs.FSVPctMin"><br>
 			to<br>
-			<input size=5 ng-model="filter_inputs.FSVPctMax"><br>
+			<input size=5 ng-change="activeFilterInputs(filter_inputs.FSVPctMax, 'FSVPctMax')" ng-model="filter_inputs.FSVPctMax"><br>
 		</td>
 		<td ng-hide="displayFenwick==false || displayPcts==false"  align="right">
-			<input size=5 ng-model="filter_inputs.FPDOMin"><br>
+			<input size=5 ng-change="activeFilterInputs(filter_inputs.FPDOMin, 'FPDOMin')" ng-model="filter_inputs.FPDOMin"><br>
 			to<br>
-			<input size=5 ng-model="filter_inputs.FPDOMax"><br>
+			<input size=5 ng-change="activeFilterInputs(filter_inputs.FPDOMax, 'FPDOMax')" ng-model="filter_inputs.FPDOMax"><br>
 		</td>
 
 		<td ng-hide="displayCorsi==false || displayPcts==false"  align="right">
-			<input size=5 ng-model="filter_inputs.CSHPctMin"><br>
+			<input size=5 ng-change="activeFilterInputs(filter_inputs.CSHPctMin, 'CSHPctMin')" ng-model="filter_inputs.CSHPctMin"><br>
 			to<br>
-			<input size=5 ng-model="filter_inputs.CSHPctMax"><br>
+			<input size=5 ng-change="activeFilterInputs(filter_inputs.CSHPctMax, 'CSHPctMax')" ng-model="filter_inputs.CSHPctMax"><br>
 		</td>
 		<td ng-hide="displayCorsi==false || displayPcts==false"  align="right">
-			<input size=5 ng-model="filter_inputs.CSVPctMin"><br>
+			<input size=5 ng-change="activeFilterInputs(filter_inputs.CSVPctMin, 'CSVPctMin')" ng-model="filter_inputs.CSVPctMin"><br>
 			to<br>
-			<input size=5 ng-model="filter_inputs.CSVPctMax"><br>
+			<input size=5 ng-change="activeFilterInputs(filter_inputs.CSVPctMax, 'CSVPctMax')" ng-model="filter_inputs.CSVPctMax"><br>
 		</td>
 		<td ng-hide="displayCorsi==false || displayPcts==false"  align="right">
-			<input size=5 ng-model="filter_inputs.CPDOMin"><br>
+			<input size=5 ng-change="activeFilterInputs(filter_inputs.CPDOMin, 'CPDOMin')" ng-model="filter_inputs.CPDOMin"><br>
 			to<br>
-			<input size=5 ng-model="filter_inputs.CPDOMax"><br>
+			<input size=5 ng-change="activeFilterInputs(filter_inputs.CPDOMax, 'CPDOMax')" ng-model="filter_inputs.CPDOMax"><br>
 		</td>
 		
 		<td ng-hide="displayZoneStarts==false"  align="right">
-			<input size=5 ng-model="filter_inputs.NZPctMin"><br>
+			<input size=5 ng-change="activeFilterInputs(filter_inputs.NZPctMin, 'NZPctMin')" ng-model="filter_inputs.NZPctMin"><br>
 			to<br>
-			<input size=5 ng-model="filter_inputs.NZPctMax"><br>
+			<input size=5 ng-change="activeFilterInputs(filter_inputs.NZPctMax, 'NZPctMax')" ng-model="filter_inputs.NZPctMax"><br>
 		</td>									
 		<td ng-hide="displayZoneStarts==false"  align="right">
-			<input size=5 ng-model="filter_inputs.DZPctMin"><br>
+			<input size=5 ng-change="activeFilterInputs(filter_inputs.DZPctMin, 'DZPctMin')" ng-model="filter_inputs.DZPctMin"><br>
 			to<br>
-			<input size=5 ng-model="filter_inputs.DZPctMax"><br>
+			<input size=5 ng-change="activeFilterInputs(filter_inputs.DZPctMax, 'DZPctMax')" ng-model="filter_inputs.DZPctMax"><br>
 		</td>									
 		<td ng-hide="displayZoneStarts==false"  align="right">
-			<input size=5 ng-model="filter_inputs.OZPctMin"><br>
+			<input size=5 ng-change="activeFilterInputs(filter_inputs.OZPctMin, 'OZPctMin')" ng-model="filter_inputs.OZPctMin"><br>
 			to<br>
-			<input size=5 ng-model="filter_inputs.OZPctMax"><br>
+			<input size=5 ng-change="activeFilterInputs(filter_inputs.OZPctMax, 'OZPctMax')" ng-model="filter_inputs.OZPctMax"><br>
 		</td>									
 	</tr>
 
