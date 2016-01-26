@@ -230,7 +230,7 @@
 			{{team.GP }}
 		</td>
 		<!-- new repeater -->
-		<td ng-repeat="metric in ::metrics track by $index"
+		<td ng-repeat="metric in metrics track by $index"
 			ng-class="orderByField=='{{::metric.metric}}' ? 'bold-text' :''"
 			ng-show="{{::metric.filter}}"
 			class="text-right">{{ ::team[metric.metric] | number: metric.decimal }}</td>

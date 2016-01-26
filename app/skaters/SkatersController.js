@@ -19,11 +19,12 @@ function SkatersController (
 		loading : false,
 		hidedata : false,
 	    playerdata : [],
+	    metrics : [],
 	    filter_inputs : {},
 	    // section_data_url : secretConstants.skater_data_urls.all,
 	    setOrderByField : setOrderByField, 
 	    section_data_url : secretConstants.skater_data_url_all,   
-	    metrics: skatersConstants.metrics,
+	    // metrics: skatersConstants.metrics,
 		toggleTableFilters : toggleTableFilters,
 		tableFilter : tableFilter,
 	};
@@ -55,6 +56,10 @@ function SkatersController (
 		function setPlayerMetricsWithResponse ( response ) {
 			var metrics = $scope.metrics;
 			var players = $scope.playerdata = response;
+			var metrics = $scope.metrics = Object.keys(players[0]);
+			// console.log(metrics);
+
+
 
 			angular.forEach( players , function(player) {
 				player.checkboxFilter = false;

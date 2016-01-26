@@ -1,0 +1,27 @@
+<table class="table table-bordered table-striped table-condensed table-hover">
+	<thead>
+	<tr class="grey-bg">
+		<th><!-- index placeholder --></th>
+		<th><!-- checkbox --></th>
+		<th ng-repeat="metric in metrics"
+			class="text-right">
+			<a href="" 
+				ng-click="setOrderByField( metric )">
+					{{ ::metric }}
+			</a>
+		</th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr ng-repeat="player in playerdata">
+		<td>{{$index +1}}</td>
+		<td ng-show="showFilters">
+			<input type="checkbox" ng-model="player.checkboxFilter">
+		</td>
+		<td ng-repeat="metric in metrics"
+			class="text-right">
+				{{ player[metric] }}
+		</td>
+	</tr>
+	</tbody>
+</table>
