@@ -215,7 +215,7 @@
 	<!-- <tr></tr> -->
 	</thead>
 	<tbody>
-	<tr ng-repeat="team in ::team_data | orderBy:orderByField:reverseSort | filter: { teamname: teamname, TOIDec : TOIDec , GP : GP } | filter:tableFilter" >
+	<tr ng-repeat="team in team_data | orderBy:orderByField:reverseSort | filter: { teamname: teamname, TOIDec : TOIDec , GP : GP } | filter:tableFilter" >
 		<td>{{$index +1}}</td>
 		<td ng-show="showFilters">
 			<input type="checkbox" ng-model="team.checkboxFilter">
