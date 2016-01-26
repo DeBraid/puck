@@ -1,5 +1,14 @@
 <div class="container-fluid">
-	<h2>Team Stats</h2>
+
+	<div class="row">
+		<div class="col-md-3">
+		<h2>Team Stats</h2>
+		</div>
+		<div class="col-md-9">
+		<div ng-include="'app/templates/google_ads_script.html'"></div>
+		</div>
+	</div>
+	
 	
 	<filter-menu toi="TOIMin" season="season" situation="situation">
 	</filter-menu>
@@ -58,7 +67,6 @@
 					<h2>{{ error_message }}</h2>
 				</div>
 			</span>
-
 		</div>
 	</div>
 </div>
