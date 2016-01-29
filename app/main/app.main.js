@@ -9,5 +9,6 @@ var app = angular.module('puckalyticsMainApp', [
 	'puckalyticsMainApp.copyUrl',
 	'puckalyticsMainApp.homepage',
 	'ui.router',
-	'ui.bootstrap'
+	'ui.bootstrap',
+	'ngAdsense'
 ]);
