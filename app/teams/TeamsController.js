@@ -76,6 +76,7 @@ function TeamsController (
 				
 				angular.forEach( metrics , function (metric) {
 					var stat = metric.metric;
+					team['TOIDec'] = parseFloat(team['TOIDec']);
 					team[stat] = parseFloat(team[stat]);
 				});
 			});
@@ -89,7 +90,7 @@ function TeamsController (
 		var metrics = $scope.metrics;
 
 	    if ( $scope.hidedata == true ) { return false; };
-		if ( parseFloat(row.TOIDec) < $scope.TOIMin || parseFloat(row.TOIDec) > $scope.TOIMax ) { return false; };
+		if ( row.TOIDec < $scope.TOIMin || row.TOIDec > $scope.TOIMax ) { return false; };
 		if ( $scope.checkboxFilterOn == true && row.checkboxFilter == false ) {return false;};
 		angular.forEach( metrics , function ( metric ) {
 			

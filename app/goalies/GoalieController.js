@@ -12,6 +12,7 @@ function GoalieController (
 ) {
 
 	var defaults = {
+		setOrderByField: setOrderByField,
 		orderByField : 'SvPct',
 		error_message : null,
 		showFilters : true,
@@ -23,11 +24,11 @@ function GoalieController (
 	    active_filters : {},
 	    activeFilterInputs : activeFilterInputs,
 	    section_data_url : secretConstants.goalies_data_url,
-	    metrics: goalieConstants.metrics,
+	    metrics: goalieConstants.goalie_metrics_object,
 		toggleTableFilters : toggleTableFilters,
 		tableFilter : tableFilter,
 	};
-	
+
 	// Actions :
 	// 1. put defaults on scope
 	angular.extend( $scope , defaults );
@@ -61,25 +62,29 @@ function GoalieController (
 		function setPlayerMetricsWithResponse ( response ) {
 			var metrics = $scope.metrics;
 			var players = $scope.playerdata = response;
+            console.log('metric:', metrics);
 
 			angular.forEach( players , function(player) {
 				player.checkboxFilter = false;
 				
 				angular.forEach( metrics , function (metric) {
-					player[metric] = parseFloat(player[metric]);
+					var stat = metric.metric;
+					player['TOIDec'] = parseFloat(player['TOIDec']);
+					player[stat] = parseFloat(player[stat]);
 				});
 			});
 			
 			$scope.loading = false;
 		}
 	};
+
 	
 	function tableFilter (row) {
 		var truthy = true;
 		var metrics = $scope.metrics;
 
 	    if ( $scope.hidedata == true ) { return false; };
-		if ( parseFloat(row.TOIDec) < $scope.TOIMin || parseFloat(row.TOIDec) > $scope.TOIMax ) { return false; };
+		if ( row.TOIDec < $scope.TOIMin || row.TOIDec > $scope.TOIMax ) { return false; };
 		if ( $scope.checkboxFilterOn == true && row.checkboxFilter == false ) {return false;};
 
 		angular.forEach( metrics , function ( metric ) {
@@ -107,4 +112,13 @@ function GoalieController (
 		}
 		return data;
 	}
+	
+	function setOrderByField (field) {
+		if (field == $scope.orderByField) {
+			$scope.reverseSort = !$scope.reverseSort;
+			return;
+		};
+		$scope.orderByField = field;
+	}
+	
 };
