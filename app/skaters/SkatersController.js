@@ -10,7 +10,17 @@ function SkatersController (
 	$scope, $stateParams, skatersConstants, secretConstants,
 	getParamsFromUrl, getData
 ) {
-
+	var section_options = {
+		info : 1,
+		goal : 1,
+		shot : 1,
+		fenwick : 1,
+		corsi : 1,
+		pcts : 1,
+		pctteam : 1,
+		individual : 0,
+		faceoffs : 0,
+	};
 	var defaults = {
 		orderByField : 'GFPct',
 		error_message : null,
@@ -21,11 +31,11 @@ function SkatersController (
 	    playerdata : [],
 	    metrics : [],
 	    filter_inputs : {},
-	    // section_data_url : secretConstants.skater_data_urls.all,
-	    setOrderByField : setOrderByField, 
-	    // section_data_url : secretConstants.skater_data_url_all,
-	    section_data_url : secretConstants.skater_data_urls.pctteam,
+	    section_options : section_options,
+	    section_data_url : secretConstants.skater_data_url,
+	    // section_data_url : secretConstants.skater_data_urls.pctteam,
 	    // metrics: skatersConstants.metrics,
+	    setOrderByField : setOrderByField, 
 		toggleTableFilters : toggleTableFilters,
 		tableFilter : tableFilter,
 	};
@@ -48,9 +58,12 @@ function SkatersController (
     // Functions List:
 	function init() {
 		$scope.loading = true;
-		console.log('skater section_data_url', $scope.section_data_url);
+		
+		var skater_url = buildSkaterUrl();
+		// var skater_url = $scope.section_data_url + '?season=201516&sit=5v5&teamid=0&pos=skaters&minutes=100&goal=1&info=1';
+		
 		getData
-			.stats($scope.section_data_url, $scope.season, $scope.situation, $scope.TOIMin)
+			.stats(skater_url, $scope.season, $scope.situation, $scope.TOIMin)
 			.then(checkForErrors)
 			.then(setPlayerMetricsWithResponse);
 
@@ -58,9 +71,6 @@ function SkatersController (
 			var metrics = $scope.metrics;
 			var players = $scope.playerdata = response;
 			var metrics = $scope.metrics = Object.keys(players[0]);
-			// console.log(metrics);
-
-
 
 			angular.forEach( players , function(player) {
 				player.checkboxFilter = false;
@@ -72,7 +82,17 @@ function SkatersController (
 			
 			$scope.loading = false;
 		}
+		
+		function buildSkaterUrl () {
+			var slug_arr = [];		
+			for (key in $scope.section_options) {
+				var new_slug = '' + key + '=' + $scope.section_options[key] + '&';
+				slug_arr.push(new_slug);
+			};
+			return $scope.section_data_url + '?' + slug_arr.join('');
+		}
 	};
+
 	
 	function tableFilter (row) {
 		var truthy = true;
@@ -112,6 +132,7 @@ function SkatersController (
 			$scope.error_message = null;
 		} else { 
 			$scope.error_message = 'Something wrong, please try again.';
+			$scope.loading = false;
 		}
 		return data;
 	}
