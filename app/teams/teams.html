@@ -22,13 +22,17 @@
 			
 			<span ng-hide="loading">
 				<button ng-click="toggleTableFilters()"
-					class="btn btn-default pull-right grey-bg">
+					class="btn btn-default pull-right grey-bg" style="margin-left: 1em;">
 						<!-- <i class="glyphicon" ng-class=" showFilters ? 'glyphicon-minus' : 'glyphicon-plus' "></i> -->
 						<span ng-show="showFilters">Hide </span>
 						<span ng-hide="showFilters">Show </span>
 						Data Filters
 				</button>
-				<span class="pull-right" style="margin-right: 1em;">
+				<button ng-click="downloadCSV('PuckalyticsTeamStats.csv',search.teamname)"
+					class="btn btn-default pull-right grey-bg" style="margin-left: 1em;">
+						Download Table as .csv
+				</button>
+				<span class="pull-right" style="margin-left: 1em;">
 					<copy-url></copy-url>
 				</span>
 				

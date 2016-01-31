@@ -7,7 +7,7 @@ angular
 	.controller('TeamsController', TeamsController );
 
 function TeamsController (
-	$scope, $stateParams, teamsConstants, secretConstants,
+	$scope, $filter, $stateParams, teamsConstants, secretConstants,
 	getParamsFromUrl, getData
 ) {
 	var team_display_settings = {
@@ -20,6 +20,8 @@ function TeamsController (
 	var defaults = {
 		setOrderByField: setOrderByField,
 		filter_inputs: {},
+		//csvtxt : '',
+		searchteamname : 'w',
 		orderByField : 'GFPct',
 	    section_data_url: secretConstants.teams_data_url,
 		showFilters : true,
@@ -32,8 +34,12 @@ function TeamsController (
 		activeFilterInputs : activeFilterInputs,
 	    metrics: teamsConstants.team_metrics_object,
 		toggleTableFilters : toggleTableFilters,
+		downloadCSV : downloadCSV,
 		tableFilter : tableFilter,
+		search : {teamname:""},
 	};
+
+	//$scope.searchteamname='w';
 	
 	// Actions :
 	// 1. put defaults on scope
@@ -84,16 +90,17 @@ function TeamsController (
 			$scope.loading = false;
 		}
 	};
+
 	
 	function tableFilter (row) {
 		var truthy = true;
 		var metrics = $scope.metrics;
-
+ 
+		
 	    if ( $scope.hidedata == true ) { return false; };
 		if ( row.TOIDec < $scope.TOIMin || row.TOIDec > $scope.TOIMax ) { return false; };
 		if ( $scope.checkboxFilterOn == true && row.checkboxFilter == false ) {return false;};
 		angular.forEach( metrics , function ( metric ) {
-			
 			var stat = metric.metric;
 			var filter_min = $scope.filter_inputs[stat + 'Min'],
 				filter_max = $scope.filter_inputs[stat + 'Max'],
@@ -126,4 +133,68 @@ function TeamsController (
 		}
 		return data;
 	}
+
+	function downloadCSV(filename,searchText) {
+		var metrics = $scope.metrics;
+		var rank=1;
+
+		$scope.team_data = $filter('orderBy')($scope.team_data, $scope.orderByField, $scope.reverseSort);
+		
+		$scope.csvtxt = 'Rank, Team, GP, TOI';
+		angular.forEach( metrics , function ( metric ) {
+			var stat = metric.metric;
+			var filter = metric.filter;
+			if ($scope[filter]) {
+				$scope.csvtxt = $scope.csvtxt + ',' + stat;
+			}
+		});
+		$scope.csvtxt += ',\n';
+
+		angular.forEach( $scope.team_data , function ( team, index ) {
+			var teamname = team.teamname;
+			
+			if (teamname.toLowerCase().indexOf(searchText)!=-1 && tableFilter(team)) {
+				$scope.csvtxt = $scope.csvtxt + rank + ',' + team.teamname + ',' + team.GP + ',' + team.TOIDec;
+				rank = rank +1;
+				angular.forEach( metrics , function ( metric ) {
+					var stat = metric.metric;
+					var filter = metric.filter;
+
+					if ($scope[filter]) {
+						$scope.csvtxt = $scope.csvtxt + ',' + team[stat];
+					}
+				});
+				$scope.csvtxt += ',\n';
+			}
+		});
+		
+		$scope.csvtxt += 'Downloaded from Puckalytics.com (http://www.puckalytics.com)\n';
+		
+		var a = document.createElement('a');
+		mimeType = 'text/csv' || 'application/octet-stream';
+
+		if (navigator.msSaveBlob) { // IE10
+		return navigator.msSaveBlob(new Blob([$scope.csvtxt], { type: mimeType }),     filename);
+		} else if ('download' in a) { //html5 A[download]
+			a.href = 'data:' + mimeType + ',' + encodeURIComponent($scope.csvtxt);
+			a.setAttribute('download', filename);
+			document.body.appendChild(a);
+			setTimeout(function() {
+			  a.click();
+			  document.body.removeChild(a);
+			}, 66);
+			return true;
+		} else { //do iframe dataURL download (old ch+FF):
+			var f = document.createElement('iframe');
+			document.body.appendChild(f);
+			f.src = 'data:' + mimeType + ',' + encodeURIComponent($scope.csvtxt);
+
+			setTimeout(function() {
+			  document.body.removeChild(f);
+			}, 333);
+			return true;
+		}
+		
+	}
+
 };

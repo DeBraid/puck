@@ -7,10 +7,10 @@
 			<a ng-click="setOrderByField( 'teamname' )">Team</a>
 		</th>
 		<th class="text-right">
-			<a ng-click="setOrderByField( 'TOIDec' )">TOI</a>
+			<a ng-click="setOrderByField( 'GP' )">GP</a>
 		</th>
 		<th class="text-right">
-			<a ng-click="setOrderByField( 'GP' )">GP</a>
+			<a ng-click="setOrderByField( 'TOIDec' )">TOI</a>
 		</th>
 		<th ng-repeat="metric in ::metrics track by $index"
 			ng-show="{{::metric.filter}}"
@@ -26,18 +26,19 @@
 		<td></td>
 		<td>Filter: <input type="checkbox" ng-model="checkboxFilterOn"></td>
 		<td> 
-			<input size=12 type="text" placeholder="Team" ng-model="teamname">
+			<input size=12 type="text" placeholder="Team" ng-model="search.teamname">
+			{{search.teamname}}
 		</td>
-		<td align="right">
-			<input size=5 ng-change="activeFilterInputs(filter_inputs.TOIMin, 'TOIMin')" ng-model="filter_inputs.TOIMin"><br>
-			to<br>
-			<input size=5 ng-change="activeFilterInputs(filter_inputs.TOIMax, 'TOIMax')" ng-model="filter_inputs.TOIMax"><br>
-		</td>
-
 		<td align="right">
 			<input size=5 ng-change="activeFilterInputs(filter_inputs.GPMin, 'GPMin')" ng-model="filter_inputs.GPMin"><br>
 			to<br>
 			<input size=5 ng-change="activeFilterInputs(filter_inputs.GPMax, 'GPMax')" ng-model="filter_inputs.GPMax"><br>
+		</td>
+
+		<td align="right">
+			<input size=5 ng-change="activeFilterInputs(filter_inputs.TOIMin, 'TOIMin')" ng-model="filter_inputs.TOIMin"><br>
+			to<br>
+			<input size=5 ng-change="activeFilterInputs(filter_inputs.TOIMax, 'TOIMax')" ng-model="filter_inputs.TOIMax"><br>
 		</td>
 
 		<td ng-hide="displayGoals==false"  align="right">
@@ -93,6 +94,21 @@
 			<input size=5 ng-change="activeFilterInputs(filter_inputs.SFPctMax, 'SFPctMax')" ng-model="filter_inputs.SFPctMax"><br>
 		</td>
 
+		<td ng-hide="(displayGoals==false) || displayPcts==false"  align="right">
+			<input size=5 ng-change="activeFilterInputs(filter_inputs.SHPctMin, 'SHPctMin')" ng-model="filter_inputs.SHPctMin"><br>
+			to<br>
+			<input size=5 ng-change="activeFilterInputs(filter_inputs.SHPctMax, 'SHPctMax')" ng-model="filter_inputs.SHPctMax"><br>
+		</td>
+		<td ng-hide="(displayGoals==false) || displayPcts==false"  align="right">
+			<input size=5 ng-change="activeFilterInputs(filter_inputs.SVPctMin, 'SVPctMin')" ng-model="filter_inputs.SVPctMin"><br>
+			to<br>
+			<input size=5 ng-change="activeFilterInputs(filter_inputs.SVPctMax, 'SVPctMax')" ng-model="filter_inputs.SVPctMax"><br>
+		</td>
+		<td ng-hide="(displayGoals==false) || displayPcts==false"  align="right">
+			<input size=5 ng-change="activeFilterInputs(filter_inputs.PDOMin, 'PDOMin')" ng-model="filter_inputs.PDOMin"><br>
+			to<br>
+			<input size=5 ng-change="activeFilterInputs(filter_inputs.PDOMax, 'PDOMax')" ng-model="filter_inputs.PDOMax"><br>
+		</td>
 		
 		<td ng-hide="displayFenwick==false"  align="right">
 			<input size=5 ng-change="activeFilterInputs(filter_inputs.FFMin, 'FFMin')" ng-model="filter_inputs.FFMin"><br>
@@ -147,21 +163,6 @@
 			<input size=5 ng-change="activeFilterInputs(filter_inputs.CFPctMax, 'CFPctMax')" ng-model="filter_inputs.CFPctMax"><br>
 		</td>
 		
-		<td ng-hide="(displayShots==false && displayGoals==false) || displayPcts==false"  align="right">
-			<input size=5 ng-change="activeFilterInputs(filter_inputs.SHPctMin, 'SHPctMin')" ng-model="filter_inputs.SHPctMin"><br>
-			to<br>
-			<input size=5 ng-change="activeFilterInputs(filter_inputs.SHPctMax, 'SHPctMax')" ng-model="filter_inputs.SHPctMax"><br>
-		</td>
-		<td ng-hide="(displayShots==false && displayGoals==false) || displayPcts==false"  align="right">
-			<input size=5 ng-change="activeFilterInputs(filter_inputs.SVPctMin, 'SVPctMin')" ng-model="filter_inputs.SVPctMin"><br>
-			to<br>
-			<input size=5 ng-change="activeFilterInputs(filter_inputs.SVPctMax, 'SVPctMax')" ng-model="filter_inputs.SVPctMax"><br>
-		</td>
-		<td ng-hide="(displayShots==false && displayGoals==false) || displayPcts==false"  align="right">
-			<input size=5 ng-change="activeFilterInputs(filter_inputs.PDOMin, 'PDOMin')" ng-model="filter_inputs.PDOMin"><br>
-			to<br>
-			<input size=5 ng-change="activeFilterInputs(filter_inputs.PDOMax, 'PDOMax')" ng-model="filter_inputs.PDOMax"><br>
-		</td>
 
 		<td ng-hide="displayFenwick==false || displayPcts==false"  align="right">
 			<input size=5 ng-change="activeFilterInputs(filter_inputs.FSHPctMin, 'FSHPctMin')" ng-model="filter_inputs.FSHPctMin"><br>
@@ -215,7 +216,7 @@
 	<!-- <tr></tr> -->
 	</thead>
 	<tbody>
-	<tr ng-repeat="team in team_data | orderBy:orderByField:reverseSort | filter: { teamname: teamname, TOIDec : TOIDec , GP : GP } | filter:tableFilter" >
+	<tr ng-repeat="team in team_data | orderBy:orderByField:reverseSort | filter: { teamname: search.teamname, TOIDec : TOIDec , GP : GP } | filter:tableFilter" >
 		<td>{{$index +1}}</td>
 		<td ng-show="showFilters">
 			<input type="checkbox" ng-model="team.checkboxFilter">
@@ -223,11 +224,11 @@
 		<td ng-class="orderByField=='teamname' ? 'bold-text' : '' ">
 			{{ ::team.teamname }}
 		</td>
-		<td align="right" ng-class="orderByField=='TOIDec' ? 'bold-text' :''">
-			{{team.TOIDec | number:2 }}
-		</td>
 		<td align="right" ng-class="orderByField=='GP' ? 'bold-text' :''">
 			{{team.GP }}
+		</td>
+		<td align="right" ng-class="orderByField=='TOIDec' ? 'bold-text' :''">
+			{{team.TOIDec | number:2 }}
 		</td>
 		<!-- new repeater -->
 		<td ng-repeat="metric in ::metrics track by $index"
