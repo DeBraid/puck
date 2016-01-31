@@ -1,5 +1,4 @@
-
-angular
+var skaters = angular
 	.module('puckalyticsMainApp.skaters', [
 		'ui.router', 
 		'ui.bootstrap'
@@ -10,16 +9,10 @@ function SkatersController (
 	$scope, $stateParams, skatersConstants, secretConstants,
 	getParamsFromUrl, getData
 ) {
+	
 	var section_options = {
-		info : 1,
-		goal : 1,
-		shot : 1,
-		fenwick : 1,
-		corsi : 1,
-		pcts : 1,
-		pctteam : 1,
-		individual : 0,
-		faceoffs : 0,
+		info : 1, goal : 1, shot : 0, fenwick : 0, corsi : 0, 
+		pcts : 0, pctteam : 1, individual : 0, faceoffs : 0
 	};
 	var defaults = {
 		orderByField : 'GFPct',
@@ -64,29 +57,6 @@ function SkatersController (
 			.then(checkForErrors)
 			.then(setPlayerMetricsWithResponse);
 
-		function setPlayerMetricsWithResponse ( response ) {
-			// var metrics = $scope.metrics;
-			var players = $scope.playerdata = response;
-			var metrics = $scope.metrics = Object.keys(players[0]);
-			var string_column_header = [
-				'Player_Name', 'First_Name', 'Last_Name', 'Team', 'Pos'
-			];
-
-			angular.forEach( players , function(player) {
-				player.checkboxFilter = false;
-				
-				angular.forEach( metrics , function (metric) {
-					if (string_column_header.indexOf(metric) > -1) {
-						// don't parse strings 
-						return;
-					}
-					player[metric] = parseFloat(player[metric]);
-				});
-			});
-			
-			$scope.loading = false;
-		}
-		
 		function buildSkaterUrl () {
 			var slug_arr = [];		
 			for (key in $scope.section_options) {
@@ -94,6 +64,34 @@ function SkatersController (
 				slug_arr.push(new_slug);
 			};
 			return $scope.section_data_url + '?' + slug_arr.join('');
+		}
+
+		function setPlayerMetricsWithResponse ( response ) {
+			var players = $scope.playerdata = response;
+			var metrics = $scope.metrics = Object.keys(players[0]);
+			var string_column_header = [
+				'Player_Name', 'Team', 'Pos'
+			];
+			var excluded_strings = [
+				'PID', 'First_Name', 'Last_Name', 'TOI'
+			];
+
+			angular.forEach( players , function(player) {
+				player.checkboxFilter = false;
+				
+				angular.forEach( metrics , function (metric) {
+					if (excluded_strings.indexOf(metric) > -1) {
+						player[metric] = null;
+						return;
+					}
+					if (string_column_header.indexOf(metric) > -1) {
+						return;
+					}
+					player[metric] = parseFloat(player[metric]);
+				});
+			});
+			
+			$scope.loading = false;
 		}
 	};
 
