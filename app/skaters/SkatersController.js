@@ -11,11 +11,11 @@ function SkatersController (
 ) {
 	
 	var section_options = {
-		info : 1, goal : 1, shot : 0, fenwick : 0, corsi : 0, 
-		pcts : 0, pctteam : 1, individual : 0, faceoffs : 0
+		info : 1, goal : 0, shot : 0, fenwick : 0, corsi : 1, 
+		pcts : 0, pctteam : 0, individual : 0, faceoffs : 0
 	};
 	var defaults = {
-		orderByField : 'GFPct',
+		orderByField : 'CFPct',
 		error_message : null,
 		showFilters : true,
 		reverseSort : true,
@@ -122,6 +122,7 @@ function SkatersController (
 	}
 
 	function setOrderByField (field) {
+		console.log('go setOrderByField with: field', field);
 		if (field == $scope.orderByField) {
 			$scope.reverseSort = !$scope.reverseSort;
 			return;
