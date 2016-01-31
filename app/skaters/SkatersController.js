@@ -1,12 +1,14 @@
 var skaters = angular
 	.module('puckalyticsMainApp.skaters', [
 		'ui.router', 
-		'ui.bootstrap'
-	])
-	.controller('SkatersController', SkatersController );
+		'ui.bootstrap',
+	]);
+
+// skaters.filter() at bottom
+skaters.controller('SkatersController', SkatersController);
 
 function SkatersController (
-	$scope, $stateParams, skatersConstants, 
+	$scope, $stateParams, skatersConstants,
 	secretConstants, getParamsFromUrl, getData
 ) {
 	var counter = 1;
@@ -77,7 +79,6 @@ function SkatersController (
 		function setPlayerMetricsWithResponse ( response ) {
 			var string_headers = $scope.string_headers;
 			var excluded_strings = $scope.excluded_metrics;
-			// var decimal_fields = $scope.decimal_fields;
 			var players = $scope.playerdata = response;
 			$scope.playerdata_length = players.length;
 			var metrics = $scope.metrics = Object.keys(players[0]);
@@ -95,7 +96,7 @@ function SkatersController (
 						if ( metric.indexOf( field ) > -1) {
 							player[metric] = parseFloat(player[metric]).toFixed(1);
 						};
-					})
+					});
 					player[metric] = parseFloat(player[metric]);
 				});
 			});
@@ -163,3 +164,20 @@ function SkatersController (
 		$scope.adding_rows = false;
 	}
 };
+
+skaters.filter('tableHeaderFilter', function(){
+	return function(header){
+		console.log('header', header);
+		var output = header;
+		var decimal_fields = ['60', 'Pct', 'RelTM'];
+		
+		decimal_fields.map(function (field) {			
+			if ( header.indexOf( field ) > -1) {
+				output = header.split( field );
+				output = output[0] +" "+ field + " " + output[1];
+			};
+		});
+
+		return output;
+	}
+});

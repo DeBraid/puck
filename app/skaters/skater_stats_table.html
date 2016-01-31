@@ -8,7 +8,7 @@
 			ng-class="{ 'bold-text' : orderByField == metric , 'text-right' : string_headers.indexOf(metric) == -1 }">
 			<a href="" 
 				ng-click="setOrderByField( metric )">
-					{{ ::metric }}
+					{{ ::metric | tableHeaderFilter }}
 			</a>
 		</th>
 	</tr>
