@@ -71,11 +71,18 @@ function SkatersController (
 			var metrics = $scope.metrics;
 			var players = $scope.playerdata = response;
 			var metrics = $scope.metrics = Object.keys(players[0]);
+			var string_column_header = [
+				'Player_Name', 'First_Name', 'Last_Name', 'Team', 'Pos'
+			];
 
 			angular.forEach( players , function(player) {
 				player.checkboxFilter = false;
 				
 				angular.forEach( metrics , function (metric) {
+					if (string_column_header.indexOf(metric) > -1) {
+						// don't parse strings 
+						return;
+					}
 					player[metric] = parseFloat(player[metric]);
 				});
 			});
