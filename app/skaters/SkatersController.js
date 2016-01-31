@@ -11,13 +11,14 @@ function SkatersController (
 ) {
 	var counter = 1;
 	var section_options = {
-		info : 1, goal : 1, shot : 0, fenwick : 0, corsi : 0, 
+		info : 1, goal : 0, shot : 0, fenwick : 0, corsi : 1, 
 		pcts : 0, pctteam : 0, individual : 0, faceoffs : 0
 	};
+	var decimal_fields = ['60', 'Pct', 'TM'];
 	var excluded_metrics = ['PID', 'First_Name', 'Last_Name', 'TOI'];
 	var string_headers = ['Player_Name', 'Team', 'Pos'];
 	var defaults = {
-		orderByField : 'GFPct',
+		orderByField : 'CFPct',
 		error_message : null,
 		showFilters : true,
 		reverseSort : true,
@@ -76,6 +77,7 @@ function SkatersController (
 		function setPlayerMetricsWithResponse ( response ) {
 			var string_headers = $scope.string_headers;
 			var excluded_strings = $scope.excluded_metrics;
+			// var decimal_fields = $scope.decimal_fields;
 			var players = $scope.playerdata = response;
 			$scope.playerdata_length = players.length;
 			var metrics = $scope.metrics = Object.keys(players[0]);
@@ -84,13 +86,16 @@ function SkatersController (
 				player.checkboxFilter = false;
 				
 				angular.forEach( metrics , function (metric) {
+					if (string_headers.indexOf(metric) > -1) { return; }
 					if (excluded_strings.indexOf(metric) > -1) {
 						player[metric] = null;
 						return;
 					}
-					if (string_headers.indexOf(metric) > -1) {
-						return;
-					}
+					decimal_fields.map(function (field) {
+						if ( metric.indexOf( field ) > -1) {
+							player[metric] = parseFloat(player[metric]).toFixed(1);
+						};
+					})
 					player[metric] = parseFloat(player[metric]);
 				});
 			});
@@ -126,7 +131,7 @@ function SkatersController (
 	}
 
 	function setOrderByField (field) {
-		console.log('go setOrderByField with: field', field);
+		// console.log('go setOrderByField with: field', field);
 		if (field == $scope.orderByField) {
 			$scope.reverseSort = !$scope.reverseSort;
 			return;
@@ -146,7 +151,6 @@ function SkatersController (
 
 	function tableRowMax ($event, show_all) {
 		$scope.adding_rows = true;
-		console.log('show all', show_all, '$scope.adding_rows', $scope.adding_rows);
 		
 		if (show_all) {
 			$scope.table_rows = $scope.playerdata_length;
