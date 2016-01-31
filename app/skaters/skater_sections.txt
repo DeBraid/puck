@@ -1,3 +1,27 @@
+* info=1 
+	will return Player_Name, First_Name, Last_Name, Team, Pos, TOIDec, TOI and GP
+
+* goal=1 
+	will return GF, GA, GF60, GA60, GFPct, TMGF60, TMGA60, TMGFPct, GF60RelTM, GA60RelTM, GFPctRelTM, OppGF60, OppGA60, OppGFPct
+
+* shot=1, fenwick=1 and corsi=1 
+	will return the equivalent in shot, fenwick and corsi metrics
+
+* pcts=1 
+	will also return SvPct, ShPct, PDO, TMSvPct, TMShPct, SvPctRelTM, ShPctRelTM, OppSvPct, OppShPct if goal=1
+		pcts=1 will also return FSvPct, FShPct, FPDO, TMFSvPct, TMFShPct, FSvPctRelTM, FShPctRelTM, OppFSvPct, OppFShPct if fenwick=1
+		pcts=1 will also return CSvPct, CShPct, CPDO, TMCSvPct, TMCShPct, CSvPctRelTM, CShPctRelTM, OppCSvPct, OppCShPct if corsi=1
+
+* pctteam=1 
+	will return TeamTOIPct, TeamGFPct, TeamGAPct, TeamSFPct, TeamSAPct, TeamFFPct, TeamFAPct, TeamCFPct, TeamCAPct, TeamOZPct, TeamDZPct, TeamNZPct
+
+* individual=1 
+	will return igoals, iassists, ifassits, ipoints, iprimarypoints, ishots, ifenwick, icorsi, ishpct, ifshpct, icshpct, igoals60, iassists60, ifassists60, ipoints60, iprimarypoints60, ishots60, ifenwick60, icorsi60, ipp, igp, iap, IPPP
+
+* faceoffs=1 
+	will return TOTFO, NZFO, DZFO, OZFO, NZFOPct, DZFOPct, OZFOPct
+
+
 'GF'
 'GA'
 'GF60'

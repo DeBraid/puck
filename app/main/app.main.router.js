@@ -55,7 +55,7 @@ function MainAppRouterConfig (
             var param = '={' + key + '}&';
             params.push(param);        
         }
-        var params_url = params.join(',').split(',').join('');
+        var params_url = params.join('');
         return params_url;
     }
 
