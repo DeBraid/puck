@@ -33,14 +33,11 @@ function SkatersController (
 	    filter_inputs : {},
 	    section_options : section_options,
 	    section_data_url : secretConstants.skater_data_url,
-	    // section_data_url : secretConstants.skater_data_urls.pctteam,
-	    // metrics: skatersConstants.metrics,
 	    setOrderByField : setOrderByField, 
 		toggleTableFilters : toggleTableFilters,
 		tableFilter : tableFilter,
 	};
 	
-	// Actions :
 	// 1. put defaults on scope
 	angular.extend( $scope , defaults );
 	
@@ -68,7 +65,7 @@ function SkatersController (
 			.then(setPlayerMetricsWithResponse);
 
 		function setPlayerMetricsWithResponse ( response ) {
-			var metrics = $scope.metrics;
+			// var metrics = $scope.metrics;
 			var players = $scope.playerdata = response;
 			var metrics = $scope.metrics = Object.keys(players[0]);
 			var string_column_header = [
