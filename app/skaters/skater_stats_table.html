@@ -14,7 +14,8 @@
 	</tr>
 	</thead>
 	<tbody>
-	<tr ng-repeat="player in playerdata | orderBy:orderByField:reverseSort">
+
+	<tr ng-repeat="player in playerdata | orderBy:orderByField:reverseSort | limitTo: table_rows ">
 		<td>{{$index +1}}</td>
 		<td ng-show="showFilters">
 			<input type="checkbox" ng-model="player.checkboxFilter">
@@ -22,8 +23,24 @@
 		<td ng-repeat="metric in metrics track by $index"
 			ng-if=" excluded_metrics.indexOf(metric) == -1 "
 			ng-class="{ 'bold-text' : orderByField == metric , 'text-right' : string_headers.indexOf(metric) == -1 }">
-				{{ ::player[metric] }}
+				{{ player[metric] }}
 		</td>
 	</tr>
 	</tbody>
 </table>
+<div ng-show="adding_rows">
+	Loading More...
+	<!-- <span ng-include="'app/templates/loading_spinner.html'"></span> -->
+</div>
+<div>
+	<div class="btn btn-primary" ng-click="tableRowMax($event, false)">
+		Add 10 More Rows
+	</div>
+	<div class="btn btn-primary" ng-click="tableRowMax($event, true)">
+		Show All
+	</div>
+	<div>
+		Showing {{ table_rows }} of {{playerdata_length}} total Players given TOIMin >{{ TOIMin }}.
+	</div>
+</div>
+

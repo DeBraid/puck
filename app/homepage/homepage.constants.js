@@ -4,7 +4,7 @@ angular
 	.constant('homepageConstants', {
 		sections: [
 			{
-				sref : 'skaters' ,
+				sref : "skaters({ TOIMin : '750' })",
 				title : 'Skater Stats',
 				desc : 'Every skater (FWD and D): Goals, Shots, Fenwick, Corsi, and derivatives',
 			},

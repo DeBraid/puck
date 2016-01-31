@@ -6,21 +6,24 @@ var skaters = angular
 	.controller('SkatersController', SkatersController );
 
 function SkatersController (
-	$scope, $stateParams, skatersConstants, secretConstants,
-	getParamsFromUrl, getData
+	$scope, $stateParams, skatersConstants, 
+	secretConstants, getParamsFromUrl, getData
 ) {
-	
+	var counter = 1;
 	var section_options = {
-		info : 1, goal : 0, shot : 0, fenwick : 0, corsi : 1, 
+		info : 1, goal : 1, shot : 0, fenwick : 0, corsi : 0, 
 		pcts : 0, pctteam : 0, individual : 0, faceoffs : 0
 	};
 	var excluded_metrics = ['PID', 'First_Name', 'Last_Name', 'TOI'];
 	var string_headers = ['Player_Name', 'Team', 'Pos'];
 	var defaults = {
-		orderByField : 'CFPct',
+		orderByField : 'GFPct',
 		error_message : null,
 		showFilters : true,
 		reverseSort : true,
+		tableRowMax : tableRowMax,
+		table_rows : 10,
+		adding_rows : false,
 		excluded_metrics: excluded_metrics,
 		string_headers: string_headers,
 		loading : false,
@@ -71,10 +74,11 @@ function SkatersController (
 		}
 
 		function setPlayerMetricsWithResponse ( response ) {
-			var players = $scope.playerdata = response;
-			var metrics = $scope.metrics = Object.keys(players[0]);
 			var string_headers = $scope.string_headers;
 			var excluded_strings = $scope.excluded_metrics;
+			var players = $scope.playerdata = response;
+			$scope.playerdata_length = players.length;
+			var metrics = $scope.metrics = Object.keys(players[0]);
 
 			angular.forEach( players , function(player) {
 				player.checkboxFilter = false;
@@ -138,5 +142,20 @@ function SkatersController (
 			$scope.loading = false;
 		}
 		return data;
+	}
+
+	function tableRowMax ($event, show_all) {
+		$scope.adding_rows = true;
+		console.log('show all', show_all, '$scope.adding_rows', $scope.adding_rows);
+		
+		if (show_all) {
+			$scope.table_rows = $scope.playerdata_length;
+			$scope.adding_rows = false;
+			return;
+		};
+		var max = 10;
+		counter++
+		$scope.table_rows = max*counter;
+		$scope.adding_rows = false;
 	}
 };
