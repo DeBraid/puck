@@ -11,6 +11,9 @@
 			<a ng-click="setOrderByField( 'Team' )">Team</a>
 		</th>
 		<th class="text-right">
+			<a ng-click="setOrderByField( 'GP' )">GP</a>
+		</th>
+		<th class="text-right">
 			<a ng-click="setOrderByField( 'TOIDec' )">TOI</a>
 		</th>
 		<th ng-repeat="metric in ::metrics track by $index"
@@ -25,10 +28,10 @@
 	<tr ng-hide="showFilters==false" class="grey-bg">
 		<td></td>
 		<td>Filter: <input type="checkbox" ng-model="checkboxFilterOn"></td>
-		<td><input size=20 ng-model="player_name"
+		<td><input size=20 ng-model="filter_inputs.player_name"
 			ng-change="activeFilterInputs(filter_inputs.player_name, 'player_name')">
 		</td>
-		<td><input size=12 ng-model="team"
+		<td><input size=12 ng-model="filter_inputs.team"
 			ng-change="activeFilterInputs(filter_inputs.team, 'team')">
 		</td>
 		
@@ -46,7 +49,6 @@
 			<input size=5 ng-model="filter_inputs.TOIMax"
 				ng-change="activeFilterInputs(filter_inputs.TOIMax, 'TOIMax')"><br>
 		</td>
-
 		<td align="right">
 			<input size=5 ng-model="filter_inputs.GAMin"
 				ng-change="activeFilterInputs(filter_inputs.GAMin, 'GAMin')"><br>
@@ -62,11 +64,32 @@
 				ng-change="activeFilterInputs(filter_inputs.SAMax, 'SAMax')"><br>
 		</td>
 		<td align="right">
+			<input size=5 ng-model="filter_inputs.GA60Min"
+				ng-change="activeFilterInputs(filter_inputs.GA60Min, 'GA60Min')"><br>
+			to<br>
+			<input size=5 ng-model="filter_inputs.GA60Max"
+				ng-change="activeFilterInputs(filter_inputs.GA60Max, 'GA60Max')"><br>
+		</td>
+		<td align="right">
+			<input size=5 ng-model="filter_inputs.SvPctMin"
+				ng-change="activeFilterInputs(filter_inputs.SvPctMin, 'SvPctMin')"><br>
+			to<br>
+			<input size=5 ng-model="filter_inputs.SvPctMax"
+				ng-change="activeFilterInputs(filter_inputs.SvPctMax, 'SvPctMax')"><br>
+		</td>
+		<td align="right">
 			<input size=5 ng-model="filter_inputs.FAMin"
 				ng-change="activeFilterInputs(filter_inputs.FAMin, 'FAMin')"><br>
 			to<br>
 			<input size=5 ng-model="filter_inputs.FAMax"
 				ng-change="activeFilterInputs(filter_inputs.FAMax, 'FAMax')"><br>
+		</td>
+		<td align="right">
+			<input size=5 ng-model="filter_inputs.FSvPctMin"
+				ng-change="activeFilterInputs(filter_inputs.FSvPctMin, 'FSvPctMin')"><br>
+			to<br>
+			<input size=5 ng-model="filter_inputs.FSvPctMax"
+				ng-change="activeFilterInputs(filter_inputs.FSvPctMax, 'FSvPctMax')"><br>
 		</td>
 		<td align="right">
 			<input size=5 ng-model="filter_inputs.CAMin"
@@ -75,14 +98,13 @@
 			<input size=5 ng-model="filter_inputs.CAMax"
 				ng-change="activeFilterInputs(filter_inputs.CAMax, 'CAMax')"><br>
 		</td>
-
 		<td align="right">
-			<input size=5 ng-model="filter_inputs.GA60Min"
-				ng-change="activeFilterInputs(filter_inputs.GA60Min, 'GA60Min')"><br>
+			<input size=5 ng-model="filter_inputs.CSvPctMin"
+				ng-change="activeFilterInputs(filter_inputs.CSvPctMin, 'CSvPctMin')"><br>
 			to<br>
-			<input size=5 ng-model="filter_inputs.GA60Max"
-				ng-change="activeFilterInputs(filter_inputs.GA60Max, 'GA60Max')"><br>
-		</td>
+			<input size=5 ng-model="filter_inputs.CSvPctMax"
+				ng-change="activeFilterInputs(filter_inputs.CSvPctMax, 'CSvPctMax')"><br>
+		</td>		
 		<td align="right">
 			<input size=5 ng-model="filter_inputs.SA60Min"
 				ng-change="activeFilterInputs(filter_inputs.SA60Min, 'SA60Min')"><br>
@@ -104,28 +126,6 @@
 			<input size=5 ng-model="filter_inputs.CA60Max"
 				ng-change="activeFilterInputs(filter_inputs.CA60Max, 'CA60Max')"><br>
 		</td>
-
-		<td align="right">
-			<input size=5 ng-model="filter_inputs.SvPctMin"
-				ng-change="activeFilterInputs(filter_inputs.SvPctMin, 'SvPctMin')"><br>
-			to<br>
-			<input size=5 ng-model="filter_inputs.SvPctMax"
-				ng-change="activeFilterInputs(filter_inputs.SvPctMax, 'SvPctMax')"><br>
-		</td>
-		<td align="right">
-			<input size=5 ng-model="filter_inputs.FSvPctMin"
-				ng-change="activeFilterInputs(filter_inputs.FSvPctMin, 'FSvPctMin')"><br>
-			to<br>
-			<input size=5 ng-model="filter_inputs.FSvPctMax"
-				ng-change="activeFilterInputs(filter_inputs.FSvPctMax, 'FSvPctMax')"><br>
-		</td>
-		<td align="right">
-			<input size=5 ng-model="filter_inputs.CSvPctMin"
-				ng-change="activeFilterInputs(filter_inputs.CSvPctMin, 'CSvPctMin')"><br>
-			to<br>
-			<input size=5 ng-model="filter_inputs.CSvPctMax"
-				ng-change="activeFilterInputs(filter_inputs.CSvPctMax, 'CSvPctMax')"><br>
-		</td>		
 	</tr>
 
 	
@@ -142,6 +142,9 @@
 		</td>
 		<td ng-class="orderByField=='Team' ? 'bold-text' : '' ">
 			{{ ::player.Team }}
+		</td>
+		<td align="right" ng-class="orderByField=='GP' ? 'bold-text' :''">
+			{{player.GP | number:0 }}
 		</td>
 		<td align="right" ng-class="orderByField=='TOIDec' ? 'bold-text' :''">
 			{{player.TOIDec | number:2 }}

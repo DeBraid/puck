@@ -7,7 +7,7 @@ angular
 	.controller('GoalieController', GoalieController );
 
 function GoalieController (
-	$scope, $stateParams, goalieConstants, secretConstants,
+	$scope, $filter, $stateParams, goalieConstants, secretConstants,
 	getParamsFromUrl, getData
 ) {
 
@@ -26,6 +26,7 @@ function GoalieController (
 	    section_data_url : secretConstants.goalies_data_url,
 	    metrics: goalieConstants.goalie_metrics_object,
 		toggleTableFilters : toggleTableFilters,
+		downloadCSV : downloadCSV,
 		tableFilter : tableFilter,
 	};
 
@@ -70,6 +71,7 @@ function GoalieController (
 				angular.forEach( metrics , function (metric) {
 					var stat = metric.metric;
 					player['TOIDec'] = parseFloat(player['TOIDec']);
+					player['GP'] = parseFloat(player['GP']);
 					player[stat] = parseFloat(player[stat]);
 				});
 			});
@@ -82,15 +84,30 @@ function GoalieController (
 	function tableFilter (row) {
 		var truthy = true;
 		var metrics = $scope.metrics;
+		var teamname = row.Team;
+		var playername = row.Player_Name;
 
 	    if ( $scope.hidedata == true ) { return false; };
-		if ( row.TOIDec < $scope.TOIMin || row.TOIDec > $scope.TOIMax ) { return false; };
+		if ( row.TOIDec < $scope.filter_inputs.TOIMin || row.TOIDec > $scope.filter_inputs.TOIMax ) { return false; };
+		if ( row.GP < $scope.filter_inputs.GPMin || row.GP > $scope.filter_inputs.GPMax ) { return false; };
 		if ( $scope.checkboxFilterOn == true && row.checkboxFilter == false ) {return false;};
 
+		//console.log('filter_input_team:', $scope.filter_inputs['team'], 'team: ', teamname, 'result: ', teamname.toLowerCase().indexOf($scope.filter_inputs['team']));
+		if ( $scope.filter_inputs['team'] != '' && teamname.toLowerCase().indexOf($scope.filter_inputs['team'])==-1) {
+			truthy = false;
+			return;
+		}
+		if ( $scope.filter_inputs['player_name'] != '' && playername.toLowerCase().indexOf($scope.filter_inputs['player_name'])==-1) {
+			truthy = false;
+			return;
+		}
+ 		
 		angular.forEach( metrics , function ( metric ) {
-			var filter_min = $scope.filter_inputs[metric + 'Min'],
-				filter_max = $scope.filter_inputs[metric + 'Max'],
-				value = row[metric];
+			var filter_min = $scope.filter_inputs[metric.metric + 'Min'],
+				filter_max = $scope.filter_inputs[metric.metric + 'Max'],
+				value = row[metric.metric];
+				
+			//console.log('metric: ', metric.metric, ' value: ', value, ' min:', filter_min, ' max:', filter_max)
 
 			if ( value < filter_min || value > filter_max ) { 
 				truthy = false;	
@@ -120,5 +137,64 @@ function GoalieController (
 		};
 		$scope.orderByField = field;
 	}
-	
+
+	function downloadCSV(filename) {
+		var metrics = $scope.metrics;
+		var rank=1;
+
+		console.log('In downloadCSV');
+		
+		$scope.playerdata = $filter('orderBy')($scope.playerdata, $scope.orderByField, $scope.reverseSort);
+		
+		$scope.csvtxt = 'Rank,Goalie,Team,GP,TOI';
+		angular.forEach( metrics , function ( metric ) {
+			var stat = metric.metric;
+			$scope.csvtxt = $scope.csvtxt + ',' + stat;
+		});
+		$scope.csvtxt += ',\n';
+
+		angular.forEach( $scope.playerdata , function ( player, index ) {
+			var teamname = player.Team;
+			var playername = player.Player_Name;
+			
+			if (tableFilter(player)) {
+				$scope.csvtxt = $scope.csvtxt + rank + ',' + player.Player_Name + ',' + player.Team + ',' + player.GP + ',' + player.TOIDec;
+				rank = rank +1;
+				angular.forEach( metrics , function ( metric ) {
+					var stat = metric.metric;
+
+					$scope.csvtxt = $scope.csvtxt + ',' + player[stat];
+				});
+				$scope.csvtxt += ',\n';
+			}
+		});
+		
+		$scope.csvtxt += 'Downloaded from Puckalytics.com (http://www.puckalytics.com)\n';
+		
+		var a = document.createElement('a');
+		mimeType = 'text/csv' || 'application/octet-stream';
+
+		if (navigator.msSaveBlob) { // IE10
+		return navigator.msSaveBlob(new Blob([$scope.csvtxt], { type: mimeType }),     filename);
+		} else if ('download' in a) { //html5 A[download]
+			a.href = 'data:' + mimeType + ',' + encodeURIComponent($scope.csvtxt);
+			a.setAttribute('download', filename);
+			document.body.appendChild(a);
+			setTimeout(function() {
+			  a.click();
+			  document.body.removeChild(a);
+			}, 66);
+			return true;
+		} else { //do iframe dataURL download (old ch+FF):
+			var f = document.createElement('iframe');
+			document.body.appendChild(f);
+			f.src = 'data:' + mimeType + ',' + encodeURIComponent($scope.csvtxt);
+
+			setTimeout(function() {
+			  document.body.removeChild(f);
+			}, 333);
+			return true;
+		}
+		
+	}	
 };
