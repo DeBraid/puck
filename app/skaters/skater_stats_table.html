@@ -3,7 +3,7 @@
 	<tr class="grey-bg">
 		<th><!-- index placeholder --></th>
 		<th><!-- checkbox --></th>
-		<th ng-repeat="metric in metrics"
+		<th ng-repeat="metric in metrics track by $index"
 			ng-if=" excluded_metrics.indexOf(metric) == -1 "
 			ng-class="{ 'bold-text' : orderByField == metric , 'text-right' : string_headers.indexOf(metric) == -1 }">
 			<a href="" 
@@ -19,10 +19,10 @@
 		<td ng-show="showFilters">
 			<input type="checkbox" ng-model="player.checkboxFilter">
 		</td>
-		<td ng-repeat="metric in metrics"
+		<td ng-repeat="metric in metrics track by $index"
 			ng-if=" excluded_metrics.indexOf(metric) == -1 "
 			ng-class="{ 'bold-text' : orderByField == metric , 'text-right' : string_headers.indexOf(metric) == -1 }">
-				{{ player[metric] }}
+				{{ ::player[metric] }}
 		</td>
 	</tr>
 	</tbody>
