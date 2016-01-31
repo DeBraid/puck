@@ -4,8 +4,8 @@
 		<th><!-- index placeholder --></th>
 		<th><!-- checkbox --></th>
 		<th ng-repeat="metric in metrics"
-			ng-if=" ['PID', 'First_Name', 'Last_Name', 'TOI'].indexOf(metric) == -1 "
-			class="text-right">
+			ng-if=" excluded_metrics.indexOf(metric) == -1 "
+			ng-class="{ 'bold-text' : orderByField == metric , 'text-right' : string_headers.indexOf(metric) == -1 }">
 			<a href="" 
 				ng-click="setOrderByField( metric )">
 					{{ ::metric }}
@@ -20,9 +20,8 @@
 			<input type="checkbox" ng-model="player.checkboxFilter">
 		</td>
 		<td ng-repeat="metric in metrics"
-			ng-if=" ['PID', 'First_Name', 'Last_Name', 'TOI'].indexOf(metric) == -1 "
-			ng-class="orderByField == metric ? 'bold-text' : '' "
-			class="text-right">
+			ng-if=" excluded_metrics.indexOf(metric) == -1 "
+			ng-class="{ 'bold-text' : orderByField == metric , 'text-right' : string_headers.indexOf(metric) == -1 }">
 				{{ player[metric] }}
 		</td>
 	</tr>

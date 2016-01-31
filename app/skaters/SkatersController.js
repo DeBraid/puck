@@ -14,11 +14,15 @@ function SkatersController (
 		info : 1, goal : 0, shot : 0, fenwick : 0, corsi : 1, 
 		pcts : 0, pctteam : 0, individual : 0, faceoffs : 0
 	};
+	var excluded_metrics = ['PID', 'First_Name', 'Last_Name', 'TOI'];
+	var string_headers = ['Player_Name', 'Team', 'Pos'];
 	var defaults = {
 		orderByField : 'CFPct',
 		error_message : null,
 		showFilters : true,
 		reverseSort : true,
+		excluded_metrics: excluded_metrics,
+		string_headers: string_headers,
 		loading : false,
 		hidedata : false,
 	    playerdata : [],
@@ -69,12 +73,8 @@ function SkatersController (
 		function setPlayerMetricsWithResponse ( response ) {
 			var players = $scope.playerdata = response;
 			var metrics = $scope.metrics = Object.keys(players[0]);
-			var string_column_header = [
-				'Player_Name', 'Team', 'Pos'
-			];
-			var excluded_strings = [
-				'PID', 'First_Name', 'Last_Name', 'TOI'
-			];
+			var string_headers = $scope.string_headers;
+			var excluded_strings = $scope.excluded_metrics;
 
 			angular.forEach( players , function(player) {
 				player.checkboxFilter = false;
@@ -84,7 +84,7 @@ function SkatersController (
 						player[metric] = null;
 						return;
 					}
-					if (string_column_header.indexOf(metric) > -1) {
+					if (string_headers.indexOf(metric) > -1) {
 						return;
 					}
 					player[metric] = parseFloat(player[metric]);
