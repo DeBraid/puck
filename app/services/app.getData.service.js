@@ -10,7 +10,7 @@ function get_data_service ($http, $location) {
 		stats : getStatsFromDB
 	}
 	
-	function getStatsFromDB (request_url, season, situation, TOIMin) {
+	function getStatsFromDB (request_url, season, situation, TOIMin, skater_params) {
 
 		var url = setURL(request_url);
 		var config = {
@@ -28,6 +28,11 @@ function get_data_service ($http, $location) {
 				'?season=' + season + 
 				'&sit=' + situation + 
 				'&minutes=' + TOIMin;
+			
+			if (skater_params) {
+				full_url = full_url + skater_params;
+				console.log('full_url in getData', full_url);
+			};				
 
 			// console.log('getData url ', full_url);
 			return full_url;

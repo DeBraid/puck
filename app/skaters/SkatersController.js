@@ -58,9 +58,9 @@ function SkatersController (
 		
 		var skater_url = buildSkaterUrl();
 		// var skater_url = $scope.section_data_url + '?season=201516&sit=5v5&teamid=0&pos=skaters&minutes=100&goal=1&info=1';
-		
+		console.log('$scope.season, $scope.situation, $scope.TOIMin', $scope.season, $scope.situation, $scope.TOIMin);
 		getData
-			.stats(skater_url, $scope.season, $scope.situation, $scope.TOIMin)
+			.stats($scope.section_data_url, $scope.season, $scope.situation, $scope.TOIMin, skater_url )
 			.then(checkForErrors)
 			.then(setPlayerMetricsWithResponse);
 
@@ -72,7 +72,8 @@ function SkatersController (
 				var new_slug = '' + section.name + '=' + section.value + '&';
 				slug_arr.push(new_slug);
 			});
-			return $scope.section_data_url + '?' + slug_arr.join('');
+			// return $scope.section_data_url + '?' + slug_arr.join('');
+			return '&' + slug_arr.join('');
 		}
 
 		function setPlayerMetricsWithResponse ( response ) {
