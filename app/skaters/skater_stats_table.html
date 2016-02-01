@@ -15,7 +15,7 @@
 	</thead>
 	<tbody>
 
-	<tr ng-repeat="player in playerdata | orderBy:orderByField:reverseSort | limitTo: table_rows ">
+	<tr ng-repeat="player in playerdata | orderBy:orderByField:reverseSort | limitTo: table_rows track by $index ">
 		<td>{{$index +1}}</td>
 		<td ng-show="showFilters">
 			<input type="checkbox" ng-model="player.checkboxFilter">
