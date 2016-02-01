@@ -16,7 +16,7 @@ function SkatersController (
 		info : 1, goal : 0, shot : 0, fenwick : 0, corsi : 1, 
 		pcts : 0, pctteam : 0, individual : 0, faceoffs : 0
 	};
-	var decimal_fields = ['60', 'Pct', 'TM'];
+	var decimal_fields = ['60', 'Pct', 'TM', 'Dec'];
 	var excluded_metrics = ['PID', 'First_Name', 'Last_Name', 'TOI'];
 	var string_headers = ['Player_Name', 'Team', 'Pos'];
 	var defaults = {
