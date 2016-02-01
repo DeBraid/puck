@@ -12,9 +12,6 @@ function SkatersController (
 	secretConstants, getParamsFromUrl, getData
 ) {
 	var counter = 1;
-	// function resetSectionOptions () {
-		
-	// }
 	var decimal_fields = ['60', 'Pct', 'TM', 'Dec'];
 	var excluded_metrics = ['PID', 'First_Name', 'Last_Name', 'TOI'];
 	var string_headers = ['Player_Name', 'Team', 'Pos'];
@@ -87,6 +84,9 @@ function SkatersController (
 
 			angular.forEach( players , function(player) {
 				player.checkboxFilter = false;
+				if (player.Pos == 'R') { player.Pos = 'F(RW)'; }
+				if (player.Pos == 'L') { player.Pos = 'F(LW)'; }
+				if (player.Pos == 'C') { player.Pos = 'F(C)'; }
 				
 				angular.forEach( metrics , function (metric) {
 					if (string_headers.indexOf(metric) > -1) { return; }
