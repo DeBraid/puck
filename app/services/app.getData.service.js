@@ -31,10 +31,7 @@ function get_data_service ($http, $location) {
 			
 			if (skater_params) {
 				full_url = full_url + skater_params;
-				console.log('full_url in getData', full_url);
 			};				
-
-			// console.log('getData url ', full_url);
 			return full_url;
 		}
 

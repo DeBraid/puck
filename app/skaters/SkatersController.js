@@ -4,7 +4,7 @@ var skaters = angular
 		'ui.bootstrap',
 	]);
 
-// skaters.filter() at bottom
+// skaters.filter('tableHeaderFilter') at bottom
 skaters.controller('SkatersController', SkatersController);
 
 function SkatersController (
@@ -57,8 +57,7 @@ function SkatersController (
 		$scope.loading = true;
 		
 		var skater_url = buildSkaterUrl();
-		// var skater_url = $scope.section_data_url + '?season=201516&sit=5v5&teamid=0&pos=skaters&minutes=100&goal=1&info=1';
-		console.log('$scope.season, $scope.situation, $scope.TOIMin', $scope.season, $scope.situation, $scope.TOIMin);
+
 		getData
 			.stats($scope.section_data_url, $scope.season, $scope.situation, $scope.TOIMin, skater_url )
 			.then(checkForErrors)
@@ -72,7 +71,6 @@ function SkatersController (
 				var new_slug = '' + section.name + '=' + section.value + '&';
 				slug_arr.push(new_slug);
 			});
-			// return $scope.section_data_url + '?' + slug_arr.join('');
 			return '&' + slug_arr.join('');
 		}
 
@@ -168,13 +166,12 @@ function SkatersController (
 	}
 
 	function updateSections ($event, target) {
-		console.log('updateSections ($event, target)', target.value);
+		// console.log('updateSections ($event, target)', target.value);
 		if (target.value === 0) {
 			target.value = 1;
 		} else {
 			target.value = 0;
 		}
-		console.log('target.value', target.value);
 		angular.forEach($scope.section_options , function (section) {
 			if (section == target.name) {
 				section[target.name] = target.value;
@@ -187,7 +184,6 @@ function SkatersController (
 
 skaters.filter('tableHeaderFilter', function(){
 	return function(header){
-		// console.log('header', header);
 		var output = header;
 		var decimal_fields = ['60', 'Pct', 'RelTM'];
 		
