@@ -2,71 +2,34 @@
 angular
 	.module('puckalyticsMainApp.skaters')
 	.constant('skatersConstants', {
-		metrics : [
-			'GF','GA','GF60','GA60','GFPct',
-			'SvPct','ShPct','FSvPct','FShPct','CSvPct','CShPct','TMSvPct',
-			'TMShPct','TMFSvPct','TMFShPct','TMCSvPct','TMCShPct',
-			'OppSvPct','OppShPct','OppFSvPct','OppFShPct',
-			'OppCSvPct','OppCShPct',
-			'ShPctRelTM','SvPctRelTM',
-			'PDO','FPDO','CPDO','TMPDO','TMFPDO','TMCPDO','OppPDO','OppFPDO','OppCPDO',
-			'igoals','iassists','ifassists','ipoints','iprimarypoints',
-			'ishots','ifenwick','icorsi','ishpct','ifshpct','icshpct',
-			'igoals60','iassists60','ifassists60','ipoints60','iprimarypoints60',
-			'ishots60','ifenwick60','icorsi60','ipp','igp','iap','IPPP',
-			'TotFO','NZFO','DZFO','OZFO',
-			'NZFOPct','DZFOPct','OZFOPct',
-			'TeamTOIPct','TeamGFPct','TeamGAPct','TeamSFPct','TeamSAPct',
-			'TeamFFPct','TeamFAPct','TeamCFPct','TeamCAPct','TeamOZPct',
-			'TeamDZPct','TeamNZPct', 
-			'FF','FA','FF60','FA60','FFPct',
-			'FF60RelTM','FA60RelTM','FFPctRelTM',
-			'OppFF60','OppFA60','OppFFPct',
-			'CF','CA','CF60','CA60','CFPct',
-			'CF60RelTM','CA60RelTM','CFPctRelTM',
-			'OppCF60','OppCA60','OppCFPct',
-			'TMCF60','TMCA60','TMCFPct',
-			'TMFF60','TMFA60','TMFFPct',
-			'TMGF60','TMGA60','TMGFPct',
-			'GF60RelTM','GA60RelTM','GFPctRelTM',
-			'OppGF60','OppGA60','OppGFPct',
-			'OppSF60','OppSA60','OppSFPct',
-			'SF','SA','SF60','SA60','SFPct',
-			'SF60RelTM','SA60RelTM','SFPctRelTM',
-			'TMSF60','TMSA60','TMSFPct',
-		],
-		mertics_objs: [
-			{metric : 'GF' 		, filter : 'displayGoals' 	, decimal : '0'},
-			{metric : 'GA' 		, filter : 'displayGoals' 	, decimal : '0'},
-			{metric : 'GF60'	, filter : 'displayGoals' 	, decimal : '2'},
-			{metric : 'GA60' 	, filter : 'displayGoals' 	, decimal : '2'},
-			{metric : 'GFPct' 	, filter : 'displayGoals' 	, decimal : '2'},
-			{metric : 'SF' 		, filter : 'displayShots' 	, decimal : '0'},
-			{metric : 'SA' 		, filter : 'displayShots' 	, decimal : '0'},
-			{metric : 'SF60'	, filter : 'displayShots' 	, decimal : '2'},
-			{metric : 'SA60'	, filter : 'displayShots' 	, decimal : '2'},
-			{metric : 'SFPct'	, filter : 'displayShots' 	, decimal : '2'},
-			{metric : 'FF' 		, filter : 'displayFenwick' 	, decimal : '0'},
-			{metric : 'FA' 		, filter : 'displayFenwick' 	, decimal : '0'},
-			{metric : 'FF60' 	, filter : 'displayFenwick' 	, decimal : '2'},
-			{metric : 'FA60' 	, filter : 'displayFenwick' 	, decimal : '2'},
-			{metric : 'FFPct' 	, filter : 'displayFenwick' 	, decimal : '2'},
-			{metric : 'FSHPct' 	, filter : 'displayFenwick' 	, decimal : '2'},
-			{metric : 'FSVPct' 	, filter : 'displayFenwick' 	, decimal : '2'},
-			{metric : 'FPDO' 	, filter : 'displayFenwick' 	, decimal : '2'},
-			{metric : 'CF' 		, filter : 'displayCorsi' 	, decimal : '0'},
-			{metric : 'CA' 		, filter : 'displayCorsi' 	, decimal : '0'},
-			{metric : 'CF60' 	, filter : 'displayCorsi' 	, decimal : '2'},
-			{metric : 'CA60' 	, filter : 'displayCorsi' 	, decimal : '2'},
-			{metric : 'CFPct' 	, filter : 'displayCorsi' 	, decimal : '2'},
-			{metric : 'CSHPct' 	, filter : 'displayCorsi' 	, decimal : '2'},
-			{metric : 'CSVPct' 	, filter : 'displayCorsi' 	, decimal : '2'},
-			{metric : 'CPDO' 	, filter : 'displayCorsi' 	, decimal : '2'},
-			{metric : 'SHPct' 	, filter : 'displayShots || displayGoals' 	, decimal : '2'},
-			{metric : 'SVPct' 	, filter : 'displayShots || displayGoals' 	, decimal : '2'},
-			{metric : 'PDO' 	, filter : 'displayShots || displayGoals' 	, decimal : '2'},
-			{metric : 'NZPct' 	, filter : 'displayZoneStarts' 	, decimal : '2'},
-			{metric : 'DZPct' 	, filter : 'displayZoneStarts' 	, decimal : '2'},
-			{metric : 'OZPct' 	, filter : 'displayZoneStarts' 	, decimal : '2'},
+		section_options : [
+			{
+				name : 'info',
+				value : 1
+			},{
+				name : 'goal',
+				value : 0
+			},{
+				name : 'shot',
+				value : 0
+			},{
+				name : 'fenwick',
+				value : 0
+			},{
+				name : 'corsi',
+				value : 1
+			},{
+				name : 'pcts',
+				value : 0
+			},{
+				name : 'pctteam',
+				value : 0
+			},{
+				name : 'individual',
+				value : 0
+			},{
+				name : 'faceoffs',
+				value : 0
+			}
 		]
 	}); 

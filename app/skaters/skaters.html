@@ -20,15 +20,27 @@
 				</button>
 				
 				<div class="btn-group" data-toggle="buttons">
-				    <label class="btn btn-primary"
-				    	ng-class="displayGoals ? 'active' : '' ">
+					<button class="btn btn-primary"
+						ng-repeat="section in section_options"
+						ng-class="{ 'active' : section.value }"
+						ng-click="updateSections($event, section)">
+							{{ section.name }}
+
+					</button>
+					<!-- <label class="btn btn-primary"
+				    	ng-click="updateSections()">
 				        <input type="checkbox" autocomplete="off" 
-				        	ng-model="displayGoals"> Goal
+				        	ng-model="section_options.goals.value"> Goal
+				    </label>
+				    <label class="btn btn-primary"
+				    	ng-class="section_options.goals.value ? 'active' : '' ">
+				        <input type="checkbox" autocomplete="off" 
+				        	ng-model="section_options.goals.value"> Goal
 				    </label>
 				    <label class="btn btn-primary" 
 				    	ng-class="displayShots ? 'active' : '' ">
 					        <input type="checkbox" autocomplete="off" 
-					        	ng-model="displayShots"> Shot
+					        	ng-model="displayShots"> Shots
 				    </label>
 				    <label class="btn btn-primary" 
 				    	ng-class="displayFenwick ? 'active' : '' ">
@@ -44,7 +56,7 @@
 				    	ng-class="displayZoneStarts ? 'active' : '' ">
 					        <input type="checkbox" autocomplete="off" 
 					        	ng-model="displayZoneStarts"> Zones
-				    </label>
+				    </label> -->
 				</div>
 				
 				<span ng-include="'app/skaters/skater_stats_table.html'"></span>

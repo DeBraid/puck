@@ -12,10 +12,9 @@ function SkatersController (
 	secretConstants, getParamsFromUrl, getData
 ) {
 	var counter = 1;
-	var section_options = {
-		info : 1, goal : 0, shot : 0, fenwick : 0, corsi : 1, 
-		pcts : 0, pctteam : 0, individual : 0, faceoffs : 0
-	};
+	// function resetSectionOptions () {
+		
+	// }
 	var decimal_fields = ['60', 'Pct', 'TM', 'Dec'];
 	var excluded_metrics = ['PID', 'First_Name', 'Last_Name', 'TOI'];
 	var string_headers = ['Player_Name', 'Team', 'Pos'];
@@ -34,7 +33,8 @@ function SkatersController (
 	    playerdata : [],
 	    metrics : [],
 	    filter_inputs : {},
-	    section_options : section_options,
+	    updateSections : updateSections,
+	    section_options : skatersConstants.section_options,
 	    section_data_url : secretConstants.skater_data_url,
 	    setOrderByField : setOrderByField, 
 		toggleTableFilters : toggleTableFilters,
@@ -69,10 +69,12 @@ function SkatersController (
 
 		function buildSkaterUrl () {
 			var slug_arr = [];		
-			for (key in $scope.section_options) {
-				var new_slug = '' + key + '=' + $scope.section_options[key] + '&';
+			var sections = $scope.section_options;
+
+			sections.map(function (section) {
+				var new_slug = '' + section.name + '=' + section.value + '&';
 				slug_arr.push(new_slug);
-			};
+			});
 			return $scope.section_data_url + '?' + slug_arr.join('');
 		}
 
@@ -163,11 +165,28 @@ function SkatersController (
 		$scope.table_rows = max*counter;
 		$scope.adding_rows = false;
 	}
+
+	function updateSections ($event, target) {
+		console.log('updateSections ($event, target)', target.value);
+		if (target.value === 0) {
+			target.value = 1;
+		} else {
+			target.value = 0;
+		}
+		console.log('target.value', target.value);
+		angular.forEach($scope.section_options , function (section) {
+			if (section == target.name) {
+				section[target.name] = target.value;
+			}
+		});
+		init();
+	}
+
 };
 
 skaters.filter('tableHeaderFilter', function(){
 	return function(header){
-		console.log('header', header);
+		// console.log('header', header);
 		var output = header;
 		var decimal_fields = ['60', 'Pct', 'RelTM'];
 		
