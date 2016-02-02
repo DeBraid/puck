@@ -31,11 +31,13 @@ angular
 				name : 'pctteam',
 				value : 0,
 				order_by : 'TeamGFPct'
-			},{
-				name : 'individual',
-				value : 0,
-				order_by : ''
-			},{
+			},
+			// {
+			// 	name : 'individual',
+			// 	value : 0,
+			// 	order_by : ''
+			// },
+			{
 				name : 'faceoffs',
 				value : 0,
 				order_by : ''

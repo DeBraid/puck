@@ -27,9 +27,15 @@
 						ng-click="updateSections($event, section)">
 							{{ section.name }}
 					</button>
+				</div>
+				<div class="btn-group" data-toggle="buttons">
 					<button class="btn btn-warning"
 						ng-click="updateSections($event, { reset : true })">
 							Reset
+					</button>
+					<button class="btn btn-success"
+						ng-click="updateSections($event, { show_all : true })">
+							Show All
 					</button>
 				</div>
 				
