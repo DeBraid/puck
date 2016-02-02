@@ -36,12 +36,12 @@ function get_data_service ($http, $location) {
 		}
 
 		function success(response) {
-			console.log('stats success response', response);
+			// console.log('stats success response', response);
 			return response.data;
 		}
 
 		function error(response) {
-			console.log('stats error response', response);
+			// console.log('stats error response', response);
 			return response;
 		}		
 		

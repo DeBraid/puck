@@ -166,17 +166,30 @@ function SkatersController (
 	}
 
 	function updateSections ($event, target) {
-		// console.log('updateSections ($event, target)', target.value);
+		// console.log('updateSections ($event, target)', target);
 		if (target.value === 0) {
 			target.value = 1;
+			setOrderByField( target.order_by );
 		} else {
 			target.value = 0;
 		}
-		angular.forEach($scope.section_options , function (section) {
-			if (section == target.name) {
-				section[target.name] = target.value;
-			}
-		});
+		if (target.reset) {
+			// console.log('reset! section_options', $scope.section_options );
+			angular.forEach($scope.section_options, function (section) {
+				var name = section.name;
+				section.value = 0;
+				if ( name == 'info' || name == 'corsi' ) {
+					section.value = 1;
+				};
+			});
+		};
+		// angular.forEach($scope.section_options , function (section) {
+		// 	// $scope.orderByField = section.order_by;
+		// 	if (section == target.name) {
+		// 		console.log('section.order_by', target);
+		// 		section[target.name] = target.value;
+		// 	}
+		// });
 		init();
 	}
 

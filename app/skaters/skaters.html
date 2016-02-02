@@ -22,9 +22,14 @@
 				<div class="btn-group" data-toggle="buttons">
 					<button class="btn btn-primary"
 						ng-repeat="section in section_options"
+						ng-hide="section.name == 'info' "
 						ng-class="{ 'active' : section.value }"
 						ng-click="updateSections($event, section)">
 							{{ section.name }}
+					</button>
+					<button class="btn btn-warning"
+						ng-click="updateSections($event, { reset : true })">
+							Reset
 					</button>
 				</div>
 				
