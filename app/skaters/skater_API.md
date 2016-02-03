@@ -4,7 +4,7 @@ Given our sections: ['goals', corsi' , 'fenwick', etc ]
 
 the payload for a given `section`, ie. *fenwick*, would be a JSON object, with properties: 
 
-```JSON
+```javascript
 {
 	metrics : [ 'FF', 'FA', 'FF60', etc ],
 	players : [ {}, {}, {}, etc ],
@@ -15,7 +15,7 @@ the payload for a given `section`, ie. *fenwick*, would be a JSON object, with p
 
 where `players[0]` is : 
 
-```JSON
+```javascript
 {
 	PID: '4312355231',
 	player: [ {}, {}, {} ],
@@ -23,7 +23,7 @@ where `players[0]` is :
 ```
 
 and `player`, and `Object`, with properties for each `section.metric` (above): 
-```JSON
+```javascript
 {
 	FA: 44
 }, 
