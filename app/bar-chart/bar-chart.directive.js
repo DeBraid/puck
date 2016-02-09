@@ -101,15 +101,16 @@ function BarChartLink (
             
             var width = d3.select('#bar-chart-container').node().getBoundingClientRect().width,
                 height = render_data.length * (barHeight + barPadding),
-                color = d3.scale.category20(),
+                color = d3.scale.category20b(),
                 min = d3.min(render_data, function(d) { return d.value; }),
                 max = d3.max(render_data, function(d) { return d.value; });
-            
+            var left_margin = 175;
             var xScale = d3.scale.linear()
                     .domain([min,max])
-                    .range([0, width]);
+                    .range([left_margin, width-left_margin]);
 
             svg.attr('height', height);
+            
             svg.selectAll('rect')
             .data(render_data).enter()
             .append('rect').on('click', function(d, i) {
@@ -118,8 +119,8 @@ function BarChartLink (
                 });
             })
             .attr('height', barHeight)
-            .attr('width', 140)
-            .attr('x', Math.round(margin / 2))
+            .attr('width', width/2)
+            .attr('x', left_margin + Math.round(margin / 2))
             .attr('y', function(d, i) {
                 return i * (barHeight + barPadding);
             })
@@ -130,14 +131,25 @@ function BarChartLink (
                 return xScale(d.value);
             });
             
-            svg.selectAll('text')
+            svg.selectAll('text.team')
             .data(render_data).enter().append('text')
             .attr('fill', '#000').attr('y', function(d, i) {
                 return i * (barHeight + barPadding) + 15;
             })
-            .attr('x', 15).text(function(d) {
-                return d.team + " " + d.value + " " + d.metric + "";
-            });
+            .attr('x', left_margin*0.05).text(function(d) {
+                return d.team;
+            })
+            .style("font-size","18px");
+
+            svg.selectAll('text.value')
+            .data(render_data).enter().append('text')
+            .attr('fill', '#000').attr('y', function(d, i) {
+                return i * (barHeight + barPadding) + 15;
+            })
+            .attr('x', left_margin*0.7).text(function(d) {
+                return parseFloat(d.value).toFixed(2);
+            })
+            .style("font-size","15px");
 
         }, 200);
     };
