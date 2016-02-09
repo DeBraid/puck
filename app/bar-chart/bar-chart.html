@@ -1,13 +1,16 @@
-<h1>Bar Chart</h1>
-<h3>Charting {{ metric }}</h3>
 
-<div class="input-group" style="width:200px;">
-	<form ng-submit="submit()" class="pull-right">
-		<input type="text" class="form-control" 
-			ng-model="metric"
-			placeholder="Draw a metric...">
-		
-	</form>
+<div class="row">
+	<div class="col-sm-12">
+		<h4>Chart any Metric like <code>GF60</code> or <code>CFPct</code>.</h4>
+		<div class="input-group" >
+			<form ng-submit="submit()" class="pull-right">
+				<input type="text" class="form-control" ng-model="metric"
+					placeholder="Draw a metric...">
+			</form>
+		</div>
+	</div>
+	
+	<div class="col-sm-12" id="bar-chart-container">
+		<div id="bar-chart"></div>
+	</div>
 </div>
-
-<div id="bar-chart"></div>

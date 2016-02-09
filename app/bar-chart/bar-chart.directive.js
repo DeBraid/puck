@@ -96,11 +96,10 @@ function BarChartLink (
                 return parseFloat(b.value) - parseFloat(a.value);
             }
         });
-        
+
         renderTimeout = setTimeout(function() {
-            console.log('running setTimeout');
-            // console.log('scope.data', scope.data);
-            var width = 500,
+            
+            var width = d3.select('#bar-chart-container').node().getBoundingClientRect().width,
                 height = render_data.length * (barHeight + barPadding),
                 color = d3.scale.category20(),
                 min = d3.min(render_data, function(d) { return d.value; }),
