@@ -68,7 +68,9 @@ function BarChartLink (
 
     function render (render_data) {
         console.log('running render with render_data', render_data);
+
         var renderTimeout;
+        scope.reversed = false; 
         var margin = parseInt(attrs.margin) || 20,
             barHeight = parseInt(attrs.barHeight) || 20,
             barPadding = parseInt(attrs.barPadding) || 5;
@@ -84,6 +86,17 @@ function BarChartLink (
         if (!render_data) return;
         if (renderTimeout) clearTimeout(renderTimeout);
       
+        // render_data.sort(function(a, b) {
+        //     console.log('a in sort', a, 'b in sort', b);
+        // });
+        render_data.sort(function(a, b) {
+            if (scope.reversed) {
+                return parseFloat(a.value) - parseFloat(b.value);    
+            } else {
+                return parseFloat(b.value) - parseFloat(a.value);
+            }
+        });
+        
         renderTimeout = setTimeout(function() {
             console.log('running setTimeout');
             // console.log('scope.data', scope.data);
