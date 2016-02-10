@@ -32,7 +32,7 @@ function TeamsController (
 	    team_data : [],
 		active_filters : {},
 		activeFilterInputs : activeFilterInputs,
-	    metrics: teamsConstants.team_metrics_object,
+	    metrics: teamsConstants.team_metrics_arr,
 		toggleTableFilters : toggleTableFilters,
 		downloadCSV : downloadCSV,
 		tableFilter : tableFilter,

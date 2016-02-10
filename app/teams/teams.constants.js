@@ -2,7 +2,7 @@
 angular
 	.module('puckalyticsMainApp.teams')
 	.constant('teamsConstants', {	
-		team_metrics_object: [
+		team_metrics_arr: [
 			{metric : 'GF' 		, filter : 'displayGoals' 	, decimal : '0'},
 			{metric : 'GA' 		, filter : 'displayGoals' 	, decimal : '0'},
 			{metric : 'GF60'	, filter : 'displayGoals' 	, decimal : '2'},

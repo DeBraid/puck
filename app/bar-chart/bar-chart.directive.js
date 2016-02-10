@@ -2,12 +2,11 @@
 angular
 	.module('puckalyticsMainApp.barChart', [
 		'ui.router', 
-		'ui.bootstrap',
-        'puckalyticsMainApp.getData'
+        'ui.bootstrap'
 	])
 	.directive('barChart', BarChartDirective );
 
-function BarChartDirective (getData) {
+function BarChartDirective () {
     return {
         restrict: 'E',
         templateUrl: 'app/bar-chart/bar-chart.html',
@@ -21,6 +20,10 @@ function BarChartDirective (getData) {
 function BarChartLink (
     scope, ele, attrs
 ) {
+    scope.metrics = [];
+    angular.forEach( scope.$parent.metrics , function ( item ) {
+        scope.metrics.push(item.metric);
+    });
     scope.charting_data = [];
     scope.render = render();
     scope.metric = '';
@@ -31,14 +34,13 @@ function BarChartLink (
     scope.$watch('metric', updateChartingData);
     
     function updateChartingData(newVal, oldVal) {
-        scope.charting_data.length = 0;
-        
         var data = scope.data;
         if (!data.length) {return;}
-        var metrics = Object.keys(data[0]);
+        
+        scope.charting_data.length = 0;
+        var metrics = scope.metrics;
         
         if ( metrics.indexOf(newVal) > -1 ) {
-            
             data.map(function (team) {    
                 scope.charting_data.push({
                     metric : newVal,
