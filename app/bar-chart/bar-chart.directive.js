@@ -1,7 +1,7 @@
 
 angular
 	.module('puckalyticsMainApp.barChart', [
-		'ui.router', 
+		'ui.router',
         'ui.bootstrap'
 	])
 	.directive('barChart', BarChartDirective );
