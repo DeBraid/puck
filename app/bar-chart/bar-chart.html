@@ -5,12 +5,15 @@
 		<div class="input-group" >
 			<form ng-submit="submit()" class="pull-right">
 				<input type="text" class="form-control" ng-model="metric"
-					placeholder="Draw a metric...">
+					placeholder="Metric...">
 			</form>
 		</div>
 	</div>
 	
 	<div class="col-sm-12" id="bar-chart-container">
 		<div id="bar-chart" style="margin-top: 1em;"></div>
+	</div>
+	<div class="col-sm-12" id="bar-chart-footer">
+		<p>Some footer text with params: {{ season }}, {{TOI}}, {{situation}}</p>
 	</div>
 </div>

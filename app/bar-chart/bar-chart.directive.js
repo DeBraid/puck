@@ -21,8 +21,7 @@ function BarChartDirective (getData) {
 function BarChartLink (
     scope, ele, attrs
 ) {
-    console.log('scope.data', scope.data);
-
+    // console.log('scope.data', scope);
     scope.charting_data = [];
     scope.render = render();
     scope.metric = '';
@@ -34,29 +33,24 @@ function BarChartLink (
     });    
 
     scope.$watch('metric', function(newVal, oldVal) {
-        if (newVal == '') {
-            console.log('set array to zero; abort.');
-            scope.charting_data.length = 0;
-            render(scope.charting_data);
-            return;
-        }
+        scope.charting_data.length = 0;
         
         var data = scope.data;
         if (!data.length) {return;}
         var metrics = Object.keys(data[0]);
         
         if ( metrics.indexOf(newVal) > -1 ) {
-            scope.charting_data.length = 0;
-            data.map(function (team) {
+            data.map(function (team) {    
                 scope.charting_data.push({
                     metric : newVal,
                     value: team[newVal], 
                     team : team.teamname
                 });
             });
-            // console.log('scope.charting_data', scope.charting_data);
-            render(scope.charting_data);
         }
+
+        render(scope.charting_data);
+        return;
     });
 
     scope.onClick = function (clicked) {
@@ -67,7 +61,6 @@ function BarChartLink (
         console.log('running render with render_data', render_data);
 
         var renderTimeout;
-        scope.reversed = false; 
         var margin = parseInt(attrs.margin) || 20,
             barHeight = parseInt(attrs.barHeight) || 20,
             barPadding = parseInt(attrs.barPadding) || 5;
