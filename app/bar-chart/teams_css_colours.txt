@@ -1,0 +1,184 @@
+{
+team : Anaheim Ducks,
+col1: 2C292A,
+col2 Gold: 85714D
+}
+
+{
+team : Boston Bruins:,
+col1: 2C2A29,
+col2: FFB81C
+}
+
+{
+team : Buffalo Sabres:,
+col1: 041E42,
+col2: FFB81C
+}
+
+{
+team : Calgary Flames,
+col1: C8102E,
+col2: 2C2A29
+}
+
+{
+team : Carolina Hurricanes,
+col1: C8102E,
+col2: 2C2A29
+}
+
+{
+team : Chicago Blackhawks,
+col1: C8102E,
+col2: 2C2A29
+}
+
+
+{
+team : Colorado Avalanche,
+col1: 6F263D,
+col2 Blue: 236192
+}
+
+{
+team : Columbus Blue Jackets,
+col1 Blue: 041E42,
+col2 Red: C8102E
+}
+
+{
+team : Dallas Stars,
+col1: 154734,
+col2: 84754E
+}
+
+{
+team : Detroit Red Wings,
+col1: C8102E,
+col2: FFF
+}
+
+{
+team : Edmonton Oilers,
+col1 Blue: 041E42,
+col2: 8B634B
+}
+
+{
+team : Florida Panthers,
+col1: 041E42,
+col2: C8102E
+}
+
+{
+team : Los Angeles Kings,
+col1: 2C2A29,
+col2: 818182
+}
+
+{
+team : Minnesota Wild,
+col1 Green: 154734,
+col2 Range Red: A6192E
+}
+
+{
+team : Montreal Canadiens,
+col1: A6192E,
+col2: 001E62
+}
+
+{
+team : Nashville Predators,
+col1 Blue: 041E42,
+col2: FFB81C
+}
+
+{
+team : New Jersey Devils:,
+col1: C8102E,
+col2: 2C2A29
+}
+
+{
+team : New York Islanders,
+col1: 003087,
+col2: FC4C02
+}
+
+{
+team : New York Rangers,
+col1: 0033A0,
+col2: C8102E
+}
+
+{
+team : Ottawa Senators,
+col1: C8102E,
+col2: 2C2A29
+}
+
+{
+team : Philadelphia Flyers,
+col1: FA4616,
+col2: 2C2A29
+}
+
+{
+team : Phoenix Coyotes,
+col1 Red: 862633,
+col2 Sand: DDCBA4
+}
+
+{
+team : Pittsburgh Penguins,
+col1: 2C2A29,
+col2 Gold: CFC493
+}
+
+{
+team : St. Louis Blues,
+col1: 003087,
+col2: FFB81C
+}
+
+{
+team : San Jose Sharks,
+col1 Pacific Teal: 006272,
+col2: 2C2A29
+}
+
+{
+team : ,
+col1 Bay Lightning,
+col2: 00205
+B
+}
+
+{
+team : ,
+col1 Maple Leafs,
+col2: 00205
+B
+}
+
+{
+team : ,
+col1 Canucks,
+col2: 00205
+B
+Green: 06843D
+}
+
+{
+team : ,
+col1 Capitals,
+col2: C8102
+E
+Navy: 041E42
+}
+
+name: Winnipeg Jets
+col1: Polar Night Blue: 041E42
+col2: Silver: 8A8D8F

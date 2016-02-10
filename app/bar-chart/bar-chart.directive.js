@@ -37,18 +37,18 @@ function BarChartLink (
 
     scope.$watch('metric', function(newVal, oldVal) {
         
-        console.log('newVal in metric watch', newVal);
         if (newVal == '') {
-            console.log('set array to zero');
+            console.log('set array to zero; abort.');
             scope.charting_data.length = 0;
-
             render(scope.charting_data);
+            return;
         }
         
         var data = scope.data;
+        if (!data.length) {return;}
         var metrics = Object.keys(data[0]);
-        if (!metrics) {return;}
-        console.log('metrics', metrics);
+        // if (!metrics) {return;}
+        // console.log('metrics', metrics);
         
         if ( metrics.indexOf(newVal) > -1 ) {
             scope.charting_data.length = 0;
