@@ -21,18 +21,16 @@ function BarChartDirective (getData) {
 function BarChartLink (
     scope, ele, attrs
 ) {
-    // console.log('scope.data', scope);
     scope.charting_data = [];
     scope.render = render();
     scope.metric = '';
-    scope.title = 'Charting ' + scope.metric;
-    
-    scope.$watch('charting_data', function(newVal, oldVal) {
-        // console.log('charting_data newVal', newVal);
-        render(newVal);
-    });    
+    // scope.onClick = function (clicked) {
+    //     console.log('clicked', clicked);
+    // }
 
-    scope.$watch('metric', function(newVal, oldVal) {
+    scope.$watch('metric', updateChartingData);
+    
+    function updateChartingData(newVal, oldVal) {
         scope.charting_data.length = 0;
         
         var data = scope.data;
@@ -40,6 +38,7 @@ function BarChartLink (
         var metrics = Object.keys(data[0]);
         
         if ( metrics.indexOf(newVal) > -1 ) {
+            
             data.map(function (team) {    
                 scope.charting_data.push({
                     metric : newVal,
@@ -51,32 +50,26 @@ function BarChartLink (
 
         render(scope.charting_data);
         return;
-    });
-
-    scope.onClick = function (clicked) {
-        console.log('clicked', clicked);
     }
 
     function render (render_data) {
         console.log('running render with render_data', render_data);
+        if (!render_data) return;
+        d3.selectAll('svg').remove();
 
         var renderTimeout;
         var margin = parseInt(attrs.margin) || 20,
             barHeight = parseInt(attrs.barHeight) || 20,
             barPadding = parseInt(attrs.barPadding) || 5;
         
-        d3.selectAll('svg').remove();
-
         var svg = d3.select('#bar-chart')
             .append('svg').style('width', '100%');
 
-        
-        if (!render_data) return;
-        if (renderTimeout) clearTimeout(renderTimeout);
-      
         render_data.sort(function(a, b) {
             return parseFloat(b.value) - parseFloat(a.value);
         });
+
+        if (renderTimeout) clearTimeout(renderTimeout);
 
         renderTimeout = setTimeout(function() {
             var left_margin = 175;
@@ -86,6 +79,7 @@ function BarChartLink (
                 color = d3.scale.category20b(),
                 min = d3.min(render_data, function(d) { return d.value; }),
                 max = d3.max(render_data, function(d) { return d.value; });
+            
             var xScale = d3.scale.linear()
                     .domain([min,max])
                     .range([left_margin, width-left_margin]);
@@ -108,22 +102,26 @@ function BarChartLink (
             .attr('fill', function(d) {
                 return color(d.value);
             })
-            .transition().duration(1000).attr('width', function(d) {
+            .transition().duration(1000)
+            .attr('width', function(d) {
                 return xScale(d.value);
             });
             
             svg.selectAll('text.team')
-            .data(render_data).enter().append('text')
+            .data(render_data).enter()
+            .append('text')
             .attr('fill', '#000').attr('y', function(d, i) {
                 return i * (barHeight + barPadding) + 15;
             })
-            .attr('x', left_margin*0.05).text(function(d) {
+            .attr('x', left_margin*0.05)
+            .text(function(d) {
                 return d.team;
             })
             .style("font-size","18px");
 
             svg.selectAll('text.value')
-            .data(render_data).enter().append('text')
+            .data(render_data).enter()
+            .append('text')
             .attr('fill', '#000').attr('y', function(d, i) {
                 return i * (barHeight + barPadding) + 15;
             })

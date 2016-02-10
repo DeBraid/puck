@@ -1,19 +1,25 @@
 
 <div class="row">
 	<div class="col-sm-12">
-		<h4>Chart any Metric like <code>GF60</code> or <code>CFPct</code>.</h4>
-		<div class="input-group" >
-			<form ng-submit="submit()" class="pull-right">
-				<input type="text" class="form-control" ng-model="metric"
-					placeholder="Metric...">
-			</form>
+		<h4>Chart any Metric 
+			<span ng-if=" metric.length <= 1">
+				like <code>GF60</code> or <code>CFPct</code>.
+			</span>
+			<span ng-if=" metric.length > 1">
+				, like current: <code>{{metric}}</code>.
+			</span>
+		</h4>
+		<div class="input-group">
+			<input type="text" class="form-control" 
+				ng-model="metric"
+				placeholder="Metric...">
 		</div>
 	</div>
 	
 	<div class="col-sm-12" id="bar-chart-container">
 		<div id="bar-chart" style="margin-top: 1em;"></div>
 	</div>
-	<div class="col-sm-12" id="bar-chart-footer">
+	<!-- <div class="col-sm-12" id="bar-chart-footer">
 		<p>Some footer text with params: {{ season }}, {{TOI}}, {{situation}}</p>
-	</div>
+	</div> -->
 </div>
