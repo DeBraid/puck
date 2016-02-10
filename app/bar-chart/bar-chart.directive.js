@@ -36,29 +36,32 @@ function BarChartLink (
     function updateChartingData(newVal, oldVal) {
         var data = scope.data;
         if (!data.length) {return;}
-        
-        scope.charting_data.length = 0;
-        var metrics = scope.metrics;
-        
-        if ( metrics.indexOf(newVal) > -1 ) {
-            data.map(function (team) {    
-                var teamName = team.teamname;
-                scope.widerLeftColumn = false;
-                if (team.Player_Name) {
-                    teamName = team.Player_Name;
+    
+        scope.charting_data.length = 0;    
+        scope.widerLeftColumn = false;
+
+        if ( scope.metrics.indexOf(newVal) > -1 ) {
+            setChartingData();
+        }
+
+        render(scope.charting_data);
+        return;
+
+        function setChartingData() {
+            data.map(function (entity) {    
+                var name = entity.teamname;
+                if ( entity.Player_Name ) {
+                    name = entity.Player_Name;
                     scope.widerLeftColumn = true;
                 }
 
                 scope.charting_data.push({
                     metric : newVal,
-                    value: team[newVal], 
-                    team : teamName
+                    value: entity[newVal], 
+                    entity : name
                 });
             });
         }
-
-        render(scope.charting_data);
-        return;
     }
 
     function render (render_data) {
@@ -121,7 +124,7 @@ function BarChartLink (
                 return xScale(d.value);
             });
             
-            svg.selectAll('text.team')
+            svg.selectAll('text.entity')
             .data(render_data).enter()
             .append('text')
             .attr('fill', '#000').attr('y', function(d, i) {
@@ -129,7 +132,7 @@ function BarChartLink (
             })
             .attr('x', left_margin*0.05)
             .text(function(d) {
-                return d.team;
+                return d.entity;
             })
             .style("font-size", my_font_size);
 
