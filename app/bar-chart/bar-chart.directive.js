@@ -82,7 +82,7 @@ function BarChartLink (
             
             var xScale = d3.scale.linear()
                     .domain([min,max])
-                    .range([left_margin, width-left_margin]);
+                    .range([left_margin*0.5, width-left_margin]);
 
             svg.attr('height', height);
             
