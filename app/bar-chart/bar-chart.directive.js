@@ -27,10 +27,8 @@ function BarChartLink (
     scope.charting_data = [];
     scope.render = render();
     scope.metric = '';
-    // scope.onClick = function (clicked) {
-    //     console.log('clicked', clicked);
-    // }
-
+    scope.setMetricFromListClick = setMetricFromListClick;
+    
     scope.$watch('metric', updateChartingData);
     
     function updateChartingData(newVal, oldVal) {
@@ -90,11 +88,7 @@ function BarChartLink (
             
             svg.selectAll('rect')
             .data(render_data).enter()
-            .append('rect').on('click', function(d, i) {
-                return scope.onClick({
-                    item: d
-                });
-            })
+            .append('rect')
             .attr('height', barHeight)
             .attr('width', width/2)
             .attr('x', left_margin + Math.round(margin / 2))
@@ -134,4 +128,8 @@ function BarChartLink (
 
         }, 200);
     };
+
+    function setMetricFromListClick ($event, met) { 
+        scope.metric = met;
+    } 
 }
