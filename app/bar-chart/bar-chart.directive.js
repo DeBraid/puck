@@ -20,6 +20,7 @@ function BarChartDirective () {
 function BarChartLink (
     scope, ele, attrs
 ) {
+    var left_margin_from_foo;
     scope.metrics = [];
     angular.forEach( scope.$parent.metrics , function ( item ) {
         scope.metrics.push(item.metric);
@@ -40,10 +41,17 @@ function BarChartLink (
         
         if ( metrics.indexOf(newVal) > -1 ) {
             data.map(function (team) {    
+                var teamName = team.teamname;
+                scope.widerLeftColumn = false;
+                if (team.Player_Name) {
+                    teamName = team.Player_Name;
+                    scope.widerLeftColumn = true;
+                }
+
                 scope.charting_data.push({
                     metric : newVal,
                     value: team[newVal], 
-                    team : team.teamname
+                    team : teamName
                 });
             });
         }
@@ -73,6 +81,12 @@ function BarChartLink (
 
         renderTimeout = setTimeout(function() {
             var left_margin = 175;
+            var my_font_size = 18;
+
+            if (scope.widerLeftColumn) {
+                left_margin = 250;
+                my_font_size = 15;
+            }
             var container_width = d3.select('#bar-chart-container').node().getBoundingClientRect().width;
             var width = container_width - left_margin*0.5,
                 height = render_data.length * (barHeight + barPadding),
@@ -113,7 +127,7 @@ function BarChartLink (
             .text(function(d) {
                 return d.team;
             })
-            .style("font-size","18px");
+            .style("font-size", my_font_size);
 
             svg.selectAll('text.value')
             .data(render_data).enter()
@@ -121,10 +135,10 @@ function BarChartLink (
             .attr('fill', '#000').attr('y', function(d, i) {
                 return i * (barHeight + barPadding) + 15;
             })
-            .attr('x', left_margin*0.7).text(function(d) {
+            .attr('x', left_margin*0.8).text(function(d) {
                 return parseFloat(d.value).toFixed(2);
             })
-            .style("font-size","15px");
+            .style("font-size", my_font_size*0.8);
 
         }, 200);
     };
