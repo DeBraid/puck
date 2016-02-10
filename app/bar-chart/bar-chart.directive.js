@@ -25,18 +25,15 @@ function BarChartLink (
 
     scope.charting_data = [];
     scope.render = render();
-    scope.metric = 'CFPct';
+    scope.metric = '';
     scope.title = 'Charting ' + scope.metric;
-    // scope.submit = function () {
-    //     // console.log('submit data', data[0]);
-    // }
+    
     scope.$watch('charting_data', function(newVal, oldVal) {
-        console.log('charting_data newVal', newVal);
-        render(newVal)
+        // console.log('charting_data newVal', newVal);
+        render(newVal);
     });    
 
     scope.$watch('metric', function(newVal, oldVal) {
-        
         if (newVal == '') {
             console.log('set array to zero; abort.');
             scope.charting_data.length = 0;
@@ -47,8 +44,6 @@ function BarChartLink (
         var data = scope.data;
         if (!data.length) {return;}
         var metrics = Object.keys(data[0]);
-        // if (!metrics) {return;}
-        // console.log('metrics', metrics);
         
         if ( metrics.indexOf(newVal) > -1 ) {
             scope.charting_data.length = 0;
@@ -59,12 +54,14 @@ function BarChartLink (
                     team : team.teamname
                 });
             });
-            // drawChart(scope.charting_data);
-            console.log('scope.charting_data', scope.charting_data);
+            // console.log('scope.charting_data', scope.charting_data);
             render(scope.charting_data);
         }
-
     });
+
+    scope.onClick = function (clicked) {
+        console.log('clicked', clicked);
+    }
 
     function render (render_data) {
         console.log('running render with render_data', render_data);
@@ -79,32 +76,23 @@ function BarChartLink (
 
         var svg = d3.select('#bar-chart')
             .append('svg').style('width', '100%');
-            console.log('svg', svg);
 
-        // svg.selectAll('svg').remove();
         
         if (!render_data) return;
         if (renderTimeout) clearTimeout(renderTimeout);
       
-        // render_data.sort(function(a, b) {
-        //     console.log('a in sort', a, 'b in sort', b);
-        // });
         render_data.sort(function(a, b) {
-            if (scope.reversed) {
-                return parseFloat(a.value) - parseFloat(b.value);    
-            } else {
-                return parseFloat(b.value) - parseFloat(a.value);
-            }
+            return parseFloat(b.value) - parseFloat(a.value);
         });
 
         renderTimeout = setTimeout(function() {
-            
-            var width = d3.select('#bar-chart-container').node().getBoundingClientRect().width,
+            var left_margin = 175;
+            var container_width = d3.select('#bar-chart-container').node().getBoundingClientRect().width;
+            var width = container_width - left_margin*0.5,
                 height = render_data.length * (barHeight + barPadding),
                 color = d3.scale.category20b(),
                 min = d3.min(render_data, function(d) { return d.value; }),
                 max = d3.max(render_data, function(d) { return d.value; });
-            var left_margin = 175;
             var xScale = d3.scale.linear()
                     .domain([min,max])
                     .range([left_margin, width-left_margin]);
@@ -153,5 +141,4 @@ function BarChartLink (
 
         }, 200);
     };
-    // console.log('$attr.data', $attr , $attr.data);
 }
