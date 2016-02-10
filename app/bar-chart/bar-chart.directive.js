@@ -31,6 +31,7 @@ function BarChartLink (
     scope.metric = '';
     scope.setMetricFromListClick = setMetricFromListClick;
     
+    scope.$watch('data', updateChartingData);
     scope.$watch('metric', updateChartingData);
     
     function updateChartingData(newVal, oldVal) {
@@ -65,7 +66,7 @@ function BarChartLink (
     }
 
     function render (render_data) {
-        console.log('running render with render_data', render_data);
+        // console.log('running render with render_data', render_data);
         if (!render_data) return;
         d3.selectAll('svg').remove();
 

@@ -4,7 +4,7 @@
 	</div>
 	<div class="panel-body">
 		<div class="col-sm-4">
-			Season Options: 
+			<p>Season Options: </p>
 			<select ng-model="season">
 				<optgroup ng-repeat="season in filter_menu.seasons" 
 					label="{{season.title}}">
@@ -15,7 +15,7 @@
 		</div>
 
 		<div class="col-sm-4">
-			Situation: 
+			<p>Situation: </p>
 			<select ng-model="situation">
 				<optgroup ng-repeat="situation in filter_menu.situations" 
 					label="{{situation.title}}">
@@ -25,15 +25,34 @@
 			</select>
 		</div>
 
-		<div class="col-sm-4">
-			Minimum Ice Time:
-				<input type="text" size="5" required="required" class="numbers-only" minvalue="0" maxvalue="25000" 
+		<!-- <div class="col-sm-2">
+			<p>Minimum Ice Time:</p>
+			<p>
+				<input type="text" size="5" required="required" 
+					class="numbers-only" 
+					minvalue="0" maxvalue="25000" 
 					ng-model="toi" />
-				<button 
-					ng-click="filter_menu.passData()" 
-					class="btn btn-default" style="margin-right:1em;">
-					Load Data
-				</button>
+			</p>
+				
+		</div> -->
+		<div class="col-sm-4">
+			<p>Minimum Ice Time:</p>
+			<div class="input-group">
+			    <input type="text" class="form-control" 
+			    	ng-model="toi"
+			    	placeholder="TOIMin" aria-describedby="basic-addon2"/>
+			    <span class="input-group-addon" id="basic-addon2"
+			    	style="cursor: pointer;" 
+			    	ng-click="filter_menu.passData()">
+			        Load Data
+			    </span>
+			</div>
+
+			<!-- <button 
+				ng-click="filter_menu.passData()" 
+				class="btn btn-default pull-right" style="margin-right:0.5em;">
+				Load Data
+			</button> -->
 		</div>
 	</div>
 </div>

@@ -9,11 +9,11 @@
 		</div>
 	</div>
 	
-	<bar-chart data=team_data>
-	</bar-chart>
-
 	<filter-menu toi="TOIMin" season="season" situation="situation">
 	</filter-menu>
+
+	<bar-chart data=team_data>
+	</bar-chart>
 
 	<div class="row">
 		<div class="col-sm-12">
@@ -65,7 +65,7 @@
 					        	ng-model="displayZoneStarts"> Zones
 				    </label>
 				</div>
-				<!-- <span ng-include="'app/teams/team_stats_table.html'"></span> -->
+				<span ng-include="'app/teams/team_stats_table.html'"></span>
 			</span>
 
 			<span ng-if="error_message">

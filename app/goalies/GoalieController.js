@@ -63,7 +63,7 @@ function GoalieController (
 		function setPlayerMetricsWithResponse ( response ) {
 			var metrics = $scope.metrics;
 			var players = $scope.playerdata = response;
-            console.log('metric:', metrics);
+            // console.log('metric:', metrics);
 
 			angular.forEach( players , function(player) {
 				player.checkboxFilter = false;
