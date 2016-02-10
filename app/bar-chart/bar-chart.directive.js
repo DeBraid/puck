@@ -21,6 +21,7 @@ function BarChartLink (
     scope, ele, attrs
 ) {
     var left_margin_from_foo;
+    scope.widerLeftColumn = false;
     scope.metrics = [];
     angular.forEach( scope.$parent.metrics , function ( item ) {
         scope.metrics.push(item.metric);
@@ -68,7 +69,17 @@ function BarChartLink (
         var renderTimeout;
         var margin = parseInt(attrs.margin) || 20,
             barHeight = parseInt(attrs.barHeight) || 20,
-            barPadding = parseInt(attrs.barPadding) || 5;
+            barPadding = parseInt(attrs.barPadding) || 5; 
+        
+        var left_margin = 175,
+            my_font_size = 18,
+            value_text_margin = left_margin*0.7;
+
+        if (scope.widerLeftColumn) {
+            left_margin = 250;
+            my_font_size = 15;
+            value_text_margin = left_margin*0.85;
+        }
         
         var svg = d3.select('#bar-chart')
             .append('svg').style('width', '100%');
@@ -80,13 +91,6 @@ function BarChartLink (
         if (renderTimeout) clearTimeout(renderTimeout);
 
         renderTimeout = setTimeout(function() {
-            var left_margin = 175;
-            var my_font_size = 18;
-
-            if (scope.widerLeftColumn) {
-                left_margin = 250;
-                my_font_size = 15;
-            }
             var container_width = d3.select('#bar-chart-container').node().getBoundingClientRect().width;
             var width = container_width - left_margin*0.5,
                 height = render_data.length * (barHeight + barPadding),
@@ -135,7 +139,7 @@ function BarChartLink (
             .attr('fill', '#000').attr('y', function(d, i) {
                 return i * (barHeight + barPadding) + 15;
             })
-            .attr('x', left_margin*0.8).text(function(d) {
+            .attr('x', value_text_margin).text(function(d) {
                 return parseFloat(d.value).toFixed(2);
             })
             .style("font-size", my_font_size*0.8);
