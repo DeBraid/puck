@@ -10,7 +10,7 @@ function get_data_service ($http, $location) {
 		stats : getStatsFromDB
 	}
 	
-	function getStatsFromDB (request_url, season, situation, TOIMin) {
+	function getStatsFromDB (request_url, season, situation, TOIMin, skater_params) {
 
 		var url = setURL(request_url);
 		var config = {
@@ -28,18 +28,20 @@ function get_data_service ($http, $location) {
 				'?season=' + season + 
 				'&sit=' + situation + 
 				'&minutes=' + TOIMin;
-
-			// console.log('getData url ', full_url);
+			
+			if (skater_params) {
+				full_url = full_url + skater_params;
+			};				
 			return full_url;
 		}
 
 		function success(response) {
-			console.log('stats success response', response);
+			// console.log('stats success response', response);
 			return response.data;
 		}
 
 		function error(response) {
-			console.log('stats error response', response);
+			// console.log('stats error response', response);
 			return response;
 		}		
 		

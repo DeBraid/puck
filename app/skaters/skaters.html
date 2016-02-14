@@ -1,0 +1,43 @@
+<div class="container-fluid">
+	<h2>Skater Stats</h2>
+	<filter-menu toi="TOIMin" season="season" situation="situation">
+	</filter-menu>
+
+	<div class="row">
+		<div class="col-sm-12">
+
+			<span ng-show="loading">
+				<span ng-include="'app/templates/loading_spinner.html'"></span>
+			</span>
+			<span ng-hide="loading">
+				<button ng-click="toggleTableFilters()"
+					class="btn btn-default pull-right grey-bg">
+						<span ng-show="showFilters">Hide </span>
+						<span ng-hide="showFilters">Show </span>
+						Data Filters
+				</button>
+				
+				<div class="btn-group">
+					<button type="button" ng-class="{'btn btn-success': displayFilter.displayGoals, 'btn btn-danger': !displayFilter.displayGoals}" ng-click="toggleStatDisplay('displayGoals')" uib-btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">Goals</button>
+					<button type="button" ng-class="{'btn btn-success': displayFilter.displayCorsi, 'btn btn-danger': !displayFilter.displayCorsi}" ng-click="toggleStatDisplay('displayCorsi')">Corsi</button>
+					<button type="button" ng-class="{'btn btn-success': displayFilter.displayTM, 'btn btn-danger': !displayFilter.displayTM}" ng-click="toggleStatDisplay('displayTM')">TM Stats</button>
+					<button type="button" ng-class="{'btn btn-success': displayFilter.displayRelTM, 'btn btn-danger': !displayFilter.displayRelTM}" ng-click="toggleStatDisplay('displayRelTM')">RelTM</button>
+					<button type="button" ng-class="{'btn btn-success': displayFilter.displayOpp, 'btn btn-danger': !displayFilter.displayOpp}" ng-click="toggleStatDisplay('displayOpp')">Opp Stats</button>
+					<button type="button" ng-class="{'btn btn-success': displayFilter.displayIndividual, 'btn btn-danger': !displayFilter.displayIndividual}" ng-click="toggleStatDisplay('displayIndividual')">Individual</button>
+					<button type="button" ng-class="{'btn btn-success': displayFilter.displayTeamPct, 'btn btn-danger': !displayFilter.displayTeamPct}" ng-click="toggleStatDisplay('displayTeamPct')">%ofTeam</button>
+					<button type="button" ng-class="{'btn btn-success': displayFilter.displayZoneStarts, 'btn btn-danger': !displayFilter.displayZoneStarts}" ng-click="toggleStatDisplay('displayZoneStarts')">Zone Starts</button>
+				</div>
+
+					
+				<span ng-include="'app/skaters/skater_stats_table.html'"></span>
+			</span>
+
+			<span ng-if="error_message">
+				<div class="row text-center">
+					<h2>{{ error_message }}</h2>
+				</div>
+			</span>
+
+		</div>
+	</div>
+</div>

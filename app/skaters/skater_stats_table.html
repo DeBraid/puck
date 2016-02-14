@@ -1,0 +1,85 @@
+
+<table class="table table-bordered table-striped table-condensed table-hover" >
+	<thead>
+	<tr style="background-color:#cccccc" ng-hide="showFilters==false">
+		<th>Rank</th>
+		<th ng-hide="showFilters==false">Select</th>
+		<th>Player</th>
+		<th>Team</th>
+		<th>Pos</th>
+		<th ng-repeat="stat in skaterStats | filter:statFilter">{{stat.DisplayName}}</td>
+	</tr>
+	
+	<tr style="background-color:#cccccc" ng-hide="showFilters==false">
+		<td></td>
+		<!-- <td ng-hide="showFilters==false">Filter: <input type="checkbox" ng-model="checkboxFilterOn"> {{checkboxFilterOn}}</td> -->
+		<td ng-hide="showFilters==false">
+			Filter<br>
+			<button type="button" ng-class="{'btn btn-success': checkboxFilterOn, 'btn btn-danger': !checkboxFilterOn}" ng-click="toggleCheckboxFilter()" uib-btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">{{checkboxFilterText}}</button>
+		</td>
+
+		<td><input size=20 ng-model="search.name"></td>
+		<td><input size=12 ng-model="search.team"></td>
+		<td><input size=2 ng-model="search.pos"></td>
+		<td ng-repeat="stat in skaterStats | filter:statFilter">
+			<input size=3 ng-model="stat.Min"><br>
+			to<br>
+			<input size=3 ng-model="stat.Max"><br>
+			<!--Active: <input type="checkbox" ng-model="GPFilterOn"> -->
+		</td>
+
+	</tr>
+
+	<tr></tr>
+	<tr style="background-color:#cccccc" export-csv-ignore="true">
+		<th>Rank</th>
+		<th ng-hide="showFilters==false">Select</th>
+		
+		<th><a href="" ng-click="setOrderByField('FullName')">
+		Player Name
+		</a></th>
+
+		<th><a href="" ng-click="setOrderByField('Team')">
+		Team
+		</a></th>
+
+		<th><a href="" ng-click="setOrderByField('Pos')">
+		Pos
+		</a></th>
+
+		<th class="text-center" ng-repeat="stat in skaterStats | filter:statFilter">
+			<a href="" ng-click="setOrderByField(stat.API_Name)">
+			{{stat.DisplayName}}
+			</a>
+		</th>
+		
+<!--		<th><a href="" ng-click="orderByField=['Last_Name','First_Name']; reverseSort = !reverseSort">
+		Player Name
+		</a></th>
+-->
+		
+	</tr>
+	</thead>
+	<tbody>
+	<tr ng-repeat="player in playerdata |orderBy:orderByField:reverseSort | filter:{Player_Name: search.name, Team: search.team, Pos: search.pos} | filter:tableFilter | startFrom: currentPage * pageSize  | limitTo:pageSize" > 
+<!--						<tr ng-repeat="player in playerdata |orderBy:orderByField:reverseSort | filter:{Player_Name: search.name, Team: search.team, Pos: search.pos}" >  -->
+		<td>{{$index +1 + (currentPage)*pageSize}}
+		<td ng-if="showFilters==true"><input type="checkbox" ng-model="player.checkboxFilter"></td>
+		<td align="left"  nowrap="nowrap">
+			<a ng-href="players/#!/?pid={{player.PID}}" target="puckalyticsplayer">
+			{{player.FullName}}
+		</a></td>
+		<td nowrap="nowrap">{{player.Team}}</td>
+		<td>{{player.Pos}}</td>
+
+		<td class="text-center" ng-repeat="stat in skaterStats | filter:statFilter">
+			{{player[stat.API_Name] |number:stat.decimal}}
+		</td>
+
+	</tr>
+	</tbody>
+</table>
+
+<button ng-hide="showingAllData" ng-repeat="i in getNumberAsArray(numberOfPages()) track by $index" ng-click="setCurrentPage($index)">{{$index + 1}}</button>
+<button ng-hide="showingAllData" ng-click="showAllData($index)">Show All</button>
+<button ng-show="showingAllData" ng-click="paginateData($index)">Paginate</button>

@@ -3,7 +3,7 @@
 		<div class="col-md-3">
 		<h2>
 			Goalie Stats
-			<span ng-show="loading" class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> 
+<!--			<span ng-show="loading" class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> -->
 		</h2>
 		</div>
 		<div class="col-md-9">
@@ -14,13 +14,17 @@
 	<filter-menu toi="TOIMin" season="season" situation="situation">
 	</filter-menu>
 
-	<bar-chart data=playerdata>
-	</bar-chart>	
+
 
 	<div class="row">
 		<div class="col-sm-12">
-			
+
+			<span ng-show="loading">
+				<span ng-include="'app/templates/loading_spinner.html'"></span>
+			</span>		
 			<span ng-hide="loading">
+				<bar-chart data=playerdata>
+				</bar-chart>	
 				<button ng-click="toggleTableFilters()"
 					class="btn btn-default pull-right grey-bg" style="margin-left: 1em;">
 						<i class="glyphicon" ng-class=" showFilters ? 'glyphicon-minus' : 'glyphicon-plus' "></i>

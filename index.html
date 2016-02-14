@@ -17,7 +17,6 @@
 	<script src="assets/vendor/ui-bootstrap-tpls-0.12.1.min.js"></script>
 	<script src="assets/vendor/angular-clipboard.js"></script>
 	<script src="assets/scripts/ng-adsense.min.js"></script>
-
 	<!-- <link rel="stylesheet" href="assets/vendor/bootstrap.min.css"> -->
 	<!-- <link rel="stylesheet" href="css/bootstrap-theme.min.css"> -->
 	<!-- <link rel="stylesheet" href="css/yeti-bootstrap.min.css"> -->
@@ -34,7 +33,6 @@
 	
 	<!-- Sections / Controllers / Directives -->
 	<script src="app/templates/copy-url.directive.js"></script>
-	
 	<script src="app/filter-menu/filter-menu.directive.js"></script>
 	<script src="app/filter-menu/filter-menu.constants.js"></script>
 	<script src="app/bar-chart/bar-chart.directive.js"></script>
@@ -42,6 +40,9 @@
 	<script src="app/homepage/HomepageController.js"></script>
 	<script src="app/homepage/homepage.constants.js"></script>
 	
+	<script src="app/skaters/SkatersController.js"></script>
+	<script src="app/skaters/skaters.constants.js"></script>
+
 	<script src="app/goalies/GoalieController.js"></script>
 	<script src="app/goalies/goalie.constants.js"></script>
 	
@@ -56,14 +57,13 @@
 </head>
 
 <body ng-app="puckalyticsMainApp">
-	
-		
+
 <!-- Google Analytics -->
 <script src="assets/scripts/GoogleAnalytics.js"></script>
-	<div ng-include='"app/templates/pageheader.html"'></div>
-
+	
 <!-- Our Website Content Goes Here -->
 <div class="container-fluid">
+	<div ng-include='"app/templates/pageheader.html"'></div>
 
 	<!-- 
 		See app.main.router.js 
@@ -73,13 +73,9 @@
 
 	<!-- <div ng-include='"app/templates/contrib_donate.html"'></div> -->
 	<center><div ng-include='"app/templates/google_ads_script.html"'></div></center>
-
-
-
+	<!--<div ng-include='"app/templates/google_ads_script.html"'></div> -->
 	<div ng-include='"app/templates/footer.html"'></div>
 </div>	
-
-
 
 <!-- Start of StatCounter Code for Default Guide -->
 <script src="assets/scripts/StatCounter.js"></script>
@@ -89,7 +85,6 @@ target="_blank"><img class="statcounter"
 src="http://c.statcounter.com/10040733/0/61a2eeeb/1/"
 alt="website statistics"></a></div></noscript>
 <!-- End of StatCounter Code for Default Guide -->
-	
 	
 </body>
 </html>
