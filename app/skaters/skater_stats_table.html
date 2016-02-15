@@ -67,13 +67,22 @@
 		<td ng-if="showFilters==true"><input type="checkbox" ng-model="player.checkboxFilter"></td>
 		<td align="left"  nowrap="nowrap">
 			<a ng-href="players/#!/?pid={{player.PID}}" target="puckalyticsplayer">
-			{{player.FullName}}
-		</a></td>
-		<td nowrap="nowrap">{{player.Team}}</td>
-		<td>{{player.Pos}}</td>
+				<strong ng-if="'FullName' == orderByField">{{player.FullName}}</strong>
+				<p ng-if="'FullName' != orderByField">{{player.FullName}}</p>
+			</a>
+		</td>
+		<td nowrap="nowrap">
+				<strong ng-if="'Team' == orderByField">{{player.Team}}</strong>
+				<p ng-if="'Team' != orderByField">{{player.Team}}</p>
+		</td>
+		<td>
+				<strong ng-if="'Pos' == orderByField">{{player.Pos}}</strong>
+				<p ng-if="'Pos' != orderByField">{{player.Pos}}</p>
+		</td>
 
 		<td class="text-center" ng-repeat="stat in skaterStats | filter:statFilter">
-			{{player[stat.API_Name] |number:stat.decimal}}
+			<strong ng-if="stat.API_Name == orderByField">{{player[stat.API_Name] |number:stat.decimal}}</strong>
+			<p ng-if="stat.API_Name != orderByField">{{player[stat.API_Name] |number:stat.decimal}}</p>
 		</td>
 
 	</tr>

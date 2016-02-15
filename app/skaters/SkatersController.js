@@ -44,8 +44,8 @@ function SkatersController (
 		skaterStats: skatersConstants.skater_metrics_object,
 	    section_options : skatersConstants.section_options,
 	    section_data_url : secretConstants.skater_data_url,
-		//toggleTableFilters : toggleTableFilters,
-		//toggleStatDisplay : toggleStatDisplay,
+		toggleTableFilters : toggleTableFilters,
+		toggleStatDisplay : toggleStatDisplay,
 		toggleCheckboxFilter : toggleCheckboxFilter,
 		statFilter : statFilter,
 		tableFilter : tableFilter,
@@ -193,9 +193,9 @@ function SkatersController (
 		return truthy;
 	};
 
-	//function toggleTableFilters() {
-	//	$scope.showFilters = !$scope.showFilters;
-	//}
+	function toggleTableFilters() {
+		$scope.showFilters = !$scope.showFilters;
+	}
 
 	function toggleCheckboxFilter() {
 		if ($scope.checkboxFilterOn) {
@@ -207,7 +207,15 @@ function SkatersController (
 		}
 		//$scope.checkboxFilterOn = !$scope.checkboxFilterOn;
 	}
-	
+
+	function toggleStatDisplay (stat) {
+		if ($scope.displayFilter[stat]) {
+			$scope.displayFilter[stat] = false;
+		} else {
+			$scope.displayFilter[stat] = true;
+		}
+	}
+
 	function setOrderByField (field) {
 		// console.log('go setOrderByField with: field', field);
 		if (field == $scope.orderByField) {
@@ -238,6 +246,7 @@ function SkatersController (
 		$scope.pageSize = 50;
 		$scope.showingAllData = false;
 	};
+
 	
 /*	
 	function tableRowMax ($event, show_all) {
@@ -254,13 +263,6 @@ function SkatersController (
 		$scope.adding_rows = false;
 	}
 
-	function toggleStatDisplay (stat) {
-		if ($scope.displayFilter[stat]) {
-			$scope.displayFilter[stat] = false;
-		} else {
-			$scope.displayFilter[stat] = true;
-		}
-	}
 	
 	function updateSections ($event, target) {
 		if (target.value === 0) {
