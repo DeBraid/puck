@@ -89,6 +89,23 @@
 	</tbody>
 </table>
 
-<button ng-hide="showingAllData" ng-repeat="i in getNumberAsArray(numberOfPages()) track by $index" ng-click="setCurrentPage($index)">{{$index + 1}}</button>
-<button ng-hide="showingAllData" ng-click="showAllData($index)">Show All</button>
-<button ng-show="showingAllData" ng-click="paginateData($index)">Paginate</button>
+<div class="row" style="margin-bottom: 1em" >
+	<button class="btn btn-default"
+		style="margin-right: 0.25em" 
+		ng-hide="showingAllData" 
+		ng-repeat="i in getNumberAsArray(numberOfPages()) track by $index" 
+		ng-click="setCurrentPage($index)">
+			{{$index + 1}}
+	</button>
+	<button class="btn btn-default" 
+		ng-hide="showingAllData" 
+		ng-click="showAllData($index)">
+			Show All
+	</button>
+	<button class="btn btn-default" 
+		ng-show="showingAllData" 
+		ng-click="paginateData($index)">
+			Paginate
+	</button>
+	
+</div>
