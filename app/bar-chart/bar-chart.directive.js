@@ -31,16 +31,20 @@ function BarChartLink (
     scope.metric = '';
     scope.setMetricFromListClick = setMetricFromListClick;
     
+    scope.$on('skater_metrics', function (event, metrics) {
+        scope.metrics = metrics;
+    });
     scope.$watch('data', updateChartingData);
     scope.$watch('metric', updateChartingData);
     
     function updateChartingData(newVal, oldVal) {
         var data = scope.data;
+        // console.log('updateChartingData data', data);
         if (!data.length) {return;}
     
         scope.charting_data.length = 0;    
         scope.widerLeftColumn = false;
-
+        // console.log('scope.metrics', scope.metrics);
         if ( scope.metrics.indexOf(newVal) > -1 ) {
             setChartingData();
         }
@@ -50,11 +54,18 @@ function BarChartLink (
 
         function setChartingData() {
             data.map(function (entity) {    
-                var name = entity.teamname;
+                var name; 
+                // console.log('entity in setChartingData', entity);
                 if ( entity.Player_Name ) {
                     name = entity.Player_Name;
                     scope.widerLeftColumn = true;
+                } else if ( entity.FullName ) {
+                    name = entity.FullName
+                    scope.widerLeftColumn = true;
+                } else {
+                    name = entity.teamname;
                 }
+
 
                 scope.charting_data.push({
                     metric : newVal,
@@ -66,7 +77,7 @@ function BarChartLink (
     }
 
     function render (render_data) {
-        // console.log('running render with render_data', render_data);
+        console.log('running render with render_data', render_data);
         if (!render_data) return;
         d3.selectAll('svg').remove();
 

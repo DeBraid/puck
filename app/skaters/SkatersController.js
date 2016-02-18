@@ -114,6 +114,7 @@ function SkatersController (
 			$scope.playerdata_length = players.length;
 			
 			var metrics = $scope.metrics = Object.keys(players[0]);
+			$scope.$broadcast('skater_metrics', metrics); 
 
 			angular.forEach( players , function(player) {
 				player.checkboxFilter = false;

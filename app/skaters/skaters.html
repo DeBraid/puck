@@ -10,6 +10,10 @@
 				<span ng-include="'app/templates/loading_spinner.html'"></span>
 			</span>
 			<span ng-hide="loading">
+
+				<bar-chart data=playerdata>
+				</bar-chart>
+				
 				<h4>Result: {{ playerdata_length }} skaters</h4>
 
 				<button ng-click="toggleTableFilters()"
