@@ -28,8 +28,8 @@ function SkatersController (
 		showFilters : false,
 		reverseSort : true,
 		//tableRowMax : tableRowMax,
-		table_rows : 10,
-		pageSize : 50,
+		playerdata_length : 0,
+		pageSize : 20,
 		showingAllData : false,
 		currentPage : 0,
 		adding_rows : false,
@@ -121,7 +121,7 @@ function SkatersController (
 			var excluded_strings = $scope.excluded_metrics;
 			var players = $scope.playerdata = response;
 			$scope.playerdata_length = players.length;
-			$scope.table_rows = $scope.playerdata_length;
+			
 			var metrics = $scope.metrics = Object.keys(players[0]);
 
 			angular.forEach( players , function(player) {

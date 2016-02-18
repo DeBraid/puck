@@ -10,6 +10,8 @@
 				<span ng-include="'app/templates/loading_spinner.html'"></span>
 			</span>
 			<span ng-hide="loading">
+				<h4>Result: {{ playerdata_length }} skaters</h4>
+
 				<button ng-click="toggleTableFilters()"
 					class="btn btn-default pull-right grey-bg">
 						<span ng-show="showFilters">Hide </span>
@@ -17,7 +19,7 @@
 						Data Filters
 				</button>
 				
-				<div class="btn-group">
+				<div class="btn-group" id="skater-button">
 					<button type="button" ng-class="{'btn btn-success': displayFilter.displayGoals, 'btn btn-danger': !displayFilter.displayGoals}" ng-click="toggleStatDisplay('displayGoals')" uib-btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">Goals</button>
 					<button type="button" ng-class="{'btn btn-success': displayFilter.displayCorsi, 'btn btn-danger': !displayFilter.displayCorsi}" ng-click="toggleStatDisplay('displayCorsi')">Corsi</button>
 					<button type="button" ng-class="{'btn btn-success': displayFilter.displayTM, 'btn btn-danger': !displayFilter.displayTM}" ng-click="toggleStatDisplay('displayTM')">TM Stats</button>
@@ -27,10 +29,29 @@
 					<button type="button" ng-class="{'btn btn-success': displayFilter.displayTeamPct, 'btn btn-danger': !displayFilter.displayTeamPct}" ng-click="toggleStatDisplay('displayTeamPct')">%ofTeam</button>
 					<button type="button" ng-class="{'btn btn-success': displayFilter.displayZoneStarts, 'btn btn-danger': !displayFilter.displayZoneStarts}" ng-click="toggleStatDisplay('displayZoneStarts')">Zone Starts</button>
 				</div>
-
-					
+		
 				<span ng-include="'app/skaters/skater_stats_table.html'"></span>
-			</span>
+
+			
+				<button class="btn btn-default"
+					style="margin-right: 0.25em" 
+					ng-hide="showingAllData" 
+					ng-repeat="i in getNumberAsArray(numberOfPages()) track by $index" 
+					ng-click="setCurrentPage($index)">
+						{{$index + 1}}
+				</button>
+				<button class="btn btn-default" 
+					ng-hide="showingAllData" 
+					ng-click="showAllData($index)">
+						Show All
+				</button>
+				<button class="btn btn-default" 
+					ng-show="showingAllData" 
+					ng-click="paginateData($index)">
+						Paginate
+				</button>
+			</span> <!-- show if loaded  -->
+			
 
 			<span ng-if="error_message">
 				<div class="row text-center">

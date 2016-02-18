@@ -1,4 +1,9 @@
 /* app css stylesheet */
+
+#skater-button button {
+	margin-right: 0.5em; 
+}
+
 .grey-bg {
 	background-color: #CCC;
 }
