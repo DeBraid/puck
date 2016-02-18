@@ -26,6 +26,10 @@ For local development run the following two commands in distinct terminals (*Mac
 
 * fix header so that it works on small screens
 
+* move loading spinner on goalies and skaters to header 
+
+* add image preview for shares (twitter card)
+
 * when table is filtered, the chart should only display the data contained in the chart 
 
 * create route for charts
@@ -33,7 +37,13 @@ For local development run the following two commands in distinct terminals (*Mac
 	* generalize chart drawing to accept any facet/type of action
 		* ie. ['goals', 'shots', 'corsi', 'fenwick', 'zones']
 
+#### Skater
+
 * add charts to skater
+
+* style pagination buttons on skater
+
+* move `UpdateChartData` function into service. [Code:](https://github.com/DeBraid/puck/blob/master/app/bar-chart/bar-chart.directive.js#L37)
 
 
 * limit size of JSON payloads by increasing the # of endpoints
