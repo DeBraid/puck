@@ -71,15 +71,6 @@ function SkatersController (
 		//displayStat : displayStat,
 	};
 	
-	$scope.TOIMin = 200;
-	$scope.season = '201516';
-	$scope.situation = '5v5close';
-	
-	//$scope.orderByField = 'GFPct';
-	//$scope.reverseSort = false;
-	//$scope.checkboxFilterOn = true;
-
-	
 	// 1. put defaults on scope
 	angular.extend( $scope , defaults );
 	
