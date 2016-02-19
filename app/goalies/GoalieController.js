@@ -20,6 +20,7 @@ function GoalieController (
 		loading : false,
 		hidedata : false,
 	    playerdata : [],
+	    foobarbaz : [],
 	    filter_inputs : {},
 	    active_filters : {},
 	    activeFilterInputs : activeFilterInputs,
@@ -44,7 +45,16 @@ function GoalieController (
 	$scope.$on('filter_menu_update', function(){
     	init();
 	});
-
+	// $scope.$watch('foobarbaz', function (event, data) {
+	// 	console.log('foobarbaz -- event, data', event, data);
+	// });
+	// $scope.$watch('foobarbaz', function (event, data) {
+	// 	console.log('foobarbaz -- event, data', event, data);
+	// }, true);
+	// // add true per http://stackoverflow.com/questions/15721295/angularjs-watch-not-being-triggered-for-changes-to-an-array-of-objects?lq=1
+	// $scope.$watchCollection('foobarbaz', function (event, data) {
+	// 	console.log('foobarbaz -- event, data', event, data);
+	// });
 	function activeFilterInputs (value, input_field) {
 		$scope.active_filters[input_field] = value;
 
@@ -54,6 +64,16 @@ function GoalieController (
     // Functions List:
 	function init() {
 		$scope.loading = true;
+		$scope.$watch('foobarbaz', function (event, data) {
+		console.log('foobarbaz -- event, data', event, data);
+	});
+	$scope.$watch('foobarbaz', function (event, data) {
+		console.log('foobarbaz -- event, data', event, data);
+	}, true);
+	// add true per http://stackoverflow.com/questions/15721295/angularjs-watch-not-being-triggered-for-changes-to-an-array-of-objects?lq=1
+	$scope.$watchCollection('foobarbaz', function (event, data) {
+		console.log('foobarbaz -- event, data', event, data);
+	});
 		
 		getData
 			.stats($scope.section_data_url, $scope.season, $scope.situation, $scope.TOIMin)

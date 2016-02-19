@@ -32,7 +32,7 @@ function copyUrlDirective($state, $timeout) {
             // FIXME DB - temporary hack the URL whilst in development
             var split_url = new_url.split('#');
             var hacked_URL = split_url[0] + 'puck-master/#' + split_url[1]; 
-            console.log('hacked_URL, split_url', hacked_URL, split_url);
+            // console.log('hacked_URL, split_url', hacked_URL, split_url);
             scope.textToCopy = hacked_URL;
         }
 
