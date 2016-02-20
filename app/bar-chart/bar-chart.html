@@ -37,12 +37,20 @@
 				<span>
 					Click to chart {{ $parent.playerdata_length }} {{section_name}} by {{ pending_metric }}
 				</span>
+				<span class="pull-right">
+					<button ng-click="showChartOptions()" class="btn btn-default">
+						Options
+					</button>
+				</span>
 			</h3>
 		</div>
 	</div>
 	<!-- <p>Some footer text with params: {{ season }}, {{TOI}}, {{situation}}</p> -->
 </div>
 
+<div class="row" id="chart-options" ng-show="chart_options">
+	<input type="text" ng-model="chart_length">
+</div>
 <div class="row">
 	<div class="col-sm-12" id="bar-chart-container">
 		<div id="bar-chart" style="margin-top: 1em;"></div>
