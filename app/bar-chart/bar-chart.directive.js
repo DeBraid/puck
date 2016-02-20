@@ -21,6 +21,7 @@ function BarChartDirective () {
 
 function BarChartController($scope, $state) {
     var metric;
+    $scope.chart_options = false;
     $scope.section_name = $state.current.name;
     
     $scope.$on('order_by_field_update', function (event, value) {        
@@ -125,11 +126,11 @@ function BarChartLink (
         render_data.sort(function(a, b) {
             return parseFloat(b.value) - parseFloat(a.value);
         });
+        
         var data_length = render_data.length;
-        if (scope.chart_length && (scope.chart_length < data_length)) {
-            // render_data.splice(0, scope.chart_length);
-            // var delta = data_length-scope.chart_length;
-            render_data.splice(scope.chart_length, data_length - scope.chart_length);
+        var chart_length = scope.chart_length;
+        if (chart_length && (chart_length < data_length)) {
+            render_data.splice(chart_length, data_length - chart_length);
         }
 
         if (renderTimeout) clearTimeout(renderTimeout);

@@ -29,7 +29,7 @@ function SkatersController (
 		reverseSort : true,
 		//tableRowMax : tableRowMax,
 		playerdata_length : 0,
-		pageSize : 20,
+		pageSize : 10,
 		showingAllData : false,
 		currentPage : 0,
 		adding_rows : false,
