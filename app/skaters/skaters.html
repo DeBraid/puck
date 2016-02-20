@@ -36,19 +36,27 @@
 		
 				<span ng-include="'app/skaters/skater_stats_table.html'"></span>
 
-			
-				<button class="btn btn-default"
-					style="margin-right: 0.25em" 
-					ng-hide="showingAllData" 
-					ng-repeat="i in getNumberAsArray(numberOfPages()) track by $index" 
-					ng-click="setCurrentPage($index)">
-						{{$index + 1}}
-				</button>
-				<button class="btn btn-default" 
-					ng-hide="showingAllData" 
-					ng-click="showAllData($index)">
-						Show All
-				</button>
+				<span ng-hide="showingAllData" >
+					<div>
+						# of Table Rows: <input type="text" 
+							ng-model="pageSize" 
+							placeholder="pageSize" 
+							size=5> 
+					</div>
+					<div>
+						<button class="btn btn-default"
+							style="margin-right: 0.25em" 
+							ng-repeat="i in getNumberAsArray(numberOfPages()) track by $index" 
+							ng-click="setCurrentPage($index)">
+								{{$index + 1}}
+						</button>
+						<button class="btn btn-default" 
+							ng-hide="showingAllData" 
+							ng-click="showAllData($index)">
+								Show All {{ playerdata_length }}
+						</button>
+					</div>
+				</span>
 				<button class="btn btn-default" 
 					ng-show="showingAllData" 
 					ng-click="paginateData($index)">
