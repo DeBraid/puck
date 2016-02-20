@@ -1,5 +1,5 @@
 <div class="row">
-	<div class="col-sm-12">
+	<div class="col-sm-4">
 		<h4>Chart any Metric 
 			<span ng-if=" metric.length <= 1">
 				like <code>GA</code> or <code>CA60</code>.
@@ -27,11 +27,17 @@
 				</span>
 		</div>
 	</div>
-	
+	<div class="col-sm-8 text-center" ng-show="ask_to_draw" id="ask-for-permission">
+		<div class="alert alert-info" role="alert" 
+			ng-click="showChart()">
+			<h3>Click here to chart {{ $parent.playerdata_length }} {{section_name}} by {{ pending_metric }}</h3>
+		</div>
+	</div>
+	<!-- <p>Some footer text with params: {{ season }}, {{TOI}}, {{situation}}</p> -->
+</div>
+
+<div class="row">
 	<div class="col-sm-12" id="bar-chart-container">
 		<div id="bar-chart" style="margin-top: 1em;"></div>
-	</div>
-	<!-- <div class="col-sm-12" id="bar-chart-footer">
-		<p>Some footer text with params: {{ season }}, {{TOI}}, {{situation}}</p>
-	</div> -->
+	</div>	
 </div>

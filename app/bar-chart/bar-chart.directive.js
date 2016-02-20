@@ -19,12 +19,23 @@ function BarChartDirective () {
     }
 }
 
-function BarChartController($scope) {
-    $scope.$on('order_by_field_update', function (event, value) {
-        console.log('Bar Chart order_by_field_update', value);
-        $scope.metric = value;
+function BarChartController($scope, $state) {
+    var metric;
+    console.log('$state.current.name', $state.current.name);
+    $scope.section_name = $state.current.name;
+    
+    $scope.$on('order_by_field_update', function (event, value) {        
+        $scope.ask_to_draw = true;
+        $scope.pending_metric = value;
+        metric = value;
     });
+
+    $scope.showChart = function () {
+        $scope.metric = metric;
+        $scope.ask_to_draw = false;
+    }
 }
+
 function BarChartLink (
     scope, ele, attrs
 ) {
