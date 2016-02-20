@@ -11,10 +11,10 @@
 			</span>
 			<span ng-hide="loading">
 
-				<bar-chart data=playerdata>
+				<bar-chart data=filtereddata>
 				</bar-chart>
 				
-				<h4>Result: {{ playerdata_length }} skaters</h4>
+				<h4>Result: {{ filtereddata.length }} skaters</h4>
 
 				<button ng-click="toggleTableFilters()"
 					class="btn btn-default pull-right grey-bg">

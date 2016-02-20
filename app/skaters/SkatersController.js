@@ -15,7 +15,7 @@ skaters.filter('startFrom', function() {
 skaters.controller('SkatersController', SkatersController);
 
 function SkatersController (
-	$scope, $stateParams, skatersConstants,	secretConstants, getParamsFromUrl, getData
+	$scope, $filter, $stateParams, skatersConstants,	secretConstants, getParamsFromUrl, getData
 ) {
 	var counter = 1;
 	var decimal_fields = ['60', 'Pct', 'TM', 'Dec'];
@@ -38,6 +38,7 @@ function SkatersController (
 		loading : false,
 		hidedata : false,
 	    playerdata : [],
+		filtereddata : [],
 	    metrics : [],
 	    filter_inputs : {},
 	    //updateSections : updateSections,
@@ -61,6 +62,11 @@ function SkatersController (
 			displayTeamPct : false,
 			displayZoneStarts : false,
 		},
+		search : {
+			name : '',
+			team : '',
+			pos : ''
+		},
 		checkboxFilterOn : false,
 		checkboxFilterText : 'Off',
 		setCurrentPage : setCurrentPage,
@@ -70,6 +76,27 @@ function SkatersController (
 		showAllData : showAllData,
 		//displayStat : displayStat,
 	};
+	
+
+    $scope.$watch('skaterStats', function(){
+		console.log('skaterstats changed');
+        $scope.filtereddata = $filter('filter')($scope.playerdata, tableFilter);
+    },true);
+
+    $scope.$watch('playerdata', function(){
+		console.log('playerdata changed');
+        $scope.filtereddata = $filter('filter')($scope.playerdata, tableFilter);
+    },true);
+	
+    $scope.$watch("search", function(){
+		console.log('search changed');
+        $scope.filtereddata = $filter('filter')($scope.playerdata, tableFilter);
+    },true);
+
+    $scope.$watch('checkboxFilterOn', function(){
+		console.log('checkboxFilterOn changed');
+        $scope.filtereddata = $filter('filter')($scope.playerdata, tableFilter);
+    },true);	
 	
 	// 1. put defaults on scope
 	angular.extend( $scope , defaults );
@@ -137,7 +164,6 @@ function SkatersController (
 					player[metric] = parseFloat(player[metric]);
 				});
 			});
-			
 			$scope.loading = false;
 		}
 	};
@@ -164,7 +190,10 @@ function SkatersController (
 	function tableFilter(row) {
 		var truthy = true;
 		var metrics = $scope.metrics;
-
+		var teamname = row.Team;
+		var playername = row.Player_Name;
+		var position = row.Pos; 
+		
 		//console.log($scope.checkboxFilterOn, ' ', row.checkboxFilter)
 		
 		//if (row.Pos == 'D') { return false; };
@@ -172,6 +201,19 @@ function SkatersController (
 		if ( parseFloat(row.TOIDec) < $scope.TOIMin || parseFloat(row.TOIDec) > $scope.TOIMax ) { return false; };
 		if ( $scope.checkboxFilterOn == true && row.checkboxFilter == false ) {return false;};
 
+		if ( $scope.search.team != '' && teamname.toLowerCase().indexOf($scope.search.team.toLowerCase())==-1) {
+			truthy = false;
+			return;
+		}
+		if ( $scope.search.name != '' && playername.toLowerCase().indexOf($scope.search.name.toLowerCase())==-1) {
+			truthy = false;
+			return;
+		}
+		if ( $scope.search.pos != '' && position.toLowerCase().indexOf($scope.search.pos.toLowerCase())==-1) {
+			truthy = false;
+			return;
+		}
+		
 		angular.forEach( $scope.skaterStats , function ( stat ) {
 			filter_min = stat['Min'];
 			filter_max = stat['Max'];
@@ -228,10 +270,10 @@ function SkatersController (
 	};
 
 	function numberOfPages() {
-		return Math.ceil($scope.playerdata.length/ $scope.pageSize);
+		return Math.ceil($scope.filtereddata.length/ $scope.pageSize);
 	};
 	function showAllData() {
-		$scope.pageSize = $scope.playerdata.length;
+		$scope.pageSize = $scope.filtereddata.length;
 		$scope.showingAllData = true;
 	};
 	function paginateData() {

@@ -18,9 +18,9 @@
 			<button type="button" ng-class="{'btn btn-success': checkboxFilterOn, 'btn btn-danger': !checkboxFilterOn}" ng-click="toggleCheckboxFilter()" uib-btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">{{checkboxFilterText}}</button>
 		</td>
 
-		<td><input size=20 ng-model="search.name"></td>
-		<td><input size=12 ng-model="search.team"></td>
-		<td><input size=2 ng-model="search.pos"></td>
+		<td><input size=20 ng-model="search.name" type="text"></td>
+		<td><input size=12 ng-model="search.team" type="text"></td>
+		<td><input size=2 ng-model="search.pos" type="text"></td>
 		<td ng-repeat="stat in skaterStats | filter:statFilter">
 			<input size=3 ng-model="stat.Min"><br>
 			to<br>
@@ -61,7 +61,8 @@
 	</tr>
 	</thead>
 	<tbody>
-	<tr ng-repeat="player in playerdata |orderBy:orderByField:reverseSort | filter:{Player_Name: search.name, Team: search.team, Pos: search.pos} | filter:tableFilter | startFrom: currentPage * pageSize  | limitTo:pageSize" > 
+	<tr ng-repeat="player in filtereddata |orderBy:orderByField:reverseSort | startFrom: currentPage * pageSize  | limitTo:pageSize" >
+	<!-- <tr ng-repeat="player in playerdata |orderBy:orderByField:reverseSort | filter:{Player_Name: search.name, Team: search.team, Pos: search.pos} | filter:tableFilter | startFrom: currentPage * pageSize  | limitTo:pageSize" > -->
 <!--						<tr ng-repeat="player in playerdata |orderBy:orderByField:reverseSort | filter:{Player_Name: search.name, Team: search.team, Pos: search.pos}" >  -->
 		<td>{{$index +1 + (currentPage)*pageSize}}
 		<td ng-if="showFilters==true"><input type="checkbox" ng-model="player.checkboxFilter"></td>
