@@ -30,7 +30,14 @@
 	<div class="col-sm-8 text-center" ng-show="ask_to_draw" id="ask-for-permission">
 		<div class="alert alert-info" role="alert" 
 			ng-click="showChart()">
-			<h3>Click here to chart {{ $parent.playerdata_length }} {{section_name}} by {{ pending_metric }}</h3>
+			<h3>
+				<span class="glyphicon glyphicon-sort-by-attributes-alt" 
+					style="margin-right:1em;">
+				</span>
+				<span>
+					Click to chart {{ $parent.playerdata_length }} {{section_name}} by {{ pending_metric }}
+				</span>
+			</h3>
 		</div>
 	</div>
 	<!-- <p>Some footer text with params: {{ season }}, {{TOI}}, {{situation}}</p> -->
