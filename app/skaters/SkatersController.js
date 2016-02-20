@@ -85,6 +85,11 @@ function SkatersController (
     	init();
 	});
 
+	$scope.$watch('orderByField', function (newVal, oldVal) {
+		console.log('CTRL order_by_field_update oldVal, newVal', newVal);
+		$scope.$broadcast('order_by_field_update', newVal);
+	})
+
     // Functions List:
 	function init() {
 		$scope.loading = true;

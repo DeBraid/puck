@@ -12,28 +12,37 @@ function BarChartDirective () {
         templateUrl: 'app/bar-chart/bar-chart.html',
         scope: {
             data: '=data',
+            // orderByField: '=orderByField'
         },
         link: BarChartLink,
+        controller: BarChartController,
     }
 }
 
+function BarChartController($scope) {
+    $scope.$on('order_by_field_update', function (event, value) {
+        console.log('Bar Chart order_by_field_update', value);
+        $scope.metric = value;
+    });
+}
 function BarChartLink (
     scope, ele, attrs
 ) {
     var left_margin_from_foo;
     scope.widerLeftColumn = false;
     scope.metrics = [];
+    scope.metric = '';
     angular.forEach( scope.$parent.metrics , function ( item ) {
         scope.metrics.push(item.metric);
     });
     scope.charting_data = [];
     scope.render = render();
-    scope.metric = '';
     scope.setMetricFromListClick = setMetricFromListClick;
     
     scope.$on('skater_metrics', function (event, metrics) {
         scope.metrics = metrics;
     });
+    
     scope.$watch('data', updateChartingData);
     scope.$watch('metric', updateChartingData);
     
@@ -77,7 +86,7 @@ function BarChartLink (
     }
 
     function render (render_data) {
-        console.log('running render with render_data', render_data);
+        // console.log('running render with render_data', render_data);
         if (!render_data) return;
         d3.selectAll('svg').remove();
 
