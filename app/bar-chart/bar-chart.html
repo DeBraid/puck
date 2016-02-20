@@ -30,28 +30,32 @@
 	<div class="col-sm-8 text-center" ng-show="ask_to_draw" id="ask-for-permission">
 		<div class="alert alert-info" role="alert">
 			<div class="row">
-				<div class="col-sm-10" ng-click="showChart()">
+				<div class="col-sm-10">
 					<h3 style="cursor: pointer;">
-						<span class="glyphicon glyphicon-sort-by-attributes-alt" 
-							style="margin-right:1em;">
-						</span>
-						<span>
-							Click here to chart {{ $parent.playerdata_length }} {{section_name}} by {{ pending_metric }}
-						</span>
+						<button class="btn btn-default" ng-click="showChart()">
+							<span class="glyphicon glyphicon-sort-by-attributes-alt" style="margin-right:1em;">
+							</span>
+								Show
+						</button> 
+						chart with 
+						<span ng-show="chart_options">
+							<input type="text" ng-model="chart_length" size=5> 
+							of possible 
+						</span> 
+						{{ $parent.playerdata_length }} {{section_name}} by {{ pending_metric }}
 					</h3>
 				</div>
 				<div class="col-sm-2">
-					<span class="pull-right">
+					<h3 class="pull-right">
 						<button class="btn btn-default"
 							ng-click="showChartOptions()">
 								Options
 						</button>
-					</span>
+					</h3>
 				</div>
 			</div>
-			<div class="row" id="chart-options" ng-show="chart_options">
-				Limit {{section_name}} to: <input type="text" ng-model="chart_length" size=10>
-			</div>
+			<!-- <div class="row" id="chart-options" 
+			</div> -->
 		</div>
 	</div>
 	<!-- <p>Some footer text with params: {{ season }}, {{TOI}}, {{situation}}</p> -->
