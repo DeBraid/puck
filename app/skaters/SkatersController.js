@@ -29,7 +29,7 @@ function SkatersController (
 		reverseSort : true,
 		//tableRowMax : tableRowMax,
 		playerdata_length : 0,
-		pageSize : 20,
+		pageSize : 10,
 		showingAllData : false,
 		currentPage : 0,
 		adding_rows : false,
@@ -111,6 +111,10 @@ function SkatersController (
 	$scope.$on('filter_menu_update', function(){
     	init();
 	});
+
+	$scope.$watch('orderByField', function (newVal, oldVal) {
+		$scope.$broadcast('order_by_field_update', newVal);
+	})
 
     // Functions List:
 	function init() {

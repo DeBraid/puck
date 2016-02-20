@@ -12,9 +12,32 @@ function BarChartDirective () {
         templateUrl: 'app/bar-chart/bar-chart.html',
         scope: {
             data: '=data',
+            // orderByField: '=orderByField'
         },
         link: BarChartLink,
+        controller: BarChartController,
     }
+}
+
+function BarChartController($scope, $state) {
+    var metric;
+    $scope.chart_options = false;
+    $scope.section_name = $state.current.name;
+    
+    $scope.$on('order_by_field_update', function (event, value) {        
+        $scope.ask_to_draw = true;
+        $scope.pending_metric = value;
+        metric = value;
+    });
+
+    $scope.showChart = function () {
+        $scope.metric = metric;
+        $scope.ask_to_draw = false;
+    }
+    $scope.showChartOptions = function () {
+        $scope.chart_options = true;
+    }
+    
 }
 
 function BarChartLink (
@@ -23,17 +46,18 @@ function BarChartLink (
     var left_margin_from_foo;
     scope.widerLeftColumn = false;
     scope.metrics = [];
+    scope.metric = '';
     angular.forEach( scope.$parent.metrics , function ( item ) {
         scope.metrics.push(item.metric);
     });
     scope.charting_data = [];
     scope.render = render();
-    scope.metric = '';
     scope.setMetricFromListClick = setMetricFromListClick;
     
     scope.$on('skater_metrics', function (event, metrics) {
         scope.metrics = metrics;
     });
+    
     scope.$watch('data', updateChartingData);
     scope.$watch('metric', updateChartingData);
     
@@ -77,7 +101,7 @@ function BarChartLink (
     }
 
     function render (render_data) {
-        console.log('running render with render_data', render_data);
+        // console.log('running render with render_data', render_data);
         if (!render_data) return;
         d3.selectAll('svg').remove();
 
@@ -102,6 +126,12 @@ function BarChartLink (
         render_data.sort(function(a, b) {
             return parseFloat(b.value) - parseFloat(a.value);
         });
+        
+        var data_length = render_data.length;
+        var chart_length = scope.chart_length;
+        if (chart_length && (chart_length < data_length)) {
+            render_data.splice(chart_length, data_length - chart_length);
+        }
 
         if (renderTimeout) clearTimeout(renderTimeout);
 
