@@ -12,7 +12,6 @@ function BarChartDirective () {
         templateUrl: 'app/bar-chart/bar-chart.html',
         scope: {
             data: '=data',
-            // orderByField: '=orderByField'
         },
         link: BarChartLink,
         controller: BarChartController,
@@ -21,8 +20,10 @@ function BarChartDirective () {
 
 function BarChartController($scope, $state) {
     var metric;
-    $scope.chart_options = false;
+    $scope.chart_options = true;
+    $scope.chart_length = 10;
     $scope.section_name = $state.current.name;
+    // $scope.metric = $scope.$parent.orderByField;
     
     $scope.$on('order_by_field_update', function (event, value) {        
         $scope.ask_to_draw = true;
@@ -31,11 +32,14 @@ function BarChartController($scope, $state) {
     });
 
     $scope.showChart = function () {
+        if (!metric) {
+            metric = $scope.pending_metric;    
+        }
         $scope.metric = metric;
         $scope.ask_to_draw = false;
     }
-    $scope.showChartOptions = function () {
-        $scope.chart_options = true;
+    $scope.toggleChartOptions = function () {
+        $scope.chart_options = !$scope.chart_options;
     }
     
 }
@@ -46,7 +50,7 @@ function BarChartLink (
     var left_margin_from_foo;
     scope.widerLeftColumn = false;
     scope.metrics = [];
-    scope.metric = '';
+    // scope.metric = '';
     angular.forEach( scope.$parent.metrics , function ( item ) {
         scope.metrics.push(item.metric);
     });

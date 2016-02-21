@@ -14,7 +14,7 @@
 				placeholder="Metric...">
 
 			<span>
-				<a id="chart-options" ng-click="showChartOptions()">
+				<a id="chart-options" ng-click="toggleChartOptions()">
 					Show chart options
 				</a>
 			</span>
@@ -48,10 +48,18 @@
 							of possible 
 						</span> 
 						{{ $parent.filtereddata.length }} {{section_name}} 
-						<span ng-show="!metric">
+						
+						<!-- make the dropdown clickable at all times, but show active metric if it exists -->
+						<!-- ng-show="!metric" -->
+						<span ng-hide="pending_metric">
 							<span class="dropdown pull-right" dropdown>
 								<a href="" class="dropdown-toggle" dropdown-toggle>
-									select Metric
+									<span ng-show="!metric">
+										select Metric
+									</span>
+									<span>
+										{{ metric }}
+									</span>
 									<span class="glyphicon glyphicon-chevron-down"></span>
 								</a>
 								<ul class="dropdown-menu" dropdown-menu>
@@ -67,16 +75,16 @@
 						<span ng-show="pending_metric">
 							{{ pending_metric }}
 						</span>
-						<span ng-show="metric && !pending_metric">
+						<!-- <span ng-show="metric && !pending_metric">
 							{{ metric }}
-						</span>
+						</span> -->
 					</h3>
 				</div>
 				<div class="col-sm-2">
 					<h3 class="pull-right">
 						<button class="btn btn-default"
-							ng-click="showChartOptions()">
-								Options
+							ng-click="toggleChartOptions()">
+								<span class="glyphicon glyphicon-remove"></span>
 						</button>
 					</h3>
 				</div>
