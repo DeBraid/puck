@@ -4,7 +4,7 @@
 			Show Chart Options
 	</a>
 </div>
-<div class="row">
+<div class="row" ng-show="chart_options">
 	<div class="col-sm-12" ng-show="ask_to_draw || chart_options">
 		<a class="btn btn-info pull-right"
 			ng-click="toggleChartOptions()">
@@ -51,10 +51,6 @@
 			</h3>
 		</div> <!-- END ALERT -->
 	</div>
-</div>
-
-
-<div class="row">
 	<div class="col-sm-12" id="bar-chart-container">
 		
 		<div id="bar-chart" style="margin-top: 1em;"></div>
