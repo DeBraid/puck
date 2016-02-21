@@ -35,6 +35,7 @@ function BarChartController($scope, $state) {
         if (!metric) {
             metric = $scope.pending_metric;    
         }
+        $scope.pending_metric = false;
         $scope.metric = metric;
         $scope.ask_to_draw = false;
     }

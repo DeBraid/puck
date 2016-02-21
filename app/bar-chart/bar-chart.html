@@ -1,92 +1,72 @@
+<div ng-hide="chart_options">
+	<a class="btn btn-info pull-right"
+		ng-click="toggleChartOptions()">
+			Show Charts
+			<!-- <span class="glyphicon glyphicon-remove"></span> -->
+	</a>
+</div>
 <div class="row">
-	<div class="col-sm-4">
-		<h4>Chart any Metric 
-			<span ng-if=" metric.length <= 1">
-				like <code>GA</code> or <code>CA60</code>.
-			</span>
-			<span ng-if=" metric.length > 1">
-				, like current: <code>{{metric}}</code>.
-			</span>
-		</h4>
-		<div class="input-group">
-			<input type="text" class="form-control" 
-				ng-model="metric"
-				placeholder="Metric...">
-
-			<span>
-				<a id="chart-options" ng-click="toggleChartOptions()">
-					Show chart options
-				</a>
-			</span>
-			<span class="dropdown pull-right" dropdown>
-				<a href="" class="dropdown-toggle" dropdown-toggle>
-					List of Metrics to Chart
-				</a>
-				<ul class="dropdown-menu" dropdown-menu>
-					<li ng-repeat="met in metrics"> 
-						<a ng-click="setMetricFromListClick($event, met)">
-							{{ met }}
-						</a>
-					</li>
-				</ul>
-			</span>
-		</div>
-	</div>
-	<div class="col-sm-8 text-center" ng-show="ask_to_draw || chart_options" id="ask-for-permission">
+	<div class="col-sm-12" ng-show="ask_to_draw || chart_options">
+		<a class="btn btn-info pull-right"
+			ng-click="toggleChartOptions()">
+				<span class="glyphicon glyphicon-remove"></span>
+		</a>
 		<div class="alert alert-info" role="alert">
-			<div class="row">
-				<div class="col-sm-10">
-					<h3 style="cursor: pointer;">
-						<button class="btn btn-default" ng-click="showChart()">
-							<span class="glyphicon glyphicon-sort-by-attributes-alt" style="margin-right:1em;">
-							</span>
-								Show chart
-						</button> 
-						 with <input type="text" ng-model="chart_length" size=5> of 
-						<!-- <span ng-show="chart_options">
-						</span>  -->
-						{{ $parent.filtereddata.length }} {{section_name}} 
-						
-						<!-- make the dropdown clickable at all times, but show active metric if it exists -->
-						<!-- ng-show="!metric" -->
-						<span ng-hide="pending_metric">
-							<span class="dropdown pull-right" dropdown>
-								<a href="" class="dropdown-toggle" dropdown-toggle>
-									<span ng-show="!metric">
-										select Metric
-									</span>
-									<span>
-										{{ metric }}
-									</span>
-									<span class="glyphicon glyphicon-chevron-down"></span>
-								</a>
-								<ul class="dropdown-menu" dropdown-menu>
-									<li ng-repeat="met in metrics"> 
-										<a ng-click="setMetricFromListClick($event, met)">
-											{{ met }}
-										</a>
-									</li>
-								</ul>
-							</span>
-						</span>
-						by
+			<h3 style="cursor: pointer;">
+				<a class="btn btn-default" 
+					style="font-size: 0.8em;" 
+					ng-click="showChart()">
+					<span class="glyphicon glyphicon-sort-by-attributes-alt" 
+						style="margin-right:1em;">
+					</span>
+						Chart 
 						<span ng-show="pending_metric">
-							{{ pending_metric }}
+							<code>{{ pending_metric }}</code>
 						</span>
-						<!-- <span ng-show="metric && !pending_metric">
-							{{ metric }}
-						</span> -->
-					</h3>
-				</div>
-				<div class="col-sm-2">
-					<h3 class="pull-right">
-						<button class="btn btn-default"
-							ng-click="toggleChartOptions()">
-								<span class="glyphicon glyphicon-remove"></span>
-						</button>
-					</h3>
-				</div>
-			</div>
+				</a> 
+				<span ng-hide="pending_metric">
+					<input type="text" size=10 ng-model="metric" placeholder="metric">
+				</span>
+				 with 
+				 <input type="text" ng-model="chart_length" size=5> 
+				 of {{ $parent.filtereddata.length }} {{section_name}} 
+					
+					<!-- make the dropdown clickable at all times, but show active metric if it exists -->
+					<!-- ng-show="!metric" -->
+					<!-- <span ng-hide="pending_metric"> -->
+					<span class="dropdown pull-right" dropdown>
+						<a href="" class="dropdown-toggle" dropdown-toggle>
+							<span ng-show="!metric">
+								select Metric
+							</span>
+							<span>
+								{{ metric }}
+							</span>
+							<span class="glyphicon glyphicon-chevron-down"></span>
+						</a>
+						<ul class="dropdown-menu" dropdown-menu>
+							<li ng-repeat="met in metrics"> 
+								<a ng-click="setMetricFromListClick($event, met)">
+									{{ met }}
+								</a>
+							</li>
+						</ul>
+					</span>
+					
+					<!-- <span ng-show="metric && !pending_metric">
+						{{ metric }}
+					</span> -->
+				</h3>
+			</div> <!-- END ALERT -->
+
+			<!-- <div class="col-sm-2">
+				<h3 class="pull-right">
+					<button class="btn btn-default"
+						ng-click="toggleChartOptions()">
+							<span class="glyphicon glyphicon-remove"></span>
+					</button>
+				</h3>
+			</div> -->
 		</div>
 	</div>
 	<!-- <p>Some footer text with params: {{ season }}, {{TOI}}, {{situation}}</p> -->
@@ -96,5 +76,8 @@
 <div class="row">
 	<div class="col-sm-12" id="bar-chart-container">
 		<div id="bar-chart" style="margin-top: 1em;"></div>
+		<footer class="pull-right">
+			Charting <code>{{metric}}</code> via puckalytics.com
+		</footer>
 	</div>	
 </div>
