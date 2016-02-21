@@ -42,11 +42,9 @@
 							</span>
 								Show chart
 						</button> 
-						 with 
-						<span ng-show="chart_options">
-							<input type="text" ng-model="chart_length" size=5> 
-							of possible 
-						</span> 
+						 with <input type="text" ng-model="chart_length" size=5> of 
+						<!-- <span ng-show="chart_options">
+						</span>  -->
 						{{ $parent.filtereddata.length }} {{section_name}} 
 						
 						<!-- make the dropdown clickable at all times, but show active metric if it exists -->
