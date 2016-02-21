@@ -13,21 +13,26 @@
 				ng-model="metric"
 				placeholder="Metric...">
 
-				<span class="dropdown pull-right" dropdown>
-					<a href="" class="dropdown-toggle" dropdown-toggle>
-						Chart Options
-					</a>
-					<ul class="dropdown-menu" dropdown-menu>
-						<li ng-repeat="met in metrics"> 
-							<a ng-click="setMetricFromListClick($event, met)">
-								{{ met }}
-							</a>
-						</li>
-					</ul>
-				</span>
+			<span>
+				<a id="chart-options" ng-click="showChartOptions()">
+					Show chart options
+				</a>
+			</span>
+			<span class="dropdown pull-right" dropdown>
+				<a href="" class="dropdown-toggle" dropdown-toggle>
+					List of Metrics to Chart
+				</a>
+				<ul class="dropdown-menu" dropdown-menu>
+					<li ng-repeat="met in metrics"> 
+						<a ng-click="setMetricFromListClick($event, met)">
+							{{ met }}
+						</a>
+					</li>
+				</ul>
+			</span>
 		</div>
 	</div>
-	<div class="col-sm-8 text-center" ng-show="ask_to_draw" id="ask-for-permission">
+	<div class="col-sm-8 text-center" ng-show="ask_to_draw || chart_options" id="ask-for-permission">
 		<div class="alert alert-info" role="alert">
 			<div class="row">
 				<div class="col-sm-10">
@@ -35,14 +40,36 @@
 						<button class="btn btn-default" ng-click="showChart()">
 							<span class="glyphicon glyphicon-sort-by-attributes-alt" style="margin-right:1em;">
 							</span>
-								Show
+								Show chart
 						</button> 
-						chart with 
+						 with 
 						<span ng-show="chart_options">
 							<input type="text" ng-model="chart_length" size=5> 
 							of possible 
 						</span> 
-						{{ $parent.filtereddata.length }} {{section_name}} by {{ pending_metric }}
+						{{ $parent.filtereddata.length }} {{section_name}} 
+						<span ng-show="!metric">
+							<span class="dropdown pull-right" dropdown>
+								<a href="" class="dropdown-toggle" dropdown-toggle>
+									select Metric
+									<span class="glyphicon glyphicon-chevron-down"></span>
+								</a>
+								<ul class="dropdown-menu" dropdown-menu>
+									<li ng-repeat="met in metrics"> 
+										<a ng-click="setMetricFromListClick($event, met)">
+											{{ met }}
+										</a>
+									</li>
+								</ul>
+							</span>
+						</span>
+						by
+						<span ng-show="pending_metric">
+							{{ pending_metric }}
+						</span>
+						<span ng-show="metric && !pending_metric">
+							{{ metric }}
+						</span>
 					</h3>
 				</div>
 				<div class="col-sm-2">
@@ -54,8 +81,6 @@
 					</h3>
 				</div>
 			</div>
-			<!-- <div class="row" id="chart-options" 
-			</div> -->
 		</div>
 	</div>
 	<!-- <p>Some footer text with params: {{ season }}, {{TOI}}, {{situation}}</p> -->
