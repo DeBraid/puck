@@ -23,7 +23,6 @@ function BarChartController($scope, $state) {
     $scope.chart_options = true;
     $scope.chart_length = 10;
     $scope.section_name = $state.current.name;
-    // $scope.metric = $scope.$parent.orderByField;
     
     $scope.$on('order_by_field_update', function (event, value) {        
         $scope.ask_to_draw = true;
@@ -50,14 +49,14 @@ function BarChartLink (
 ) {
     var left_margin_from_foo;
     scope.widerLeftColumn = false;
+    scope.charting_data = [];
     scope.metrics = [];
-    // scope.metric = '';
+    scope.render = render();
+    scope.setMetricFromListClick = setMetricFromListClick;
+    
     angular.forEach( scope.$parent.metrics , function ( item ) {
         scope.metrics.push(item.metric);
     });
-    scope.charting_data = [];
-    scope.render = render();
-    scope.setMetricFromListClick = setMetricFromListClick;
     
     scope.$on('skater_metrics', function (event, metrics) {
         scope.metrics = metrics;
@@ -68,12 +67,10 @@ function BarChartLink (
     
     function updateChartingData(newVal, oldVal) {
         var data = scope.data;
-        // console.log('updateChartingData data', data);
         if (!data.length) {return;}
     
         scope.charting_data.length = 0;    
         scope.widerLeftColumn = false;
-        // console.log('scope.metrics', scope.metrics);
         if ( scope.metrics.indexOf(newVal) > -1 ) {
             setChartingData();
         }
@@ -84,7 +81,6 @@ function BarChartLink (
         function setChartingData() {
             data.map(function (entity) {    
                 var name; 
-                // console.log('entity in setChartingData', entity);
                 if ( entity.Player_Name ) {
                     name = entity.Player_Name;
                     scope.widerLeftColumn = true;
@@ -94,7 +90,6 @@ function BarChartLink (
                 } else {
                     name = entity.teamname;
                 }
-
 
                 scope.charting_data.push({
                     metric : newVal,
