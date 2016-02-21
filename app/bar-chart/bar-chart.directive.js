@@ -25,7 +25,6 @@ function BarChartController($scope, $state) {
     $scope.section_name = $state.current.name;
     
     $scope.$on('order_by_field_update', function (event, value) {        
-        $scope.ask_to_draw = true;
         $scope.pending_metric = value;
         metric = value;
     });
@@ -36,7 +35,6 @@ function BarChartController($scope, $state) {
         }
         $scope.pending_metric = false;
         $scope.metric = metric;
-        $scope.ask_to_draw = false;
     }
     $scope.toggleChartOptions = function () {
         $scope.chart_options = !$scope.chart_options;
