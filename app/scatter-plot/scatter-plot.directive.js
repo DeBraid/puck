@@ -27,6 +27,9 @@ function ScatterPlotLink(scope, ele, attrs) {
     scope.setMetricFromListClick = setMetricFromListClick;
     // scope.metric
     scope.metrics = scope.$parent.metrics;
+    scope.x_metric = 'GF';
+    scope.y_metric = 'CFPct';
+
     var margin = {
         top: 20,
         right: 100,
@@ -67,10 +70,16 @@ function ScatterPlotLink(scope, ele, attrs) {
 
         var chart = d3.select("#scatter-plot-container");
         var width = chart.node().getBoundingClientRect().width;
+        var ratio = 0.25;
+        var legend_width = width*ratio;
+        var plot_width = (1-ratio)*width;
         
         // setup x
         var xValue = function(d) { return d.x; },
-            xScale = d3.scale.linear().range([0, width]),
+            xScale = d3.scale.linear().range([0, plot_width]),
+            // d3.scale.linear()
+            //         .domain([min,max])
+            //         .range([left_margin*0.5, width-left_margin]);
             xMap = function(d) { return xScale(xValue(d)); }, 
             xAxis = d3.svg.axis()
                 .scale(xScale)
@@ -126,22 +135,29 @@ function ScatterPlotLink(scope, ele, attrs) {
             tooltip.transition().duration(500).style("opacity", 0);
         });
         // draw legend
-        var legend = svg.selectAll(".legend").data(color.domain()).enter().append("g").attr("class", "legend").attr("transform", function(d, i) {
-            return "translate(0," + i * 20 + ")";
-        });
+        var legend = svg.selectAll(".legend")
+            .data(color.domain()).enter()
+            .append("g").attr("class", "legend")
+            .attr("transform", function(d, i) {
+                return "translate(0," + i * 20 + ")";
+            });
         // draw legend colored rectangles
-        legend.append("rect").attr("x", width - 18).attr("width", 18).attr("height", 18).style("fill", color);
+        legend.append("rect")
+            .attr("x", plot_width*1.05)
+            .attr("width", 18)
+            .attr("height", 18)
+            .style("fill", color);
         // draw legend text
-        legend.append("text").attr("x", width - 24).attr("y", 9).attr("dy", ".35em").style("text-anchor", "end").text(function(d) {
-            return d;
-        })
+        legend.append("text").attr("x", width*.9)
+            .attr("y", 9).attr("dy", ".35em")
+            .style("text-anchor", "end")
+            .text(function(d) {
+                return d;
+            });
     }
 
-    // function setMetricFromListClick ($event, met) { 
-    //     scope.metric = met;
-    // } 
     function setMetricFromListClick ($event, met, axis_metric) { 
-        console.log('axis_metric', axis_metric);
+        // console.log('axis_metric', axis_metric);
         scope[axis_metric] = met;
     } 
 }
