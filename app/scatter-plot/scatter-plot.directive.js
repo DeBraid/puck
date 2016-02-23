@@ -32,13 +32,13 @@ function ScatterPlotLink (scope, ele, attrs) {
      */ 
 
     // setup x 
-    var xValue = function(d) { return d.CF;}, // data -> value
+    var xValue = function(d) { return d.x;}, // data -> value
         xScale = d3.scale.linear().range([0, width]), // value -> display
         xMap = function(d) { return xScale(xValue(d));}, // data -> display
         xAxis = d3.svg.axis().scale(xScale).orient("bottom");
 
     // setup y
-    var yValue = function(d) { return d.GF;}, // data -> value
+    var yValue = function(d) { return d.y;}, // data -> value
         yScale = d3.scale.linear().range([height, 0]), // value -> display
         yMap = function(d) { return yScale(yValue(d));}, // data -> display
         yAxis = d3.svg.axis().scale(yScale).orient("left");
@@ -52,16 +52,20 @@ function ScatterPlotLink (scope, ele, attrs) {
 
     setData();
     scope.$watch('data', setData);
+    scope.$watch('x_metric', setData);
+    scope.$watch('y_metric', setData);
     // scope.$watch('render_data', render(scope.render_data));
 
     function setData() {
-        // console.log('setData() scope', scope.data);
-        // var render_data = []
+        scope.render_data.length = 0;
+        var x_data = scope.x_metric;
+        var y_data = scope.y_metric;
+        // var y_data = 'GF';
         angular.forEach( scope.data , function (d) {
             var datum = {
                 teamname : d.teamname,
-                GF : d.GF,
-                CF : d.CF,
+                x : d[x_data],
+                y : d[y_data]
             }
             scope.render_data.push(datum);
         });
@@ -76,7 +80,9 @@ function ScatterPlotLink (scope, ele, attrs) {
 
       // adding from above 
       // add the graph canvas to the body of the webpage
+        d3.selectAll('#scatter-plot-container svg').remove();
         var chart = d3.select("#scatter-plot-container");
+        
         var svg = chart.append("svg")
             .attr("width", width + margin.left + margin.right)
             .attr("height", height + margin.top + margin.bottom)
@@ -114,7 +120,9 @@ function ScatterPlotLink (scope, ele, attrs) {
           .attr("y", 6)
           .attr("dy", ".71em")
           .style("text-anchor", "end")
-          .text("Protein (g)");
+          .text(function (d) {
+              return 'Y Value';
+          });
 
       // draw dots
       svg.selectAll(".dot")
