@@ -132,24 +132,32 @@ function ScatterPlotLink(scope, ele, attrs) {
             });
         
         // draw dots
-        svg.selectAll(".dot").data(data).enter().append("circle").attr("class", "dot").attr("r", 3.5).attr("cx", xMap).attr("cy", yMap).style("fill", function(d) {
-            return color(cValue(d));
-        }).on("mouseover", function(d) {
-            console.log('d in mouseover', d);
-            tooltip.transition().duration(200).style("opacity", .9);
-            
-            var tooltip_html = d.entity + "<br/> " + 
-                scope.x_metric + ": " + 
-                xValue(d) + "<br/> " +  
-                scope.y_metric + ": " 
-                + yValue(d);
+        svg.selectAll(".dot").data(data)
+            .enter().append("circle")
+            .attr("class", "dot")
+            .attr("r", 5.5)
+            .attr("cx", xMap)
+            .attr("cy", yMap)
+            .style("fill", function(d) {
+                return color(cValue(d));
+            })
+            .on("mouseover", function(d) {
                 
-            tooltip.html(tooltip_html)
-                .style("left", (d3.event.pageX + 10 ) + "px")
-                .style("top", (d3.event.pageY - height) + "px");
-        }).on("mouseout", function(d) {
-            tooltip.transition().duration(500).style("opacity", 0);
-        });
+                tooltip.transition().duration(200).style("opacity", .9);
+            
+                var tooltip_html = "<h4>" + d.entity+ "</h4>" + //"<br/> " + 
+                    scope.x_metric + ": " + 
+                    xValue(d) + "<br/> " +  
+                    scope.y_metric + ": " 
+                    + yValue(d).toFixed(2);
+
+                tooltip.html(tooltip_html)
+                    .style("left", (d3.event.pageX + 10 ) + "px")
+                    .style("top", (d3.event.pageY - height) + "px");
+            })
+            .on("mouseout", function(d) {
+                tooltip.transition().duration(500).style("opacity", 0);
+            });
         // draw legend
         var legend = svg.selectAll(".legend")
             .data(color.domain()).enter()
