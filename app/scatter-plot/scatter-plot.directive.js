@@ -54,25 +54,20 @@ function ScatterPlotLink(scope, ele, attrs) {
     }
 
     function render(data) {
-        if (!data || data.length < 1) {
-            return;
-        }
-        if (!scope.x_metric || !scope.y_metric) {
-            return;
-        }
-        console.log('data in render', data);
-        // adding from above 
-        // add the graph canvas to the body of the webpage
+        if (!data || data.length < 1) {return;}
+        if (!scope.x_metric || !scope.y_metric) {return;}
         d3.selectAll('#scatter-plot-container svg').remove();
+
         var chart = d3.select("#scatter-plot-container");
         var width = chart.node().getBoundingClientRect().width;
-
+        
+        // setup x
         var xValue = function(d) { return d.x; },
-        xScale = d3.scale.linear().range([0, width]),
-        xMap = function(d) { return xScale(xValue(d)); }, 
-        xAxis = d3.svg.axis()
-            .scale(xScale)
-            .orient("bottom");
+            xScale = d3.scale.linear().range([0, width]),
+            xMap = function(d) { return xScale(xValue(d)); }, 
+            xAxis = d3.svg.axis()
+                .scale(xScale)
+                .orient("bottom");
         // setup y
         var yValue = function(d) { return d.y; }, 
             yScale = d3.scale.linear().range([height, 0]), 
@@ -80,16 +75,19 @@ function ScatterPlotLink(scope, ele, attrs) {
             yAxis = d3.svg.axis()
                 .scale(yScale)
                 .orient("left");
+
         var svg = chart.append("svg")
             .attr("width", width + margin.left + margin.right)
             .attr("height", height + margin.top + margin.bottom)
             .append("g")
             .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
         // add the tooltip area to the webpage
-        var tooltip = chart.append("div").attr("class", "tooltip").style("opacity", 0);
+        var tooltip = chart.append("div")
+            .attr("class", "tooltip").style("opacity", 0);
         // don't want dots overlapping axis, so add in buffer to data domain
         xScale.domain([d3.min(data, xValue) - 1, d3.max(data, xValue) + 1]);
         yScale.domain([d3.min(data, yValue) - 1, d3.max(data, yValue) + 1]);
+        
         // x-axis
         svg.append("g").attr("class", "x axis")
             .attr("transform", "translate(0," + height + ")")
@@ -97,11 +95,20 @@ function ScatterPlotLink(scope, ele, attrs) {
             .append("text").attr("class", "label")
             .attr("x", width).attr("y", -6)
             .style("text-anchor", "end")
-            .text(scope.x_metric);
+            .text(function(d) {
+                return scope.x_metric;
+            });
         // y-axis
-        svg.append("g").attr("class", "y axis").call(yAxis).append("text").attr("class", "label").attr("transform", "rotate(-90)").attr("y", 6).attr("dy", ".71em").style("text-anchor", "end").text(function(d) {
-            return 'Y Value';
-        });
+        svg.append("g").attr("class", "y axis")
+            .call(yAxis)
+            .append("text").attr("class", "label")
+            .attr("transform", "rotate(-90)")
+            .attr("y", 6).attr("dy", ".71em")
+            .style("text-anchor", "end")
+            .text(function(d) {
+                return scope.y_metric;
+            });
+        
         // draw dots
         svg.selectAll(".dot").data(data).enter().append("circle").attr("class", "dot").attr("r", 3.5).attr("cx", xMap).attr("cy", yMap).style("fill", function(d) {
             return color(cValue(d));
