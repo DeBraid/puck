@@ -1,38 +1,50 @@
-<div class="row">
+<div ng-show="!show_scatter_plot">
+	<a class="btn btn-warning pull-right"
+		ng-click="toggleScatterPlot()">
+			Show Scatter Plot
+	</a>
+</div>
+<div class="row" ng-show="show_scatter_plot">
     <div class="col-sm-12">
-    	Create a scatter plot with any 2 metrics
-        <span class="dropdown" dropdown style="margin: 0 1em;">
-			<a href="" class="dropdown-toggle" dropdown-toggle>
-				<span>
-					x: <input type="text" size="5" ng-model=x_metric>
-				</span>
-				<span class="glyphicon glyphicon-chevron-down"></span>
-			</a>
-			<ul class="dropdown-menu" dropdown-menu>
-				<li ng-repeat="met in metrics"> 
-					<a ng-click="setMetricFromListClick($event, met.metric, 'x_metric')">
-						{{ met.metric }}
-					</a>
-				</li>
-			</ul>
-		</span>
-		<span class="dropdown" dropdown style="margin: 0 1em;">
-			<a href="" class="dropdown-toggle" dropdown-toggle>
-				<span>
-					y: <input type="text" size="5" ng-model=y_metric>
-				</span>
-				<span class="glyphicon glyphicon-chevron-down"></span>
-			</a>
-			<ul class="dropdown-menu" dropdown-menu>
-				<li ng-repeat="met in metrics"> 
-					<a ng-click="setMetricFromListClick($event, met.metric, 'y_metric')">
-						{{ met.metric }}
-					</a>
-				</li>
-			</ul>
-		</span>
+    	<a class="btn btn-warning pull-right"
+			ng-click="toggleScatterPlot()">
+				<span class="glyphicon glyphicon-remove"></span>
+		</a>
+    	<div class="alert alert-warning">    		
+	    	Create a scatter plot with any 2 metrics
+	        <span class="dropdown" dropdown style="margin: 0 1em;">
+				<a href="" class="dropdown-toggle" dropdown-toggle>
+					<span>
+						x: <input type="text" size="5" ng-model=x_metric>
+					</span>
+					<span class="glyphicon glyphicon-chevron-down"></span>
+				</a>
+				<ul class="dropdown-menu" dropdown-menu>
+					<li ng-repeat="met in metrics"> 
+						<a ng-click="setMetricFromListClick($event, met.metric, 'x_metric')">
+							{{ met.metric }}
+						</a>
+					</li>
+				</ul>
+			</span>
+			<span class="dropdown" dropdown style="margin: 0 1em;">
+				<a href="" class="dropdown-toggle" dropdown-toggle>
+					<span>
+						y: <input type="text" size="5" ng-model=y_metric>
+					</span>
+					<span class="glyphicon glyphicon-chevron-down"></span>
+				</a>
+				<ul class="dropdown-menu" dropdown-menu>
+					<li ng-repeat="met in metrics"> 
+						<a ng-click="setMetricFromListClick($event, met.metric, 'y_metric')">
+							{{ met.metric }}
+						</a>
+					</li>
+				</ul>
+			</span>
+		</div>
 	</div>
-        <!-- d3js chart here -->
 	<div class="col-sm-12" id="scatter-plot-container">
+        <!-- d3js chart here -->
     </div>
 </div>

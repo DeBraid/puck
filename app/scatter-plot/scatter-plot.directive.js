@@ -11,10 +11,17 @@ function ScatterPlotDirective() {
         scope: {
             data: '=data',
         },
-        link: ScatterPlotLink
+        link: ScatterPlotLink,
+        controller: ScatterPlotController
     }
 }
 
+function ScatterPlotController ($scope) {
+    $scope.show_scatter_plot = true;
+    $scope.toggleScatterPlot = function () {
+        $scope.show_scatter_plot = !$scope.show_scatter_plot;
+    }
+}
 function ScatterPlotLink(scope, ele, attrs) {
     scope.render_data = [];
     scope.setMetricFromListClick = setMetricFromListClick;
