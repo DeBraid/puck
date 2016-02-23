@@ -20,7 +20,7 @@ function BarChartDirective () {
 
 function BarChartController($scope, $state) {
     var metric;
-    $scope.chart_options = true;
+    $scope.show_bar_chart = false;
     $scope.chart_length = 10;
     $scope.section_name = $state.current.name;
     
@@ -37,7 +37,7 @@ function BarChartController($scope, $state) {
         $scope.metric = metric;
     }
     $scope.toggleChartOptions = function () {
-        $scope.chart_options = !$scope.chart_options;
+        $scope.show_bar_chart = !$scope.show_bar_chart;
     }
     
 }

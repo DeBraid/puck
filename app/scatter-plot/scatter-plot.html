@@ -1,9 +1,11 @@
-
-<div ng-show="!show_scatter_plot">
-	<a class="btn btn-warning pull-right"
-		ng-click="toggleScatterPlot()">
-			Show Scatter Plot
-	</a>
+<div ng-hide="show_scatter_plot">
+	<div class="alert alert-info text-center" role="alert">
+		<h4>
+			<a ng-click="toggleScatterPlot()">
+				Scatter Plot
+			</a>
+		</h4>
+	</div>
 </div>
 <div class="row" ng-show="show_scatter_plot">
     <div class="col-sm-12">

@@ -17,7 +17,7 @@ function ScatterPlotDirective() {
 }
 
 function ScatterPlotController ($scope) {
-    $scope.show_scatter_plot = true;
+    $scope.show_scatter_plot = false;
     $scope.toggleScatterPlot = function () {
         $scope.show_scatter_plot = !$scope.show_scatter_plot;
     }
