@@ -137,9 +137,16 @@ function ScatterPlotLink(scope, ele, attrs) {
         }).on("mouseover", function(d) {
             console.log('d in mouseover', d);
             tooltip.transition().duration(200).style("opacity", .9);
-            tooltip.html(d + "<br/> (" + xValue(d) + ", " + yValue(d) + ")")
-            .style("left", (d3.event.pageX ) + "px")
-            .style("top", (d3.event.pageY) + "px");
+            
+            var tooltip_html = d.entity + "<br/> " + 
+                scope.x_metric + ": " + 
+                xValue(d) + "<br/> " +  
+                scope.y_metric + ": " 
+                + yValue(d);
+                
+            tooltip.html(tooltip_html)
+                .style("left", (d3.event.pageX + 10 ) + "px")
+                .style("top", (d3.event.pageY - height) + "px");
         }).on("mouseout", function(d) {
             tooltip.transition().duration(500).style("opacity", 0);
         });
