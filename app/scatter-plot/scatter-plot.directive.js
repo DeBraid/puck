@@ -145,15 +145,13 @@ function ScatterPlotLink(scope, ele, attrs) {
                 
                 tooltip.transition().duration(200).style("opacity", .9);
             
-                var tooltip_html = "<h4>" + d.entity+ "</h4>" + //"<br/> " + 
-                    scope.x_metric + ": " + 
-                    xValue(d) + "<br/> " +  
-                    scope.y_metric + ": " 
-                    + yValue(d).toFixed(2);
+                var tooltip_html = "<h3>" + d.entity+ "</h3>" +
+                    "<h5>" + scope.x_metric + ": " + xValue(d) + "</h5>" +
+                    "<h5>" + scope.y_metric + ": " + yValue(d).toFixed(2)+ "</h5>";
 
                 tooltip.html(tooltip_html)
-                    .style("left", (d3.event.pageX + 10 ) + "px")
-                    .style("top", (d3.event.pageY - height) + "px");
+                    .style("left", (d3.event.pageX + 5 ) + "px")
+                    .style("top", (d3.event.pageY - (height + 15)) + "px");
             })
             .on("mouseout", function(d) {
                 tooltip.transition().duration(500).style("opacity", 0);
