@@ -101,7 +101,7 @@ function BarChartLink (
     function render (render_data) {
         // console.log('running render with render_data', render_data);
         if (!render_data) return;
-        d3.selectAll('svg').remove();
+        d3.selectAll('#bar-chart svg').remove();
 
         var renderTimeout;
         var margin = parseInt(attrs.margin) || 20,
