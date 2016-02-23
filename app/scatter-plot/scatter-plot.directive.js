@@ -38,7 +38,7 @@ function ScatterPlotLink(scope, ele, attrs) {
     },
     height = 500 - margin.top - margin.bottom;
     // setup fill color
-    var cValue = function(d) { return d.teamname;},
+    var cValue = function(d) { return d.entity;},
         color = d3.scale.category20b();
     
     setData();
@@ -50,10 +50,10 @@ function ScatterPlotLink(scope, ele, attrs) {
         scope.render_data.length = 0;
         var x_data = scope.x_metric;
         var y_data = scope.y_metric;
-        // var y_data = 'GF';
         angular.forEach(scope.data, function(d) {
+            var entity = d.teamname;
             var datum = {
-                teamname: d.teamname,
+                entity: entity,
                 x: d[x_data],
                 y: d[y_data]
             }
@@ -135,8 +135,11 @@ function ScatterPlotLink(scope, ele, attrs) {
         svg.selectAll(".dot").data(data).enter().append("circle").attr("class", "dot").attr("r", 3.5).attr("cx", xMap).attr("cy", yMap).style("fill", function(d) {
             return color(cValue(d));
         }).on("mouseover", function(d) {
+            console.log('d in mouseover', d);
             tooltip.transition().duration(200).style("opacity", .9);
-            tooltip.html(d["Cereal Name"] + "<br/> (" + xValue(d) + ", " + yValue(d) + ")").style("left", (d3.event.pageX + 5) + "px").style("top", (d3.event.pageY - 28) + "px");
+            tooltip.html(d + "<br/> (" + xValue(d) + ", " + yValue(d) + ")")
+            .style("left", (d3.event.pageX ) + "px")
+            .style("top", (d3.event.pageY) + "px");
         }).on("mouseout", function(d) {
             tooltip.transition().duration(500).style("opacity", 0);
         });
