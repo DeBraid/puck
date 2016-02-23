@@ -68,7 +68,7 @@ function ScatterPlotLink(scope, ele, attrs) {
 
         var chart = d3.select("#scatter-plot-container");
         var width = chart.node().getBoundingClientRect().width;
-        var ratio = 0.25;
+        var ratio = 0.3;
         var legend_width = width*ratio;
         var plot_width = (1-ratio)*width;
         
