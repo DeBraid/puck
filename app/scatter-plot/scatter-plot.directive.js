@@ -109,8 +109,11 @@ function ScatterPlotLink(scope, ele, attrs) {
             .attr("transform", "translate(0," + height + ")")
             .call(xAxis)
             .append("text").attr("class", "label")
-            .attr("x", width).attr("y", -6)
-            .style("text-anchor", "end")
+            .attr("x", plot_width).attr("y", -6)
+            .style({
+                "text-anchor" : "end",
+                "font-size" : "25",
+            })
             .text(function(d) {
                 return scope.x_metric;
             });
@@ -120,7 +123,10 @@ function ScatterPlotLink(scope, ele, attrs) {
             .append("text").attr("class", "label")
             .attr("transform", "rotate(-90)")
             .attr("y", 6).attr("dy", ".71em")
-            .style("text-anchor", "end")
+            .style({
+                "text-anchor" : "end",
+                "font-size" : "25",
+            })
             .text(function(d) {
                 return scope.y_metric;
             });
