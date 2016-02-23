@@ -75,9 +75,6 @@ function ScatterPlotLink(scope, ele, attrs) {
         // setup x
         var xValue = function(d) { return d.x; },
             xScale = d3.scale.linear().range([0, plot_width]),
-            // d3.scale.linear()
-            //         .domain([min,max])
-            //         .range([left_margin*0.5, width-left_margin]);
             xMap = function(d) { return xScale(xValue(d)); }, 
             xAxis = d3.svg.axis()
                 .scale(xScale)

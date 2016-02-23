@@ -48,7 +48,10 @@
     		</h4>
 		</div>
 	</div>
-	<div class="col-sm-12" id="scatter-plot-container">
-        <!-- d3js chart here -->
+	<div class="col-sm-12">
+        <div id="scatter-plot-container"></div>
+        <footer class="pull-right" ng-show="x_metric && y_metric" style="margin-bottom:1em;">
+			Charting <code>{{x_metric}}</code> vs. <code>{{y_metric}}</code> at <code>{{$parent.situation}}</code> during <code>{{ $parent.season }} </code> given TOI <code>>{{$parent.TOIMin}}</code> minutes via <strong>puckalytics.com</strong>
+		</footer>
     </div>
 </div>
