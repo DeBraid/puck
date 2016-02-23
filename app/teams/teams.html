@@ -15,12 +15,19 @@
 	<filter-menu toi="TOIMin" season="season" situation="situation">
 	</filter-menu>
 
-	<scatter-plot data=team_data>
-	</scatter-plot>
+	<div class="row">
+		<div class="col-sm-12 col-lg-6">
+			<scatter-plot data=team_data>
+			</scatter-plot>
 
-	<!-- <bar-chart data=team_data>
-	</bar-chart>
- -->
+		</div>
+		<div class="col-sm-12 col-lg-6">
+			<bar-chart data=team_data>
+			</bar-chart>
+			
+		</div>
+	</div>
+
 
 	<div class="row">
 		<div class="col-sm-12">
@@ -70,7 +77,7 @@
 					        	ng-model="displayZoneStarts"> Zones
 				    </label>
 				</div>
-				<!-- <span ng-include="'app/teams/team_stats_table.html'"></span> -->
+				<span ng-include="'app/teams/team_stats_table.html'"></span>
 			</span>
 
 			<span ng-if="error_message">

@@ -25,10 +25,9 @@ function ScatterPlotController ($scope) {
 function ScatterPlotLink(scope, ele, attrs) {
     scope.render_data = [];
     scope.setMetricFromListClick = setMetricFromListClick;
-    // scope.metric
     scope.metrics = scope.$parent.metrics;
-    scope.x_metric = 'GF';
-    scope.y_metric = 'CFPct';
+    // scope.x_metric = 'GF';
+    // scope.y_metric = 'CFPct';
 
     var margin = {
         top: 20,
@@ -37,7 +36,6 @@ function ScatterPlotLink(scope, ele, attrs) {
         left: 50
     },
     height = 500 - margin.top - margin.bottom;
-    // setup fill color
     var cValue = function(d) { return d.entity;},
         color = d3.scale.category20b();
     
