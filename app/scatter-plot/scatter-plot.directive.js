@@ -17,6 +17,9 @@ function ScatterPlotDirective() {
 
 function ScatterPlotLink(scope, ele, attrs) {
     scope.render_data = [];
+    scope.setMetricFromListClick = setMetricFromListClick;
+    // scope.metric
+    scope.metrics = scope.$parent.metrics;
     var margin = {
         top: 20,
         right: 100,
@@ -77,7 +80,11 @@ function ScatterPlotLink(scope, ele, attrs) {
             yAxis = d3.svg.axis()
                 .scale(yScale)
                 .orient("left");
-        var svg = chart.append("svg").attr("width", width + margin.left + margin.right).attr("height", height + margin.top + margin.bottom).append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+        var svg = chart.append("svg")
+            .attr("width", width + margin.left + margin.right)
+            .attr("height", height + margin.top + margin.bottom)
+            .append("g")
+            .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
         // add the tooltip area to the webpage
         var tooltip = chart.append("div").attr("class", "tooltip").style("opacity", 0);
         // don't want dots overlapping axis, so add in buffer to data domain
@@ -115,4 +122,12 @@ function ScatterPlotLink(scope, ele, attrs) {
             return d;
         })
     }
+
+    // function setMetricFromListClick ($event, met) { 
+    //     scope.metric = met;
+    // } 
+    function setMetricFromListClick ($event, met, axis_metric) { 
+        console.log('axis_metric', axis_metric);
+        scope[axis_metric] = met;
+    } 
 }

@@ -1,12 +1,48 @@
 <div class="row">
     <div class="col-sm-12">
         <div id="scatter-plot-container">
-            <p>chart here</p>
+            <p>Enter 2 metrics</p>
             <p>
-            x: <input type="text" size="5" ng-model=x_metric>
-            y: <input type="text" size="5" ng-model=y_metric>
-            	
+	            
+	            
             </p>
+            <span class="dropdown" dropdown>
+				<a href="" class="dropdown-toggle" dropdown-toggle>
+					<span ng-show="!x_metric">
+						select x_metric
+					</span>
+					<span>
+						x: <input type="text" size="5" ng-model=x_metric>
+					</span>
+					<span class="glyphicon glyphicon-chevron-down"></span>
+				</a>
+				<ul class="dropdown-menu" dropdown-menu>
+					<li ng-repeat="met in metrics"> 
+						<a ng-click="setMetricFromListClick($event, met.metric, 'x_metric')">
+							{{ met.metric }}
+						</a>
+					</li>
+				</ul>
+			</span>
+			<span class="dropdown" dropdown>
+				<a href="" class="dropdown-toggle" dropdown-toggle>
+					<span ng-show="!y_metric">
+						select y_metric
+					</span>
+					<span>
+						<!-- x: <input type="text" size="5" ng-model=y_metric> -->
+						y: <input type="text" size="5" ng-model=y_metric>
+					</span>
+					<span class="glyphicon glyphicon-chevron-down"></span>
+				</a>
+				<ul class="dropdown-menu" dropdown-menu>
+					<li ng-repeat="met in metrics"> 
+						<a ng-click="setMetricFromListClick($event, met.metric, 'y_metric')">
+							{{ met.metric }}
+						</a>
+					</li>
+				</ul>
+			</span>
             <!-- d3js chart here -->
         </div>
     </div>
