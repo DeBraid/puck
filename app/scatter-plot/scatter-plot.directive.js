@@ -77,6 +77,7 @@ function ScatterPlotLink(scope, ele, attrs) {
             xMap = function(d) { return xScale(xValue(d)); }, 
             xAxis = d3.svg.axis()
                 .scale(xScale)
+                .tickSize(1)
                 .orient("bottom");
         // setup y
         var yValue = function(d) { return d.y; }, 
@@ -84,6 +85,7 @@ function ScatterPlotLink(scope, ele, attrs) {
             yMap = function(d) { return yScale(yValue(d)); },
             yAxis = d3.svg.axis()
                 .scale(yScale)
+                .tickSize(1)
                 .orient("left");
 
         var svg = chart.append("svg")
@@ -111,6 +113,7 @@ function ScatterPlotLink(scope, ele, attrs) {
             .text(function(d) {
                 return scope.x_metric;
             });
+
         // y-axis
         svg.append("g").attr("class", "y axis")
             .call(yAxis)
@@ -125,6 +128,17 @@ function ScatterPlotLink(scope, ele, attrs) {
                 return scope.y_metric;
             });
 
+        // FIXME DB -- style the axes like the alert (maybe a bad idea...)
+        svg.selectAll('.axis')
+            .attr({
+                'stroke' : '#8a6d3b',
+                'fill' : '#faebcc',
+                'shape-rendering' : 'crispEdges',
+            });
+            
+            
+            
+            
         // draw logos via svgs
         svg.selectAll(".logos")
             .data(data)
