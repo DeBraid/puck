@@ -27,7 +27,7 @@ function ScatterPlotLink(scope, ele, attrs) {
     scope.render_data = [];
     scope.setMetricFromListClick = setMetricFromListClick;
     scope.metrics = scope.$parent.metrics;
-    scope.x_metric = 'GA';
+    scope.x_metric = 'GA60';
     scope.y_metric = 'CF';
 
     var margin = {
@@ -96,7 +96,7 @@ function ScatterPlotLink(scope, ele, attrs) {
             .attr("class", "tooltip").style("opacity", 0);
         // don't want dots overlapping axis, so add in buffer to data domain
         xScale.domain([d3.min(data, xValue) - 1, d3.max(data, xValue) + 1]);
-        yScale.domain([d3.min(data, yValue) - 1, d3.max(data, yValue) + 1]);
+        yScale.domain([d3.min(data, yValue)*0.95, d3.max(data, yValue) + 1]);
         
         // x-axis
         svg.append("g").attr("class", "x axis")
