@@ -23,6 +23,7 @@ function ScatterPlotController ($scope) {
     }
 }
 function ScatterPlotLink(scope, ele, attrs) {
+    var logo_path = './../../assets/images/team-logos/';
     scope.render_data = [];
     scope.setMetricFromListClick = setMetricFromListClick;
     scope.metrics = scope.$parent.metrics;
@@ -125,38 +126,24 @@ function ScatterPlotLink(scope, ele, attrs) {
             .text(function(d) {
                 return scope.y_metric;
             });
-        
-        // ADD LOGOS
-        // svg.append("svg:image")
-        //    .attr('x',-9)
-        //    .attr('y',-12)
-        //    .attr('width', 20)
-        //    .attr('height', 24)
-        //    .attr("xlink:href","./../../assets/images/team-logos/New_Jersey.svg")
-        // END -- ADD LOGOS
-        var logo_path = './../../assets/images/team-logos/';
-        // draw dots
+
+        // draw logos via svgs
         svg.selectAll(".logos")
             .data(data)
             .enter().append("svg:image")
-            // .attr("class", "dot")
             .attr("xlink:href", function (d) { 
                 var name = d.entity.split(' ').join('_');
                 var full_logo_path = logo_path + name + '.svg';
-                
                 return full_logo_path; 
             })
-            // .attr("r", 5.5)
             .attr("x", xMap)
             .attr("y", yMap)
             .attr('width', 50)
             .attr('height', 50)
-            // .style("fill", function(d) {
-            //     return color(cValue(d));
-            // })
             .on("mouseover", function(d) {
                 
-                tooltip.transition().duration(200).style("opacity", .9);
+                tooltip.transition()
+                    .duration(200).style("opacity", .9);
             
                 var tooltip_html = "<h3>" + d.entity+ "</h3>" +
                     "<h5>" + scope.x_metric + ": " + xValue(d) + "</h5>" +
