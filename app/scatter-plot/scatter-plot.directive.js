@@ -23,17 +23,18 @@ function ScatterPlotController ($scope) {
     }
 }
 function ScatterPlotLink(scope, ele, attrs) {
+    var logo_path = './../../assets/images/team-logos/';
     scope.render_data = [];
     scope.setMetricFromListClick = setMetricFromListClick;
     scope.metrics = scope.$parent.metrics;
-    // scope.x_metric = 'GF';
-    // scope.y_metric = 'CFPct';
+    // scope.x_metric = 'SA';
+    // scope.y_metric = 'CF';
 
     var margin = {
         top: 20,
-        right: 100,
+        right: 20,
         bottom: 30,
-        left: 50
+        left: 30
     },
     height = 500 - margin.top - margin.bottom;
     var cValue = function(d) { return d.entity;},
@@ -68,9 +69,7 @@ function ScatterPlotLink(scope, ele, attrs) {
 
         var chart = d3.select("#scatter-plot-container");
         var width = chart.node().getBoundingClientRect().width;
-        var ratio = 0.28;
-        var legend_width = width*ratio;
-        var plot_width = (1-ratio)*width;
+        var plot_width = width - margin.right - margin.left;
         
         // setup x
         var xValue = function(d) { return d.x; },
@@ -96,8 +95,8 @@ function ScatterPlotLink(scope, ele, attrs) {
         var tooltip = chart.append("div")
             .attr("class", "tooltip").style("opacity", 0);
         // don't want dots overlapping axis, so add in buffer to data domain
-        xScale.domain([d3.min(data, xValue) - 1, d3.max(data, xValue) + 1]);
-        yScale.domain([d3.min(data, yValue) - 1, d3.max(data, yValue) + 1]);
+        xScale.domain([d3.min(data, xValue), d3.max(data, xValue)]);
+        yScale.domain([d3.min(data, yValue)*0.95, d3.max(data, yValue)*0.95]);
         
         // x-axis
         svg.append("g").attr("class", "x axis")
@@ -125,20 +124,24 @@ function ScatterPlotLink(scope, ele, attrs) {
             .text(function(d) {
                 return scope.y_metric;
             });
-        
-        // draw dots
-        svg.selectAll(".dot").data(data)
-            .enter().append("circle")
-            .attr("class", "dot")
-            .attr("r", 5.5)
-            .attr("cx", xMap)
-            .attr("cy", yMap)
-            .style("fill", function(d) {
-                return color(cValue(d));
+
+        // draw logos via svgs
+        svg.selectAll(".logos")
+            .data(data)
+            .enter().append("svg:image")
+            .attr("xlink:href", function (d) { 
+                var name = d.entity.split(' ').join('_');
+                var full_logo_path = logo_path + name + '.svg';
+                return full_logo_path; 
             })
+            .attr("x", xMap)
+            .attr("y", yMap)
+            .attr('width', 40)
+            .attr('height', 40)
             .on("mouseover", function(d) {
                 
-                tooltip.transition().duration(200).style("opacity", .9);
+                tooltip.transition()
+                    .duration(200).style("opacity", .9);
             
                 var tooltip_html = "<h3>" + d.entity+ "</h3>" +
                     "<h5>" + scope.x_metric + ": " + xValue(d) + "</h5>" +
@@ -150,26 +153,6 @@ function ScatterPlotLink(scope, ele, attrs) {
             })
             .on("mouseout", function(d) {
                 tooltip.transition().duration(500).style("opacity", 0);
-            });
-        // draw legend
-        var legend = svg.selectAll(".legend")
-            .data(color.domain()).enter()
-            .append("g").attr("class", "legend")
-            .attr("transform", function(d, i) {
-                return "translate(0," + i * 20 + ")";
-            });
-        // draw legend colored rectangles
-        legend.append("rect")
-            .attr("x", plot_width*1.05)
-            .attr("width", 18)
-            .attr("height", 18)
-            .style("fill", color);
-        // draw legend text
-        legend.append("text").attr("x", width*.9)
-            .attr("y", 9).attr("dy", ".35em")
-            .style("text-anchor", "end")
-            .text(function(d) {
-                return d;
             });
     }
 
