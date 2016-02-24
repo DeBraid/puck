@@ -23,7 +23,7 @@ function ScatterPlotController ($scope) {
     }
 }
 function ScatterPlotLink(scope, ele, attrs) {
-    var logo_path = './../../assets/images/team-logos/';
+    var logo_path = 'assets/images/team-logos/';
     scope.render_data = [];
     scope.setMetricFromListClick = setMetricFromListClick;
     scope.metrics = scope.$parent.metrics;
