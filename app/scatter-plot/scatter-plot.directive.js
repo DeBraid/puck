@@ -27,8 +27,8 @@ function ScatterPlotLink(scope, ele, attrs) {
     scope.render_data = [];
     scope.setMetricFromListClick = setMetricFromListClick;
     scope.metrics = scope.$parent.metrics;
-    scope.x_metric = 'GA60';
-    scope.y_metric = 'CF';
+    // scope.x_metric = 'SA';
+    // scope.y_metric = 'CF';
 
     var margin = {
         top: 20,
