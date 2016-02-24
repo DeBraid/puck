@@ -32,9 +32,9 @@ function ScatterPlotLink(scope, ele, attrs) {
 
     var margin = {
         top: 20,
-        right: 100,
+        right: 20,
         bottom: 30,
-        left: 50
+        left: 30
     },
     height = 500 - margin.top - margin.bottom;
     var cValue = function(d) { return d.entity;},
@@ -69,9 +69,7 @@ function ScatterPlotLink(scope, ele, attrs) {
 
         var chart = d3.select("#scatter-plot-container");
         var width = chart.node().getBoundingClientRect().width;
-        var ratio = 0.28;
-        var legend_width = width*ratio;
-        var plot_width = (1-ratio)*width;
+        var plot_width = width - margin.right - margin.left;
         
         // setup x
         var xValue = function(d) { return d.x; },
@@ -138,8 +136,8 @@ function ScatterPlotLink(scope, ele, attrs) {
             })
             .attr("x", xMap)
             .attr("y", yMap)
-            .attr('width', 50)
-            .attr('height', 50)
+            .attr('width', 40)
+            .attr('height', 40)
             .on("mouseover", function(d) {
                 
                 tooltip.transition()
@@ -155,26 +153,6 @@ function ScatterPlotLink(scope, ele, attrs) {
             })
             .on("mouseout", function(d) {
                 tooltip.transition().duration(500).style("opacity", 0);
-            });
-        // draw legend
-        var legend = svg.selectAll(".legend")
-            .data(color.domain()).enter()
-            .append("g").attr("class", "legend")
-            .attr("transform", function(d, i) {
-                return "translate(0," + i * 20 + ")";
-            });
-        // draw legend colored rectangles
-        legend.append("rect")
-            .attr("x", plot_width*1.05)
-            .attr("width", 18)
-            .attr("height", 18)
-            .style("fill", color);
-        // draw legend text
-        legend.append("text").attr("x", width*.9)
-            .attr("y", 9).attr("dy", ".35em")
-            .style("text-anchor", "end")
-            .text(function(d) {
-                return d;
             });
     }
 
