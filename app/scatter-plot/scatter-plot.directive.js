@@ -127,12 +127,12 @@ function ScatterPlotLink(scope, ele, attrs) {
             });
         
         // ADD LOGOS
-        svg.append("svg:image")
-           .attr('x',-9)
-           .attr('y',-12)
-           .attr('width', 20)
-           .attr('height', 24)
-           .attr("xlink:href","./../../assets/images/team-logos/New_Jersey.svg")
+        // svg.append("svg:image")
+        //    .attr('x',-9)
+        //    .attr('y',-12)
+        //    .attr('width', 20)
+        //    .attr('height', 24)
+        //    .attr("xlink:href","./../../assets/images/team-logos/New_Jersey.svg")
         // END -- ADD LOGOS
         var logo_path = './../../assets/images/team-logos/';
         // draw dots
