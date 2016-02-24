@@ -26,8 +26,8 @@ function ScatterPlotLink(scope, ele, attrs) {
     scope.render_data = [];
     scope.setMetricFromListClick = setMetricFromListClick;
     scope.metrics = scope.$parent.metrics;
-    // scope.x_metric = 'GF';
-    // scope.y_metric = 'CFPct';
+    scope.x_metric = 'GA';
+    scope.y_metric = 'CF';
 
     var margin = {
         top: 20,
@@ -126,16 +126,34 @@ function ScatterPlotLink(scope, ele, attrs) {
                 return scope.y_metric;
             });
         
+        // ADD LOGOS
+        svg.append("svg:image")
+           .attr('x',-9)
+           .attr('y',-12)
+           .attr('width', 20)
+           .attr('height', 24)
+           .attr("xlink:href","./../../assets/images/team-logos/New_Jersey.svg")
+        // END -- ADD LOGOS
+        var logo_path = './../../assets/images/team-logos/';
         // draw dots
-        svg.selectAll(".dot").data(data)
-            .enter().append("circle")
-            .attr("class", "dot")
-            .attr("r", 5.5)
-            .attr("cx", xMap)
-            .attr("cy", yMap)
-            .style("fill", function(d) {
-                return color(cValue(d));
+        svg.selectAll(".logos")
+            .data(data)
+            .enter().append("svg:image")
+            // .attr("class", "dot")
+            .attr("xlink:href", function (d) { 
+                var name = d.entity.split(' ').join('_');
+                var full_logo_path = logo_path + name + '.svg';
+                
+                return full_logo_path; 
             })
+            // .attr("r", 5.5)
+            .attr("x", xMap)
+            .attr("y", yMap)
+            .attr('width', 50)
+            .attr('height', 50)
+            // .style("fill", function(d) {
+            //     return color(cValue(d));
+            // })
             .on("mouseover", function(d) {
                 
                 tooltip.transition().duration(200).style("opacity", .9);
