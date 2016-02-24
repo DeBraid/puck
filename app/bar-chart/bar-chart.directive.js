@@ -21,9 +21,12 @@ function BarChartDirective () {
 function BarChartController($scope, $state) {
     var metric;
     $scope.show_bar_chart = false;
+    var section = $scope.section_name = $state.current.name;
     $scope.chart_length = 10;
-    $scope.section_name = $state.current.name;
-    
+    if (section == 'teams') {
+        $scope.chart_length = 30;
+    }
+
     $scope.$on('order_by_field_update', function (event, value) {        
         $scope.pending_metric = value;
         metric = value;
