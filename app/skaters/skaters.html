@@ -16,12 +16,17 @@
 				
 				<h4>Result: {{ filtereddata.length }} skaters</h4>
 
+				
 				<button ng-click="toggleTableFilters()"
 					class="btn btn-default pull-right grey-bg">
 						<span ng-show="showFilters">Hide </span>
 						<span ng-hide="showFilters">Show </span>
 						Data Filters
 				</button>
+
+				<span class="pull-right" style="margin-left: 1em;">
+					<copy-url></copy-url>
+				</span>
 				
 				<div class="btn-group" id="skater-button">
 					<button type="button" ng-class="{'btn btn-success': displayFilter.displayGoals, 'btn btn-danger': !displayFilter.displayGoals}" ng-click="toggleStatDisplay('displayGoals')" uib-btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">Goals</button>

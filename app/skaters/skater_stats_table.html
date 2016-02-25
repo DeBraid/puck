@@ -22,9 +22,9 @@
 		<td><input size=12 ng-model="search.team" type="text"></td>
 		<td><input size=2 ng-model="search.pos" type="text"></td>
 		<td ng-repeat="stat in skaterStats | filter:statFilter">
-			<input size=3 ng-model="stat.Min"><br>
+			<input size=3 ng-change="activeFilterInputs(stat.Min, stat.API_Name+'Min')" ng-model="stat.Min"><br>
 			to<br>
-			<input size=3 ng-model="stat.Max"><br>
+			<input size=3 ng-change="activeFilterInputs(stat.Max, stat.API_Name+'Max')" ng-model="stat.Max"><br>
 			<!--Active: <input type="checkbox" ng-model="GPFilterOn"> -->
 		</td>
 

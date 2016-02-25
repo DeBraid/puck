@@ -27,6 +27,8 @@ function SkatersController (
 		error_message : null,
 		showFilters : false,
 		reverseSort : true,
+		active_filters : {},
+		activeFilterInputs : activeFilterInputs,
 		//tableRowMax : tableRowMax,
 		playerdata_length : 0,
 		pageSize : 10,
@@ -79,25 +81,25 @@ function SkatersController (
 	
 
     $scope.$watch('skaterStats', function(){
-		console.log('skaterstats changed');
         $scope.filtereddata = $filter('filter')($scope.playerdata, tableFilter);
     },true);
 
     $scope.$watch('playerdata', function(){
-		console.log('playerdata changed');
         $scope.filtereddata = $filter('filter')($scope.playerdata, tableFilter);
     },true);
 	
     $scope.$watch("search", function(){
-		console.log('search changed');
         $scope.filtereddata = $filter('filter')($scope.playerdata, tableFilter);
+		$scope.active_filters['Team'] = $scope.search.team;
+		$scope.active_filters['Player_Name'] = $scope.search.name;
+		$scope.active_filters['Pos'] = $scope.search.pos;
+		$scope.$broadcast('filter_inputs_changed', $scope.active_filters);
     },true);
 
     $scope.$watch('checkboxFilterOn', function(){
-		console.log('checkboxFilterOn changed');
         $scope.filtereddata = $filter('filter')($scope.playerdata, tableFilter);
     },true);	
-	
+
 	// 1. put defaults on scope
 	angular.extend( $scope , defaults );
 	
@@ -112,15 +114,49 @@ function SkatersController (
     	init();
 	});
 
-	$scope.$watch('orderByField', function (newVal, oldVal) {
-		$scope.$broadcast('order_by_field_update', newVal);
-	})
+    $scope.$watch('checkboxFilterOn', function(){
+        $scope.filtereddata = $filter('filter')($scope.playerdata, tableFilter);
+    },true);	
+	
+	function activeFilterInputs (value, input_field) {
+		console.log(value, input_field);
+		$scope.active_filters[input_field] = value;
+		console.log($scope.active_filters);
 
+		$scope.$broadcast('filter_inputs_changed', $scope.active_filters);
+	}
+
+	
     // Functions List:
 	function init() {
 		$scope.loading = true;
 		
 		var skater_url = buildSkaterUrl();
+
+		angular.forEach( $scope.skaterStats , function ( stat ) {
+			if ($scope.filter_inputs[stat.API_Name + 'Min']) {
+				console.log($scope.filter_inputs[stat.API_Name + 'Min'])
+				stat['Min'] = $scope.filter_inputs[stat.API_Name + 'Min'];
+			}
+			if ($scope.filter_inputs[stat.API_Name + 'Max']) {
+				stat['Max'] = $scope.filter_inputs[stat.API_Name + 'Max'];
+			}
+		});
+		
+		angular.forEach( $scope.skaterStats , function ( stat ) {
+			console.log(stat.API_Name, stat.Min, stat.Max);
+		});
+		
+		
+		if ($scope.filter_inputs.Player_Name) {
+			$scope.search.name = $scope.filter_inputs.Player_Name;
+		}
+		if ($scope.filter_inputs.Pos) {
+			$scope.search.pos = $scope.filter_inputs.Pos;
+		}
+		if ($scope.filter_inputs.Team) {
+			$scope.search.team = $scope.filter_inputs.Team;
+		}
 
 		getData
 			.stats($scope.section_data_url, $scope.season, $scope.situation, $scope.TOIMin, skater_url )
