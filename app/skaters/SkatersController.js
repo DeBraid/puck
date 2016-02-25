@@ -135,18 +135,12 @@ function SkatersController (
 
 		angular.forEach( $scope.skaterStats , function ( stat ) {
 			if ($scope.filter_inputs[stat.API_Name + 'Min']) {
-				console.log($scope.filter_inputs[stat.API_Name + 'Min'])
 				stat['Min'] = $scope.filter_inputs[stat.API_Name + 'Min'];
 			}
 			if ($scope.filter_inputs[stat.API_Name + 'Max']) {
 				stat['Max'] = $scope.filter_inputs[stat.API_Name + 'Max'];
 			}
 		});
-		
-		angular.forEach( $scope.skaterStats , function ( stat ) {
-			console.log(stat.API_Name, stat.Min, stat.Max);
-		});
-		
 		
 		if ($scope.filter_inputs.Player_Name) {
 			$scope.search.name = $scope.filter_inputs.Player_Name;
