@@ -19,7 +19,7 @@ function SkatersController (
 ) {
 	var counter = 1;
 	var decimal_fields = ['60', 'Pct', 'TM', 'Dec'];
-	var excluded_metrics = ['PID', 'First_Name', 'Last_Name', 'TOI'];
+	var excluded_metrics = ['First_Name', 'Last_Name', 'TOI'];
 	var string_headers = ['Player_Name', 'Team', 'Pos'];
 	var defaults = {
 		setOrderByField : setOrderByField,
@@ -31,7 +31,7 @@ function SkatersController (
 		activeFilterInputs : activeFilterInputs,
 		//tableRowMax : tableRowMax,
 		playerdata_length : 0,
-		pageSize : 10,
+		pageSize : 20,
 		showingAllData : false,
 		currentPage : 0,
 		adding_rows : false,
@@ -51,6 +51,9 @@ function SkatersController (
 		toggleTableFilters : toggleTableFilters,
 		toggleStatDisplay : toggleStatDisplay,
 		toggleCheckboxFilter : toggleCheckboxFilter,
+		checkboxFilterOn : false,
+		checkboxFilterText : 'Off',
+		checkedplayers : '',
 		statFilter : statFilter,
 		tableFilter : tableFilter,
 		displayFilter : {
@@ -73,8 +76,6 @@ function SkatersController (
 		season: '201516',
 		situation: '5v5',
 		TOIMin: 200,
-		checkboxFilterOn : false,
-		checkboxFilterText : 'Off',
 		setCurrentPage : setCurrentPage,
 		getNumberAsArray : getNumberAsArray,
 		numberOfPages : numberOfPages,
@@ -102,8 +103,7 @@ function SkatersController (
 		$scope.active_filters["situation"] = data["situation"];
 		$scope.active_filters["TOIMin"] = data["TOIMin"];
 
-		$scope.currentUrl = createUrl($scope.active_filters);
-		$scope.$broadcast('skater_filter_changed', $scope.currentUrl);
+		updateUrl();
     	init();
 	});
 
@@ -124,8 +124,7 @@ function SkatersController (
 		$scope.active_filters['Team'] = $scope.search.team;
 		$scope.active_filters['Player_Name'] = $scope.search.name;
 		$scope.active_filters['Pos'] = $scope.search.pos;
-		$scope.currentUrl = createUrl($scope.active_filters);
-		$scope.$broadcast('skater_filter_changed', $scope.currentUrl);
+		updateUrl();
     },true);
 
     $scope.$watch('checkboxFilterOn', function(){
@@ -148,7 +147,24 @@ function SkatersController (
 				$scope.active_filters['sortorder'] = $scope.reverseSort;
 			}
 		}		
-		
+
+		if ($location.search()['paginate']) {
+			$scope.active_filters['paginate'] = $location.search()['pagesize'];
+			if ($location.search()['paginate'] == "1") {
+				if ($location.search()['pagesize']) {
+					$scope.pageSize = $location.search()['pagesize'];
+					$scope.active_filters['pagesize'] = $scope.pageSize;
+				}
+				if ($location.search()['curpage']) {
+					$scope.currentPage = $location.search()['curpage'];
+					$scope.active_filters['curpage'] = $scope.currentPage;
+				}
+				$scope.showingAllData = false;
+			} else {
+				$scope.showingAllData = true;
+			}
+		}
+
 		if ($location.search()['season']) {
 			$scope.season = $location.search()['season'];
 			$scope.active_filters['season'] = $scope.season;
@@ -185,7 +201,13 @@ function SkatersController (
 			}
 		});
 		
-		$scope.currentUrl = createUrl($scope.active_filters);
+		if ($location.search()['checkbox']) {
+			$scope.checkboxFilterOn = true;
+			$scope.checkedplayers = $location.search()['checkbox'];
+			$scope.active_filters['checkbox'] = $scope.checkedplayers;
+		}		
+		
+		updateUrl();
 		setTimeout(function(){
 			$scope.$apply(function(){
 				$scope.$broadcast('skater_filter_changed', $scope.currentUrl);
@@ -195,19 +217,36 @@ function SkatersController (
 		//$scope.$broadcast('skater_filter_changed', $scope.currentUrl);
 	}
 
-    function createUrl(filters) {
-        //var params = [];
+    function updateUrl() {
+        //The only thing that is not in the filters list is player checkbox filters
+		if ($scope.checkboxFilterOn) {
+			$scope.active_filters['checkbox']='0';
+			angular.forEach( $scope.filtereddata , function(player) {
+				if (player.checkboxFilter) {
+					$scope.active_filters['checkbox'] = $scope.active_filters['checkbox'] + ',' + player.PID;
+				}
+			});			
+		} else {
+			if ($scope.active_filters['checkbox']) {
+				delete $scope.active_filters['checkbox'];
+			}
+		}
+		
 		var absUrl = $location.absUrl();
 		var split_url = absUrl.split('#');
 		var url='';
-        for (key in filters) {
+        for (key in $scope.active_filters) {
 			if (url=='') {
-				url = url + '?' + key + '=' + filters[key];
+				url = url + '?' + key + '=' + $scope.active_filters[key];
 			} else {
-				url = url + '&' + key + '=' + filters[key];
+				url = url + '&' + key + '=' + $scope.active_filters[key];
 			}
         }
 		url = split_url[0] + '#/skaters' + url;
+		//console.log('updatedurl:', url);
+		
+		$scope.currentUrl = url;
+		$scope.$broadcast('skater_filter_changed', $scope.currentUrl);
 		return url;
     }	
 	
@@ -237,12 +276,26 @@ function SkatersController (
 			var excluded_strings = $scope.excluded_metrics;
 			var players = $scope.playerdata = response;
 			$scope.playerdata_length = players.length;
+			if ($scope.showingAllData) {
+				$scope.pageSize = $scope.playerdata_length;
+			}
 			
 			var metrics = $scope.metrics = Object.keys(players[0]);
 			$scope.$broadcast('skater_metrics', metrics); 
 
+
 			angular.forEach( players , function(player) {
-				player.checkboxFilter = false;
+				if ($scope.checkedplayers != '') {
+					var checkedplayers = $scope.checkedplayers.split(",");
+					player.checkboxFilter = false;
+					if (checkedplayers) {
+						if (checkedplayers.indexOf(player["PID"]) >= 0) {
+							player.checkboxFilter = true;
+						}
+					}
+				}
+				player["PID"] = parseFloat(player["PID"]);
+				
 				if (player.Pos == 'R') { player.Pos = 'F(RW)'; }
 				if (player.Pos == 'L') { player.Pos = 'F(LW)'; }
 				if (player.Pos == 'C') { player.Pos = 'F(C)'; }
@@ -262,6 +315,7 @@ function SkatersController (
 					player[metric] = parseFloat(player[metric]);
 				});
 			});
+			$scope.checkedplayers = '';
 			$scope.loading = false;
 		}
 	};
@@ -278,9 +332,7 @@ function SkatersController (
 	
 	function activeFilterInputs(value, input_field) {
 		$scope.active_filters[input_field] = value;
-
-		$scope.currentUrl = createUrl($scope.active_filters);
-		$scope.$broadcast('skater_filter_changed', $scope.currentUrl);
+		$scope.currentUrl = updateUrl();
 	}
 
 	function statFilter(stat) {
@@ -340,7 +392,7 @@ function SkatersController (
 			$scope.checkboxFilterOn = true;
 			$scope.checkboxFilterText = 'On';
 		}
-		//$scope.checkboxFilterOn = !$scope.checkboxFilterOn;
+		updateUrl();
 	}
 
 	function toggleStatDisplay (stat) {
@@ -355,21 +407,21 @@ function SkatersController (
 		if (field == $scope.orderByField) {
 			$scope.reverseSort = !$scope.reverseSort;
 			$scope.active_filters['sortorder'] = $scope.reverseSort;
-			$scope.currentUrl = createUrl($scope.active_filters);
-			$scope.$broadcast('skater_filter_changed', $scope.currentUrl);
+			updateUrl();
 			return;
 		};
 		$scope.orderByField = field;
 		$scope.active_filters['orderby'] = field;
 		$scope.active_filters['sortorder'] = $scope.reverseSort;
-		$scope.currentUrl = createUrl($scope.active_filters);
-		$scope.$broadcast('skater_filter_changed', $scope.currentUrl);
+		updateUrl();
 	}
 
 
 
 	function setCurrentPage(currentPage) {
 		$scope.currentPage = currentPage;
+		$scope.active_filters['curpage'] = $scope.currentPage;
+		updateUrl();
 	}
 
 	function getNumberAsArray(num) {
@@ -382,10 +434,19 @@ function SkatersController (
 	function showAllData() {
 		$scope.pageSize = $scope.filtereddata.length;
 		$scope.showingAllData = true;
+		$scope.active_filters['paginate'] = 0;
+		delete $scope.active_filters['pagesize'];
+		delete $scope.active_filters['curpage'];
+		updateUrl();
 	};
 	function paginateData() {
-		$scope.pageSize = 50;
+		$scope.pageSize = 20;
+		$scope.currentPage = 1;
 		$scope.showingAllData = false;
+		$scope.active_filters['paginate'] = 1;
+		$scope.active_filters['pagesize'] = $scope.pageSize;
+		$scope.active_filters['curpage'] = $scope.currentPage;
+		updateUrl();
 	};
 
 	
