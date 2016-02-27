@@ -70,6 +70,9 @@ function SkatersController (
 			team : '',
 			pos : ''
 		},
+		season: '201516',
+		situation: '5v5',
+		TOIMin: 200,
 		checkboxFilterOn : false,
 		checkboxFilterText : 'Off',
 		setCurrentPage : setCurrentPage,
@@ -204,7 +207,7 @@ function SkatersController (
 				url = url + '&' + key + '=' + filters[key];
 			}
         }
-		url = split_url[0] + '/#/skaters' + url;
+		url = split_url[0] + '#/skaters' + url;
 		return url;
     }	
 	
