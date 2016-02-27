@@ -21,10 +21,14 @@
 					class="btn btn-default pull-right grey-bg">
 						<span ng-show="showFilters">Hide </span>
 						<span ng-hide="showFilters">Show </span>
-						Data Filters
+						Filters
 				</button>
 
-				<span class="pull-right" style="margin-left: 1em;">
+				<button ng-click="downloadCSV('PuckalyticsSkaterStats.csv')"
+					class="btn btn-default pull-right grey-bg">
+						Export to .csv
+				</button>
+				<span class="pull-right">
 					<copy-url></copy-url>
 				</span>
 				

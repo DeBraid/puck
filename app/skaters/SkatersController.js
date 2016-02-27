@@ -81,6 +81,7 @@ function SkatersController (
 		numberOfPages : numberOfPages,
 		paginateData : paginateData,
 		showAllData : showAllData,
+		downloadCSV : downloadCSV,
 		//displayStat : displayStat,
 	};
 	
@@ -473,65 +474,65 @@ function SkatersController (
 		updateUrl();
 	};
 
-	
-/*	
-	function tableRowMax ($event, show_all) {
-		$scope.adding_rows = true;
-		
-		if (show_all) {
-			$scope.table_rows = $scope.playerdata_length;
-			$scope.adding_rows = false;
-			return;
-		};
-		var max = 10;
-		counter++
-		$scope.table_rows = max*counter;
-		$scope.adding_rows = false;
-	}
+	function downloadCSV(filename) {
+		var metrics = $scope.metrics;
+		var rank=1;
 
-	
-	function updateSections ($event, target) {
-		if (target.value === 0) {
-			target.value = 1;
-			setOrderByField( target.order_by );
-		} else {
-			target.value = 0;
-		}
-		if (target.reset) {
-			angular.forEach($scope.section_options, function (section) {
-				var name = section.name;
-				section.value = 0;
-				if ( name == 'info' || name == 'corsi' ) {
-					section.value = 1;
-				};
-			});
-		};
-		if (target.show_all) {
-			angular.forEach($scope.section_options, function (section) {
-				section.value = 1;
-			});
-		};
+		console.log('In downloadCSV');
 		
-		//init();
+		$scope.filtereddata = $filter('orderBy')($scope.filtereddata, $scope.orderByField, $scope.reverseSort);
+
+		$scope.csvtxt = 'Rank,Player,Team,Pos';
+		angular.forEach( $scope.skaterStats , function ( stat ) {
+			if (statFilter(stat)) {
+				var stat = stat.DisplayName;
+				$scope.csvtxt = $scope.csvtxt + ',' + stat;
+			}
+		});
+		$scope.csvtxt += ',\n';
+
+		angular.forEach( $scope.filtereddata , function ( player, index ) {
+			var teamname = player.Team;
+			var playername = player.Player_Name;
+			
+			if (tableFilter(player)) {
+				$scope.csvtxt = $scope.csvtxt + rank + ',' + player.FullName + ',' + player.Team + ',' + player.Pos;
+				rank = rank +1;
+				angular.forEach( $scope.skaterStats , function ( stat ) {
+					if (statFilter(stat)) {
+						$scope.csvtxt = $scope.csvtxt + ',' + player[stat.API_Name];
+					}
+				});
+				$scope.csvtxt += '\n';
+			}
+		});
+		$scope.csvtxt += 'Downloaded from Puckalytics.com (' + $scope.currentUrl + ')\n';
+		
+		var a = document.createElement('a');
+		mimeType = 'text/csv' || 'application/octet-stream';
+
+		if (navigator.msSaveBlob) { // IE10
+		return navigator.msSaveBlob(new Blob([$scope.csvtxt], { type: mimeType }),     filename);
+		} else if ('download' in a) { //html5 A[download]
+			a.href = 'data:' + mimeType + ',' + encodeURIComponent($scope.csvtxt);
+			a.setAttribute('download', filename);
+			document.body.appendChild(a);
+			setTimeout(function() {
+			  a.click();
+			  document.body.removeChild(a);
+			}, 66);
+			return true;
+		} else { //do iframe dataURL download (old ch+FF):
+			var f = document.createElement('iframe');
+			document.body.appendChild(f);
+			f.src = 'data:' + mimeType + ',' + encodeURIComponent($scope.csvtxt);
+
+			setTimeout(function() {
+			  document.body.removeChild(f);
+			}, 333);
+			return true;
+		}
+		
 	}
-	*/
 };
 
-
-/*
-skaters.filter('tableHeaderFilter', function(){
-	return function(header){
-		var output = header;
-		var decimal_fields = ['60', 'Pct', 'RelTM'];
-		
-		decimal_fields.map(function (field) {			
-			if ( header.indexOf( field ) > -1) {
-				output = header.split( field );
-				output = output[0] +" "+ field + " " + output[1];
-			};
-		});
-
-		return output;
-	}
-});
-*/
