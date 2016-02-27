@@ -18,8 +18,8 @@ function MainAppRouterConfig (
             controllerAs: 'home'
         })
         .state('skaters', {
-            url: '/skaters?' + createUrl(skater_params),
-            params: skater_params,
+            url: '/skaters?season=201516&situation=5v5&TOIMin=200', // + createUrl(skater_params),
+            //params: skater_params,
             templateUrl: 'app/skaters/skaters.html',
             controller: 'SkatersController'
         })

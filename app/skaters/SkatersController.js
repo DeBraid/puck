@@ -15,7 +15,7 @@ skaters.filter('startFrom', function() {
 skaters.controller('SkatersController', SkatersController);
 
 function SkatersController (
-	$scope, $filter, $stateParams, skatersConstants,	secretConstants, getParamsFromUrl, getData
+	$scope, $filter, $location, $state, /*$stateParams,*/ skatersConstants,	secretConstants, getParamsFromUrl, getData
 ) {
 	var counter = 1;
 	var decimal_fields = ['60', 'Pct', 'TM', 'Dec'];
@@ -43,6 +43,7 @@ function SkatersController (
 		filtereddata : [],
 	    metrics : [],
 	    filter_inputs : {},
+		currentUrl: '',
 	    //updateSections : updateSections,
 		skaterStats: skatersConstants.skater_metrics_object,
 	    section_options : skatersConstants.section_options,
@@ -80,6 +81,33 @@ function SkatersController (
 	};
 	
 
+	// 1. put defaults on scope
+	angular.extend( $scope , defaults );
+	
+	//getParamsFromUrl.get($scope.params, $scope);
+
+	// 3. main fn - bootstrap the controller
+	startup();
+	init();
+
+	// watch filter_menu directive for new data inputs
+	$scope.$on('filter_menu_update', function(event, data){
+		$scope.season = data["season"];
+		$scope.situation = data["situation"];
+		$scope.TOIMin = data["TOIMin"];
+		$scope.active_filters["season"] = data["season"];
+		$scope.active_filters["situation"] = data["situation"];
+		$scope.active_filters["TOIMin"] = data["TOIMin"];
+
+		$scope.currentUrl = createUrl($scope.active_filters);
+		$scope.$broadcast('skater_filter_changed', $scope.currentUrl);
+    	init();
+	});
+
+    $scope.$watch('checkboxFilterOn', function(){
+        $scope.filtereddata = $filter('filter')($scope.playerdata, tableFilter);
+    },true);	
+
     $scope.$watch('skaterStats', function(){
         $scope.filtereddata = $filter('filter')($scope.playerdata, tableFilter);
     },true);
@@ -93,64 +121,97 @@ function SkatersController (
 		$scope.active_filters['Team'] = $scope.search.team;
 		$scope.active_filters['Player_Name'] = $scope.search.name;
 		$scope.active_filters['Pos'] = $scope.search.pos;
-		$scope.$broadcast('filter_inputs_changed', $scope.active_filters);
+		$scope.currentUrl = createUrl($scope.active_filters);
+		$scope.$broadcast('skater_filter_changed', $scope.currentUrl);
     },true);
 
     $scope.$watch('checkboxFilterOn', function(){
         $scope.filtereddata = $filter('filter')($scope.playerdata, tableFilter);
     },true);	
-
-	// 1. put defaults on scope
-	angular.extend( $scope , defaults );
-	
-	// 2. get values from URL and attach to $scope 
-	getParamsFromUrl.get($stateParams, $scope);
-
-	// 3. main fn - bootstrap the controller
-	init();
-
-	// watch filter_menu directive for new data inputs
-	$scope.$on('filter_menu_update', function(){
-    	init();
-	});
-
-    $scope.$watch('checkboxFilterOn', function(){
-        $scope.filtereddata = $filter('filter')($scope.playerdata, tableFilter);
-    },true);	
-	
-	function activeFilterInputs (value, input_field) {
-		console.log(value, input_field);
-		$scope.active_filters[input_field] = value;
-		console.log($scope.active_filters);
-
-		$scope.$broadcast('filter_inputs_changed', $scope.active_filters);
-	}
-
 	
     // Functions List:
-	function init() {
-		$scope.loading = true;
+	function startup() {	
+		if ($location.search()['orderby']) {
+			$scope.orderByField = $location.search()['orderby'];
+			$scope.active_filters['orderby'] = $scope.orderByField;
+		}
+		if ($location.search()['sortorder']) {
+			if ($location.search()['sortorder'] == 'true') {
+				$scope.reverseSort = true;
+				$scope.active_filters['sortorder'] = $scope.reverseSort;
+			}
+			if ($location.search()['sortorder'] == 'false') {
+				$scope.reverseSort = false;
+				$scope.active_filters['sortorder'] = $scope.reverseSort;
+			}
+		}		
 		
-		var skater_url = buildSkaterUrl();
+		if ($location.search()['season']) {
+			$scope.season = $location.search()['season'];
+			$scope.active_filters['season'] = $scope.season;
+		}
+		if ($location.search()['situation']) {
+			$scope.situation = $location.search()['situation'];
+			$scope.active_filters['situation'] = $scope.situation;
+		}
+		if ($location.search()['TOIMin']) {
+			$scope.TOIMin = $location.search()['TOIMin'];
+			$scope.active_filters['TOIMin'] = $scope.TOIMin;
+		}
+		if ($location.search()['Team']) {
+			$scope.search.team = $location.search()['Team'];
+			$scope.active_filters['Team'] = $scope.search.team;
+		}
+		if ($location.search()['Player_Name']) {
+			$scope.search.name = $location.search()['Player_Name'];
+			$scope.active_filters['Player_Name'] = $scope.search.name;
+		}
+		if ($location.search()['Pos']) {
+			$scope.search.pos = $location.search()['Pos'];
+			$scope.active_filters['Pos'] = $scope.search.pos;
+		}
 
 		angular.forEach( $scope.skaterStats , function ( stat ) {
-			if ($scope.filter_inputs[stat.API_Name + 'Min']) {
-				stat['Min'] = $scope.filter_inputs[stat.API_Name + 'Min'];
+			if ($location.search()[stat.API_Name+'Min']) {
+				stat.Min = $location.search()[stat.API_Name+'Min'];
+				$scope.active_filters[stat.API_Name+'Min'] = stat.Min;
 			}
-			if ($scope.filter_inputs[stat.API_Name + 'Max']) {
-				stat['Max'] = $scope.filter_inputs[stat.API_Name + 'Max'];
+			if ($location.search()[stat.API_Name+'Max']) {
+				stat.Max = $location.search()[stat.API_Name+'Max'];
+				$scope.active_filters[stat.API_Name+'Max'] = stat.Max;
 			}
 		});
 		
-		if ($scope.filter_inputs.Player_Name) {
-			$scope.search.name = $scope.filter_inputs.Player_Name;
-		}
-		if ($scope.filter_inputs.Pos) {
-			$scope.search.pos = $scope.filter_inputs.Pos;
-		}
-		if ($scope.filter_inputs.Team) {
-			$scope.search.team = $scope.filter_inputs.Team;
-		}
+		$scope.currentUrl = createUrl($scope.active_filters);
+		setTimeout(function(){
+			$scope.$apply(function(){
+				$scope.$broadcast('skater_filter_changed', $scope.currentUrl);
+			});
+		}, 1000);
+		
+		//$scope.$broadcast('skater_filter_changed', $scope.currentUrl);
+	}
+
+    function createUrl(filters) {
+        //var params = [];
+		var absUrl = $location.absUrl();
+		var split_url = absUrl.split('#');
+		var url='';
+        for (key in filters) {
+			if (url=='') {
+				url = url + '?' + key + '=' + filters[key];
+			} else {
+				url = url + '&' + key + '=' + filters[key];
+			}
+        }
+		url = split_url[0] + '/#/skaters' + url;
+		return url;
+    }	
+	
+	function init() {
+		$scope.loading = true;
+
+		var skater_url = buildSkaterUrl();
 
 		getData
 			.stats($scope.section_data_url, $scope.season, $scope.situation, $scope.TOIMin, skater_url )
@@ -212,14 +273,19 @@ function SkatersController (
 		return data;
 	}	
 	
+	function activeFilterInputs(value, input_field) {
+		$scope.active_filters[input_field] = value;
+
+		$scope.currentUrl = createUrl($scope.active_filters);
+		$scope.$broadcast('skater_filter_changed', $scope.currentUrl);
+	}
+
 	function statFilter(stat) {
-		//console.log('here',stat.DisplayWhen, $scope.displayFilter[stat.DisplayWhen]);
 		if($scope.displayFilter[stat.DisplayWhen]) {
 			return(true);
 		}
 		return(false);
 	};
-	
 	
 	function tableFilter(row) {
 		var truthy = true;
@@ -227,8 +293,6 @@ function SkatersController (
 		var teamname = row.Team;
 		var playername = row.Player_Name;
 		var position = row.Pos; 
-		
-		//console.log($scope.checkboxFilterOn, ' ', row.checkboxFilter)
 		
 		//if (row.Pos == 'D') { return false; };
 	    if ( $scope.hidedata == true ) { return false; };
@@ -285,12 +349,18 @@ function SkatersController (
 	}
 
 	function setOrderByField (field) {
-		// console.log('go setOrderByField with: field', field);
 		if (field == $scope.orderByField) {
 			$scope.reverseSort = !$scope.reverseSort;
+			$scope.active_filters['sortorder'] = $scope.reverseSort;
+			$scope.currentUrl = createUrl($scope.active_filters);
+			$scope.$broadcast('skater_filter_changed', $scope.currentUrl);
 			return;
 		};
 		$scope.orderByField = field;
+		$scope.active_filters['orderby'] = field;
+		$scope.active_filters['sortorder'] = $scope.reverseSort;
+		$scope.currentUrl = createUrl($scope.active_filters);
+		$scope.$broadcast('skater_filter_changed', $scope.currentUrl);
 	}
 
 

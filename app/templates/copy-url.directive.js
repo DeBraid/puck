@@ -26,16 +26,24 @@ function copyUrlDirective($state, $timeout) {
         
         scope.$on('filter_menu_update', buildUrlToCopy);
         scope.$on('filter_inputs_changed', buildUrlToCopy);
+        scope.$on('skater_filter_changed', buildSkaterUrlToCopy);
 
         function buildUrlToCopy (event, args) {
             var new_url = $state.href($state.current.name, args, {absolute: true});
-            // FIXME DB - temporary hack the URL whilst in development
-            var split_url = new_url.split('#');
-            var hacked_URL = split_url[0] + 'puck-master/#' + split_url[1]; 
-            console.log('hacked_URL, split_url', hacked_URL, split_url);
-            scope.textToCopy = hacked_URL;
+			if (new_url.includes('skaters')==false) {  //Don't want to set URL for skaters - this is done elsewhere
+				// FIXME DB - temporary hack the URL whilst in development
+				var split_url = new_url.split('#');
+				var hacked_URL = split_url[0] + 'puck-master/#' + split_url[1]; 
+				console.log('hacked_URL, split_url', hacked_URL, split_url);
+				scope.textToCopy = hacked_URL;
+			}
         }
 
+        function buildSkaterUrlToCopy (event, url) {
+			console.log('buildSkaterUrlToCopy:', url)
+            scope.textToCopy = url;
+        }
+		
         scope.success = function () {
             scope.successful = true;
             scope.btn_text = 'URL Copied to Clipboard!';
