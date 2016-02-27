@@ -442,6 +442,8 @@ function SkatersController (
 
 	function setCurrentPage(currentPage) {
 		$scope.currentPage = currentPage;
+		$scope.active_filters['pagesize'] = $scope.pageSize;
+		$scope.active_filters['paginate'] = 1;
 		$scope.active_filters['curpage'] = $scope.currentPage;
 		updateUrl();
 	}
