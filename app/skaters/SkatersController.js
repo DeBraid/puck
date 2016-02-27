@@ -219,6 +219,7 @@ function SkatersController (
 
     function updateUrl() {
         //The only thing that is not in the filters list is player checkbox filters
+		/*
 		if ($scope.checkboxFilterOn) {
 			$scope.active_filters['checkbox']='0';
 			angular.forEach( $scope.filtereddata , function(player) {
@@ -231,6 +232,7 @@ function SkatersController (
 				delete $scope.active_filters['checkbox'];
 			}
 		}
+		*/
 		
 		var absUrl = $location.absUrl();
 		var split_url = absUrl.split('#');
@@ -386,9 +388,29 @@ function SkatersController (
 
 	function toggleCheckboxFilter() {
 		if ($scope.checkboxFilterOn) {
+			delete $scope.active_filters['checkbox'];
 			$scope.checkboxFilterOn = false;
 			$scope.checkboxFilterText = 'Off';
 		} else {
+			$scope.checkedplayers='0';
+			angular.forEach( $scope.filtereddata , function(player) {
+				if (player.checkboxFilter) {
+					$scope.checkedplayers = $scope.checkedplayers + ',' + player.PID;
+				}
+			});			
+			$scope.active_filters['checkbox']=$scope.checkedplayers;
+			//We need to copy check boxes to unfiltered player list
+			angular.forEach( $scope.playerdata , function(player) {
+				if ($scope.checkedplayers != '') {
+					var checkedplayers = $scope.checkedplayers.split(",");
+					player.checkboxFilter = false;
+					if (checkedplayers) {
+						if (checkedplayers.indexOf(player["PID"].toString()) >= 0) {
+							player.checkboxFilter = true;
+						}
+					}
+				}
+			});
 			$scope.checkboxFilterOn = true;
 			$scope.checkboxFilterText = 'On';
 		}
