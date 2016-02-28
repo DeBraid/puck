@@ -191,6 +191,87 @@ function SkatersController (
 			$scope.active_filters['Pos'] = $scope.search.pos;
 		}
 
+		if ($location.search()['dgoals']) {
+			if ($location.search()['dgoals'] == 'true') {
+				$scope.displayFilter.displayGoals = true;
+			} else if ($location.search()['dgoals'] == 'false') {
+				$scope.displayFilter.displayGoals = false;
+			}
+			$scope.active_filters['dgoals'] = $scope.displayFilter.displayGoals;
+		}
+		
+		if ($location.search()['dcorsi']) {
+			if ($location.search()['dcorsi'] == 'true') {
+				$scope.displayFilter.displayCorsi = true;
+			} else if ($location.search()['dcorsi'] == 'false') {
+				$scope.displayFilter.displayCorsi = false;
+			}
+			$scope.active_filters['dcorsi'] = $scope.displayFilter.displayCorsi;
+		}
+		
+		if ($location.search()['dpcts']) {
+			if ($location.search()['dpcts'] == 'true') {
+				$scope.displayFilter.displayPcts = true;
+			} else if ($location.search()['dpcts'] == 'false') {
+				$scope.displayFilter.displayPcts = false;
+			}
+			$scope.active_filters['dpcts'] = $scope.displayFilter.displayPcts;
+		}
+		
+		if ($location.search()['dtm']) {
+			if ($location.search()['dtm'] == 'true') {
+				$scope.displayFilter.displayTM = true;
+			} else if ($location.search()['dtm'] == 'false') {
+				$scope.displayFilter.displayTM = false;
+			}
+			$scope.active_filters['dtm'] = $scope.displayFilter.displayTM;
+		}
+		
+		if ($location.search()['dopp']) {
+			if ($location.search()['dopp'] == 'true') {
+				$scope.displayFilter.displayOpp = true;
+			} else if ($location.search()['dopp'] == 'false') {
+				$scope.displayFilter.displayOpp = false;
+			}
+			$scope.active_filters['dopp'] = $scope.displayFilter.displayOpp;
+		}		
+
+		if ($location.search()['dreltm']) {
+			if ($location.search()['dreltm'] == 'true') {
+				$scope.displayFilter.displayRelTM = true;
+			} else if ($location.search()['dreltm'] == 'false') {
+				$scope.displayFilter.displayRelTM = false;
+			}
+			$scope.active_filters['dreltm'] = $scope.displayFilter.displayRelTM;
+		}
+
+		if ($location.search()['dind']) {
+			if ($location.search()['dind'] == 'true') {
+				$scope.displayFilter.displayIndividual = true;
+			} else if ($location.search()['dind'] == 'false') {
+				$scope.displayFilter.displayIndividual = false;
+			}
+			$scope.active_filters['dind'] = $scope.displayFilter.displayIndividual;
+		}
+		
+		if ($location.search()['dpctteam']) {
+			if ($location.search()['dpctteam'] == 'true') {
+				$scope.displayFilter.displayTeamPct = true;
+			} else if ($location.search()['dpctteam'] == 'false') {
+				$scope.displayFilter.displayTeamPct = false;
+			}
+			$scope.active_filters['dpctteam'] = $scope.displayFilter.displayTeamPct;
+		}
+		
+		if ($location.search()['dzs']) {
+			if ($location.search()['dzs'] == 'true') {
+				$scope.displayFilter.displayZoneStarts = true;
+			} else if ($location.search()['dzs'] == 'false') {
+				$scope.displayFilter.displayZoneStarts = false;
+			}
+			$scope.active_filters['dzs'] = $scope.displayFilter.displayZoneStarts;
+		}
+		
 		angular.forEach( $scope.skaterStats , function ( stat ) {
 			if ($location.search()[stat.API_Name+'Min']) {
 				stat.Min = $location.search()[stat.API_Name+'Min'];
@@ -219,22 +300,6 @@ function SkatersController (
 	}
 
     function updateUrl() {
-        //The only thing that is not in the filters list is player checkbox filters
-		/*
-		if ($scope.checkboxFilterOn) {
-			$scope.active_filters['checkbox']='0';
-			angular.forEach( $scope.filtereddata , function(player) {
-				if (player.checkboxFilter) {
-					$scope.active_filters['checkbox'] = $scope.active_filters['checkbox'] + ',' + player.PID;
-				}
-			});			
-		} else {
-			if ($scope.active_filters['checkbox']) {
-				delete $scope.active_filters['checkbox'];
-			}
-		}
-		*/
-		
 		var absUrl = $location.absUrl();
 		var split_url = absUrl.split('#');
 		var url='';
@@ -424,6 +489,16 @@ function SkatersController (
 		} else {
 			$scope.displayFilter[stat] = true;
 		}
+		$scope.active_filters["dgoals"]=$scope.displayFilter.displayGoals;
+		$scope.active_filters["dcorsi"]=$scope.displayFilter.displayCorsi;
+		$scope.active_filters["dpcts"]=$scope.displayFilter.displayPcts;
+		$scope.active_filters["dtm"]=$scope.displayFilter.displayTM;
+		$scope.active_filters["dopp"]=$scope.displayFilter.displayOpp;
+		$scope.active_filters["dreltm"]=$scope.displayFilter.displayRelTM;
+		$scope.active_filters["dind"]=$scope.displayFilter.displayIndividual;
+		$scope.active_filters["dpctteam"]=$scope.displayFilter.displayTeamPct;
+		$scope.active_filters["dzs"]=$scope.displayFilter.displayZoneStarts;
+		updateUrl();
 	}
 
 	function setOrderByField (field) {
