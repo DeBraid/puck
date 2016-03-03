@@ -133,172 +133,6 @@ function SkatersController (
     },true);	
 	
     // Functions List:
-	function startup() {	
-		if ($location.search()['orderby']) {
-			$scope.orderByField = $location.search()['orderby'];
-			$scope.active_filters['orderby'] = $scope.orderByField;
-		}
-		if ($location.search()['sortorder']) {
-			if ($location.search()['sortorder'] == 'true') {
-				$scope.reverseSort = true;
-				$scope.active_filters['sortorder'] = $scope.reverseSort;
-			}
-			if ($location.search()['sortorder'] == 'false') {
-				$scope.reverseSort = false;
-				$scope.active_filters['sortorder'] = $scope.reverseSort;
-			}
-		}		
-
-		if ($location.search()['paginate']) {
-			$scope.active_filters['paginate'] = $location.search()['pagesize'];
-			if ($location.search()['paginate'] == "1") {
-				if ($location.search()['pagesize']) {
-					$scope.pageSize = $location.search()['pagesize'];
-					$scope.active_filters['pagesize'] = $scope.pageSize;
-				}
-				if ($location.search()['curpage']) {
-					$scope.currentPage = $location.search()['curpage'];
-					$scope.active_filters['curpage'] = $scope.currentPage;
-				}
-				$scope.showingAllData = false;
-			} else {
-				$scope.showingAllData = true;
-			}
-		}
-
-		if ($location.search()['season']) {
-			$scope.season = $location.search()['season'];
-			$scope.active_filters['season'] = $scope.season;
-		}
-		if ($location.search()['situation']) {
-			$scope.situation = $location.search()['situation'];
-			$scope.active_filters['situation'] = $scope.situation;
-		}
-		if ($location.search()['TOIMin']) {
-			$scope.TOIMin = $location.search()['TOIMin'];
-			$scope.active_filters['TOIMin'] = $scope.TOIMin;
-		}
-		if ($location.search()['Team']) {
-			$scope.search.team = $location.search()['Team'];
-			$scope.active_filters['Team'] = $scope.search.team;
-		}
-		if ($location.search()['Player_Name']) {
-			$scope.search.name = $location.search()['Player_Name'];
-			$scope.active_filters['Player_Name'] = $scope.search.name;
-		}
-		if ($location.search()['Pos']) {
-			$scope.search.pos = $location.search()['Pos'];
-			$scope.active_filters['Pos'] = $scope.search.pos;
-		}
-
-		if ($location.search()['dgoals']) {
-			if ($location.search()['dgoals'] == 'true') {
-				$scope.displayFilter.displayGoals = true;
-			} else if ($location.search()['dgoals'] == 'false') {
-				$scope.displayFilter.displayGoals = false;
-			}
-			$scope.active_filters['dgoals'] = $scope.displayFilter.displayGoals;
-		}
-		
-		if ($location.search()['dcorsi']) {
-			if ($location.search()['dcorsi'] == 'true') {
-				$scope.displayFilter.displayCorsi = true;
-			} else if ($location.search()['dcorsi'] == 'false') {
-				$scope.displayFilter.displayCorsi = false;
-			}
-			$scope.active_filters['dcorsi'] = $scope.displayFilter.displayCorsi;
-		}
-		
-		if ($location.search()['dpcts']) {
-			if ($location.search()['dpcts'] == 'true') {
-				$scope.displayFilter.displayPcts = true;
-			} else if ($location.search()['dpcts'] == 'false') {
-				$scope.displayFilter.displayPcts = false;
-			}
-			$scope.active_filters['dpcts'] = $scope.displayFilter.displayPcts;
-		}
-		
-		if ($location.search()['dtm']) {
-			if ($location.search()['dtm'] == 'true') {
-				$scope.displayFilter.displayTM = true;
-			} else if ($location.search()['dtm'] == 'false') {
-				$scope.displayFilter.displayTM = false;
-			}
-			$scope.active_filters['dtm'] = $scope.displayFilter.displayTM;
-		}
-		
-		if ($location.search()['dopp']) {
-			if ($location.search()['dopp'] == 'true') {
-				$scope.displayFilter.displayOpp = true;
-			} else if ($location.search()['dopp'] == 'false') {
-				$scope.displayFilter.displayOpp = false;
-			}
-			$scope.active_filters['dopp'] = $scope.displayFilter.displayOpp;
-		}		
-
-		if ($location.search()['dreltm']) {
-			if ($location.search()['dreltm'] == 'true') {
-				$scope.displayFilter.displayRelTM = true;
-			} else if ($location.search()['dreltm'] == 'false') {
-				$scope.displayFilter.displayRelTM = false;
-			}
-			$scope.active_filters['dreltm'] = $scope.displayFilter.displayRelTM;
-		}
-
-		if ($location.search()['dind']) {
-			if ($location.search()['dind'] == 'true') {
-				$scope.displayFilter.displayIndividual = true;
-			} else if ($location.search()['dind'] == 'false') {
-				$scope.displayFilter.displayIndividual = false;
-			}
-			$scope.active_filters['dind'] = $scope.displayFilter.displayIndividual;
-		}
-		
-		if ($location.search()['dpctteam']) {
-			if ($location.search()['dpctteam'] == 'true') {
-				$scope.displayFilter.displayTeamPct = true;
-			} else if ($location.search()['dpctteam'] == 'false') {
-				$scope.displayFilter.displayTeamPct = false;
-			}
-			$scope.active_filters['dpctteam'] = $scope.displayFilter.displayTeamPct;
-		}
-		
-		if ($location.search()['dzs']) {
-			if ($location.search()['dzs'] == 'true') {
-				$scope.displayFilter.displayZoneStarts = true;
-			} else if ($location.search()['dzs'] == 'false') {
-				$scope.displayFilter.displayZoneStarts = false;
-			}
-			$scope.active_filters['dzs'] = $scope.displayFilter.displayZoneStarts;
-		}
-		
-		angular.forEach( $scope.skaterStats , function ( stat ) {
-			if ($location.search()[stat.API_Name+'Min']) {
-				stat.Min = $location.search()[stat.API_Name+'Min'];
-				$scope.active_filters[stat.API_Name+'Min'] = stat.Min;
-			}
-			if ($location.search()[stat.API_Name+'Max']) {
-				stat.Max = $location.search()[stat.API_Name+'Max'];
-				$scope.active_filters[stat.API_Name+'Max'] = stat.Max;
-			}
-		});
-		
-		if ($location.search()['checkbox']) {
-			$scope.checkboxFilterOn = true;
-			$scope.checkedplayers = $location.search()['checkbox'];
-			$scope.active_filters['checkbox'] = $scope.checkedplayers;
-		}		
-		
-		updateUrl();
-		setTimeout(function(){
-			$scope.$apply(function(){
-				$scope.$broadcast('skater_filter_changed', $scope.currentUrl);
-			});
-		}, 1000);
-		
-		//$scope.$broadcast('skater_filter_changed', $scope.currentUrl);
-	}
-
     function updateUrl() {
 		var absUrl = $location.absUrl();
 		var split_url = absUrl.split('#');
@@ -608,6 +442,170 @@ function SkatersController (
 			return true;
 		}
 		
+	}
+
+	function startup() {	
+		if ($location.search()['orderby']) {
+			$scope.orderByField = $location.search()['orderby'];
+			$scope.active_filters['orderby'] = $scope.orderByField;
+		}
+		if ($location.search()['sortorder']) {
+			if ($location.search()['sortorder'] == 'true') {
+				$scope.reverseSort = true;
+				$scope.active_filters['sortorder'] = $scope.reverseSort;
+			}
+			if ($location.search()['sortorder'] == 'false') {
+				$scope.reverseSort = false;
+				$scope.active_filters['sortorder'] = $scope.reverseSort;
+			}
+		}		
+
+		if ($location.search()['paginate']) {
+			$scope.active_filters['paginate'] = $location.search()['pagesize'];
+			if ($location.search()['paginate'] == "1") {
+				if ($location.search()['pagesize']) {
+					$scope.pageSize = $location.search()['pagesize'];
+					$scope.active_filters['pagesize'] = $scope.pageSize;
+				}
+				if ($location.search()['curpage']) {
+					$scope.currentPage = $location.search()['curpage'];
+					$scope.active_filters['curpage'] = $scope.currentPage;
+				}
+				$scope.showingAllData = false;
+			} else {
+				$scope.showingAllData = true;
+			}
+		}
+
+		if ($location.search()['season']) {
+			$scope.season = $location.search()['season'];
+			$scope.active_filters['season'] = $scope.season;
+		}
+		if ($location.search()['situation']) {
+			$scope.situation = $location.search()['situation'];
+			$scope.active_filters['situation'] = $scope.situation;
+		}
+		if ($location.search()['TOIMin']) {
+			$scope.TOIMin = $location.search()['TOIMin'];
+			$scope.active_filters['TOIMin'] = $scope.TOIMin;
+		}
+		if ($location.search()['Team']) {
+			$scope.search.team = $location.search()['Team'];
+			$scope.active_filters['Team'] = $scope.search.team;
+		}
+		if ($location.search()['Player_Name']) {
+			$scope.search.name = $location.search()['Player_Name'];
+			$scope.active_filters['Player_Name'] = $scope.search.name;
+		}
+		if ($location.search()['Pos']) {
+			$scope.search.pos = $location.search()['Pos'];
+			$scope.active_filters['Pos'] = $scope.search.pos;
+		}
+
+		if ($location.search()['dgoals']) {
+			if ($location.search()['dgoals'] == 'true') {
+				$scope.displayFilter.displayGoals = true;
+			} else if ($location.search()['dgoals'] == 'false') {
+				$scope.displayFilter.displayGoals = false;
+			}
+			$scope.active_filters['dgoals'] = $scope.displayFilter.displayGoals;
+		}
+		
+		if ($location.search()['dcorsi']) {
+			if ($location.search()['dcorsi'] == 'true') {
+				$scope.displayFilter.displayCorsi = true;
+			} else if ($location.search()['dcorsi'] == 'false') {
+				$scope.displayFilter.displayCorsi = false;
+			}
+			$scope.active_filters['dcorsi'] = $scope.displayFilter.displayCorsi;
+		}
+		
+		if ($location.search()['dpcts']) {
+			if ($location.search()['dpcts'] == 'true') {
+				$scope.displayFilter.displayPcts = true;
+			} else if ($location.search()['dpcts'] == 'false') {
+				$scope.displayFilter.displayPcts = false;
+			}
+			$scope.active_filters['dpcts'] = $scope.displayFilter.displayPcts;
+		}
+		
+		if ($location.search()['dtm']) {
+			if ($location.search()['dtm'] == 'true') {
+				$scope.displayFilter.displayTM = true;
+			} else if ($location.search()['dtm'] == 'false') {
+				$scope.displayFilter.displayTM = false;
+			}
+			$scope.active_filters['dtm'] = $scope.displayFilter.displayTM;
+		}
+		
+		if ($location.search()['dopp']) {
+			if ($location.search()['dopp'] == 'true') {
+				$scope.displayFilter.displayOpp = true;
+			} else if ($location.search()['dopp'] == 'false') {
+				$scope.displayFilter.displayOpp = false;
+			}
+			$scope.active_filters['dopp'] = $scope.displayFilter.displayOpp;
+		}		
+
+		if ($location.search()['dreltm']) {
+			if ($location.search()['dreltm'] == 'true') {
+				$scope.displayFilter.displayRelTM = true;
+			} else if ($location.search()['dreltm'] == 'false') {
+				$scope.displayFilter.displayRelTM = false;
+			}
+			$scope.active_filters['dreltm'] = $scope.displayFilter.displayRelTM;
+		}
+
+		if ($location.search()['dind']) {
+			if ($location.search()['dind'] == 'true') {
+				$scope.displayFilter.displayIndividual = true;
+			} else if ($location.search()['dind'] == 'false') {
+				$scope.displayFilter.displayIndividual = false;
+			}
+			$scope.active_filters['dind'] = $scope.displayFilter.displayIndividual;
+		}
+		
+		if ($location.search()['dpctteam']) {
+			if ($location.search()['dpctteam'] == 'true') {
+				$scope.displayFilter.displayTeamPct = true;
+			} else if ($location.search()['dpctteam'] == 'false') {
+				$scope.displayFilter.displayTeamPct = false;
+			}
+			$scope.active_filters['dpctteam'] = $scope.displayFilter.displayTeamPct;
+		}
+		
+		if ($location.search()['dzs']) {
+			if ($location.search()['dzs'] == 'true') {
+				$scope.displayFilter.displayZoneStarts = true;
+			} else if ($location.search()['dzs'] == 'false') {
+				$scope.displayFilter.displayZoneStarts = false;
+			}
+			$scope.active_filters['dzs'] = $scope.displayFilter.displayZoneStarts;
+		}
+		
+		angular.forEach( $scope.skaterStats , function ( stat ) {
+			if ($location.search()[stat.API_Name+'Min']) {
+				stat.Min = $location.search()[stat.API_Name+'Min'];
+				$scope.active_filters[stat.API_Name+'Min'] = stat.Min;
+			}
+			if ($location.search()[stat.API_Name+'Max']) {
+				stat.Max = $location.search()[stat.API_Name+'Max'];
+				$scope.active_filters[stat.API_Name+'Max'] = stat.Max;
+			}
+		});
+		
+		if ($location.search()['checkbox']) {
+			$scope.checkboxFilterOn = true;
+			$scope.checkedplayers = $location.search()['checkbox'];
+			$scope.active_filters['checkbox'] = $scope.checkedplayers;
+		}		
+		
+		updateUrl();
+		setTimeout(function(){
+			$scope.$apply(function(){
+				$scope.$broadcast('skater_filter_changed', $scope.currentUrl);
+			});
+		}, 1000);		
 	}
 };
 
