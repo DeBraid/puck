@@ -19,7 +19,12 @@ function SkaterModeDirective () {
 }
 
 function SkaterModeController($scope, $state) {
-	console.log('skaterMode $scope.data', $scope.data);
+	$scope.$watch( 'data' , setSkater );
+
+	function setSkater(skater) {
+	    $scope.skater = skater[0];
+	    console.log('$scope.skater', $scope.skater);
+	}
 }
 
 function SkaterModeLink (

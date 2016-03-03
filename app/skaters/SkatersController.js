@@ -101,7 +101,6 @@ function SkatersController (
     },true);
 
     $scope.$watch('playerdata', function(){
-    	console.log('$scope.playerdata.length from $watcher', $scope.playerdata.length);
         $scope.filtereddata = $filter('filter')($scope.playerdata, tableFilter);
     });
 	
