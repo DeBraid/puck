@@ -5,7 +5,7 @@ var skaters = angular
 	]);
 
 	
-// skaters.filter('tableHeaderFilter') at bottom
+// skaters.filters('tableHeaderFilter') at bottom
 skaters.filter('startFrom', function() {
     return function(input, start) {         
         return input.slice(start);
@@ -27,7 +27,7 @@ function SkatersController (
 		setOrderByField : setOrderByField,
 		orderByField : 'CFPct',
 		error_message : null,
-		showFilters : false,
+		showFilters : true,
 		reverseSort : true,
 		active_filters : {},
 		activeFilterInputs : activeFilterInputs,
@@ -39,7 +39,6 @@ function SkatersController (
 		excluded_metrics: excluded_metrics,
 		string_headers: string_headers,
 		loading : false,
-		hidedata : false,
 	    playerdata : [],
 		filtereddata : [],
 	    metrics : [],
@@ -56,18 +55,7 @@ function SkatersController (
 		checkedplayers : '',
 		statFilter : statFilter,
 		tableFilter : tableFilter,
-		displayFilter : {
-			displayInfo : true,
-			displayGoals : true,
-			displayCorsi : true,
-			displayPcts : true,
-			displayTM : false,
-			displayOpp : false,
-			displayRelTM : false,
-			displayIndividual : false,
-			displayTeamPct : false,
-			displayZoneStarts : false,
-		},
+		displayFilter : skatersConstants.display_filter_object,
 		search : {
 			name : '',
 			team : '',
@@ -247,9 +235,7 @@ function SkatersController (
 		var teamname = row.Team;
 		var playername = row.Player_Name;
 		var position = row.Pos; 
-		
-		//if (row.Pos == 'D') { return false; };
-	    if ( $scope.hidedata == true ) { return false; };
+
 		if ( parseFloat(row.TOIDec) < $scope.TOIMin || parseFloat(row.TOIDec) > $scope.TOIMax ) { return false; };
 		if ( $scope.checkboxFilterOn == true && row.checkboxFilter == false ) {return false;};
 

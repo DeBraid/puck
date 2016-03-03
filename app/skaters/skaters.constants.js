@@ -86,6 +86,18 @@ angular
 			{API_Name : 'DZFOPct',		API_Section: 'faceoffs',	DisplayWhen: 'displayZoneStarts',		DisplayName: 'DZFO%',		decimal: '2',	Min:'0', Max:'100'},
 			{API_Name : 'OZFOPct',		API_Section: 'faceoffs',	DisplayWhen: 'displayZoneStarts',		DisplayName: 'OZFO%',		decimal: '2',	Min:'0', Max:'100'},
 		],
+		display_filter_object : {
+			displayInfo : true,
+			displayGoals : true,
+			displayCorsi : true,
+			displayPcts : true,
+			displayTM : false,
+			displayOpp : false,
+			displayRelTM : false,
+			displayIndividual : false,
+			displayTeamPct : false,
+			displayZoneStarts : false,
+		},
 		section_options : [
 			{
 				name : 'info',
