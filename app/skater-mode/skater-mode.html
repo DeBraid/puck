@@ -1,10 +1,14 @@
 <div class="col-sm-12">
 	<h2>
+		<span>
+			<img src="{{ skater.logo_path }}" 
+			style="width: 100px; height: 100px;">
+			
+		</span>
 		{{ skater.Player_Name}}, {{ skater.Pos}}
 		<span style="font-weight: 300;">{{ skater.Team }}</span>
 	</h2>
-	<img src="/assets/images/team-logos/{{ skater.Team }}.svg" 
-		style="width: 100px; height: 100px;">
-	<p>skater: {{ skater }}</p>
-	<p>{{ data }}</p>
+	
+	<!-- <p>skater: {{ skater }}</p>
+	<p>{{ data }}</p> -->
 </div>

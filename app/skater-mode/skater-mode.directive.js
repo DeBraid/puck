@@ -19,18 +19,19 @@ function SkaterModeDirective () {
 }
 
 function SkaterModeController($scope, $state) {
-	$scope.$watch( 'data' , setSkater );
+	$scope.$watch( 'data' , init );
 
-	function setSkater(skater) {
-	    $scope.skater = skater[0];
-		if (!$scope.skater || !$scope.skater.length) { return; }
-		$scope.team_logo_path = setTeamImage($scope.skater);
+	function init(skater) {
+		if (!skater || !skater.length) { return; }
+		$scope.skater = skater[0];
+		var logo_path = setTeamImage($scope.skater);
+		angular.extend( $scope.skater , logo_path );
 	}
 	
 	function setTeamImage(skater) {
 		var name = skater['Team'].split(' ').join('_');
-        var full_logo_path = logo_path + name + '.svg';
-        return full_logo_path; 
+		var logo_stub = '/assets/images/team-logos/';
+		return { logo_path: logo_stub + name + '.svg'};
 	}
 }
 
