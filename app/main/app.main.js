@@ -3,6 +3,7 @@ var app = angular.module('puckalyticsMainApp', [
 	'puckalyticsMainApp.getData',
 	'puckalyticsMainApp.getParamsFromUrl',
 	'puckalyticsMainApp.skaters',
+	'puckalyticsMainApp.skaterMode',
 	'puckalyticsMainApp.goalies',
 	'puckalyticsMainApp.teams',
 	'puckalyticsMainApp.filterMenu',
