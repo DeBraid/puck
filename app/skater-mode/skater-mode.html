@@ -1,8 +1,10 @@
 <div class="col-sm-12">
 	<h2>
 		{{ skater.Player_Name}}, {{ skater.Pos}}
-		<span style="font-weight: 300;">{{ skater.Team}}</span>
+		<span style="font-weight: 300;">{{ skater.Team }}</span>
 	</h2>
+	<img src="/assets/images/team-logos/{{ skater.Team }}.svg" 
+		style="width: 100px; height: 100px;">
 	<p>skater: {{ skater }}</p>
 	<p>{{ data }}</p>
 </div>

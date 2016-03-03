@@ -23,7 +23,14 @@ function SkaterModeController($scope, $state) {
 
 	function setSkater(skater) {
 	    $scope.skater = skater[0];
-	    console.log('$scope.skater', $scope.skater);
+		if (!$scope.skater || !$scope.skater.length) { return; }
+		$scope.team_logo_path = setTeamImage($scope.skater);
+	}
+	
+	function setTeamImage(skater) {
+		var name = skater['Team'].split(' ').join('_');
+        var full_logo_path = logo_path + name + '.svg';
+        return full_logo_path; 
 	}
 }
 
