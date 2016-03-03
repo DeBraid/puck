@@ -15,7 +15,9 @@ skaters.filter('startFrom', function() {
 skaters.controller('SkatersController', SkatersController);
 
 function SkatersController (
-	$scope, $filter, $location, $state, /*$stateParams,*/ skatersConstants,	secretConstants, getParamsFromUrl, getData
+	$scope, $filter, $location, $state, 
+	skatersConstants, secretConstants, 
+	getParamsFromUrl, getData
 ) {
 	var counter = 1;
 	var decimal_fields = ['60', 'Pct', 'TM', 'Dec'];
@@ -29,7 +31,6 @@ function SkatersController (
 		reverseSort : true,
 		active_filters : {},
 		activeFilterInputs : activeFilterInputs,
-		//tableRowMax : tableRowMax,
 		playerdata_length : 0,
 		pageSize : 20,
 		showingAllData : false,
@@ -44,7 +45,6 @@ function SkatersController (
 	    metrics : [],
 	    filter_inputs : {},
 		currentUrl: '',
-	    //updateSections : updateSections,
 		skaterStats: skatersConstants.skater_metrics_object,
 	    section_options : skatersConstants.section_options,
 	    section_data_url : secretConstants.skater_data_url,
