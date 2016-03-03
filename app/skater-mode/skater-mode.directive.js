@@ -12,6 +12,7 @@ function SkaterModeDirective () {
         templateUrl: 'app/skater-mode/skater-mode.html',
         scope: {
             data: '=data',
+            payload: '=payload',
         },
         link: SkaterModeLink,
         controller: SkaterModeController,
@@ -23,15 +24,31 @@ function SkaterModeController($scope, $state) {
 
 	function init(skater) {
 		if (!skater || !skater.length) { return; }
-		$scope.skater = skater[0];
+		$scope.skater = skater[0];		
 		var logo_path = setTeamImage($scope.skater);
 		angular.extend( $scope.skater , logo_path );
+		
+		doMathWithPayload();
 	}
 	
 	function setTeamImage(skater) {
 		var name = skater['Team'].split(' ').join('_');
 		var logo_stub = '/assets/images/team-logos/';
 		return { logo_path: logo_stub + name + '.svg'};
+	}
+
+	function doMathWithPayload() {
+		console.log('doMathWithPayload(payload)', $scope.payload.length);
+		var peer_group = $scope.payload;
+		var nested_data = d3.nest()
+			.key(function(d) { return d.GF60; })
+			.entries(peer_group);
+		console.log('nested_data', nested_data);
+
+		// angular.forEach(peer_group, function (player) {
+		// 	console.log('player.GF60', player.GF60);
+		// });
+
 	}
 }
 
