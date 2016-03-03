@@ -15,8 +15,6 @@
 				</bar-chart>
 				
 				<h4>Result: {{ filtereddata.length }} skaters</h4>
-
-				
 				<button ng-click="toggleTableFilters()"
 					class="btn btn-default pull-right grey-bg">
 						<span ng-show="showFilters">Hide </span>
@@ -44,33 +42,43 @@
 				</div>
 		
 				<span ng-include="'app/skaters/skater_stats_table.html'"></span>
-
-				<span ng-hide="showingAllData" >
-					<div>
-						# of Table Rows: <input type="text" 
-							ng-model="pageSize" 
-							placeholder="pageSize" 
-							size=5> 
-					</div>
-					<div>
-						<button class="btn btn-default"
-							style="margin-right: 0.25em" 
-							ng-repeat="i in getNumberAsArray(numberOfPages()) track by $index" 
-							ng-click="setCurrentPage($index)">
-								{{$index + 1}}
-						</button>
-						<button class="btn btn-default" 
-							ng-hide="showingAllData" 
-							ng-click="showAllData($index)">
-								Show All {{ filtereddata.length }}
-						</button>
-					</div>
+				<!-- table controls -->
+				<span ng-hide="filtereddata.length == 1">
+					<span ng-hide="showingAllData">
+						<div>
+							# of Table Rows: <input type="text" 
+								ng-model="pageSize" 
+								placeholder="pageSize" 
+								size=5> 
+						</div>
+						<div>
+							<button class="btn btn-default"
+								style="margin-right: 0.25em" 
+								ng-repeat="i in getNumberAsArray(numberOfPages()) track by $index" 
+								ng-click="setCurrentPage($index)">
+									{{$index + 1}}
+							</button>
+							<button class="btn btn-default" 
+								ng-hide="showingAllData" 
+								ng-click="showAllData($index)">
+									Show All {{ filtereddata.length }}
+							</button>
+						</div>
+					</span>
+					<button ng-show="showingAllData" 
+						ng-click="paginateData($index)"
+						class="btn btn-default">
+							Paginate
+					</button>
+					
 				</span>
-				<button class="btn btn-default" 
-					ng-show="showingAllData" 
-					ng-click="paginateData($index)">
-						Paginate
-				</button>
+
+				<!-- <div class="row"> -->
+				<div class="row" ng-show="filtereddata.length == 1">
+					<div class="col-sm-12">
+						<h1>Look, only 1 player ==> SKATER MODE</h1>
+					</div>
+				</div>
 			</span> <!-- show if loaded  -->
 			
 

@@ -108,17 +108,14 @@ function SkatersController (
     	init();
 	});
 
-    $scope.$watch('checkboxFilterOn', function(){
-        $scope.filtereddata = $filter('filter')($scope.playerdata, tableFilter);
-    },true);	
-
     $scope.$watch('skaterStats', function(){
         $scope.filtereddata = $filter('filter')($scope.playerdata, tableFilter);
     },true);
 
     $scope.$watch('playerdata', function(){
+    	console.log('$scope.playerdata.length from $watcher', $scope.playerdata.length);
         $scope.filtereddata = $filter('filter')($scope.playerdata, tableFilter);
-    },true);
+    });
 	
     $scope.$watch("search", function(){
         $scope.filtereddata = $filter('filter')($scope.playerdata, tableFilter);
