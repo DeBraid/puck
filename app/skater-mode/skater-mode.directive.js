@@ -40,13 +40,31 @@ function SkaterModeController($scope, $state) {
 	function doMathWithPayload() {
 		console.log('doMathWithPayload(payload)', $scope.payload.length);
 		var peer_group = $scope.payload;
-		var nested_data = d3.nest()
-			.key(function(d) { return d.GF60; })
+		var metric = 'GF60';
+		var sorted_arr = [];
+		var metric_data = d3.nest()
+			.key(function(d) { return d[metric]; })
+			.sortKeys(d3.descending)
+			.key(function(d) { return sorted_arr.push(d[metric]); })
 			.entries(peer_group);
-		console.log('nested_data', nested_data);
 
-		// angular.forEach(peer_group, function (player) {
-		// 	console.log('player.GF60', player.GF60);
+		// console.log('metric_data', metric_data);
+		var range = d3.extent(metric_data, function(d) { return d.key; });
+		// console.log('range', range);
+		var foo = peerQuartiles(sorted_arr);
+		console.log('quartiles foo', foo);
+		function peerQuartiles(d) {
+			console.log('d in peerQuartiles', d);
+			return [
+				range[0],
+				d3.quantile(d, .25),
+				d3.quantile(d, .5),
+				d3.quantile(d, .75),
+				range[1]
+			];
+		}
+		// angular.forEach(nested_data, function (player) {
+		// 	console.log('player.key', player.key);
 		// });
 
 	}
