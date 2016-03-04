@@ -15,6 +15,9 @@
 		<th ng-repeat="metric in ::metrics track by $index"
 			ng-show="{{::metric.filter}}"
 			class="text-right">
+			<set-new-metric metric="metric">
+			</set-new-metric>
+			<br>
 			<a href="" 
 				ng-click="setOrderByField( metric.metric )">
 					{{ ::metric.metric }}

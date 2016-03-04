@@ -18,7 +18,8 @@ function setNewMetricDirective($rootScope, $state, $timeout) {
     function setNewMetricLinkFn (scope) {
         scope.setMetricToChart = setMetricToChart;
         function setMetricToChart(metric) {
-            $rootScope.$broadcast('draw_chart_from_table_header_click', metric.API_Name);
+            var stat = angular.isObject(metric) ? metric.API_Name : metric;
+            $rootScope.$broadcast('draw_chart_from_table_header_click', stat);
         }
     };
 }
