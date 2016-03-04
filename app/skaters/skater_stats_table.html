@@ -52,7 +52,6 @@
 		<th class="text-center" ng-repeat="stat in skaterStats | filter:statFilter">
 			<set-new-metric metric="stat">
 			</set-new-metric>
-			<br>
 			<a style="cursor: pointer;" 
 				ng-click="setOrderByField(stat.API_Name)">
 					{{stat.DisplayName}}
