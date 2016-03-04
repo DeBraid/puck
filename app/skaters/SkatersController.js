@@ -70,6 +70,7 @@ function SkatersController (
 		paginateData : paginateData,
 		showAllData : showAllData,
 		downloadCSV : downloadCSV,
+		setMetricToChart: setMetricToChart
 		//displayStat : displayStat,
 	};
 	
@@ -117,6 +118,11 @@ function SkatersController (
     },true);	
 	
     // Functions List:
+    // setMetricToChart(stat.API_Name)
+    function setMetricToChart(metric) {
+    	console.log('metric', metric);
+    	$scope.$broadcast('draw_chart_from_table_header_click', metric);
+    }
     function updateUrl() {
 		var absUrl = $location.absUrl();
 		var split_url = absUrl.split('#');

@@ -32,6 +32,15 @@ function BarChartController($scope, $state) {
         metric = value;
     });
 
+    $scope.$on('draw_chart_from_table_header_click', function (event, value) {        
+        console.log('running draw_chart_from_table_header_click', value);
+
+        $scope.show_bar_chart = true;
+        $scope.pending_metric = value;
+        metric = value;
+    });
+    
+
     $scope.showChart = function () {
         if (!metric) {
             metric = $scope.pending_metric;    

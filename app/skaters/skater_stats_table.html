@@ -7,7 +7,9 @@
 		<th>Player</th>
 		<th>Team</th>
 		<th>Pos</th>
-		<th ng-repeat="stat in skaterStats | filter:statFilter">{{stat.DisplayName}}</td>
+		<th ng-repeat="stat in skaterStats | filter:statFilter">
+			{{stat.DisplayName}}
+		</th>
 	</tr>
 	
 	<tr style="background-color:#cccccc" ng-hide="showFilters==false">
@@ -48,8 +50,14 @@
 		</a></th>
 
 		<th class="text-center" ng-repeat="stat in skaterStats | filter:statFilter">
-			<a href="" ng-click="setOrderByField(stat.API_Name)">
-			{{stat.DisplayName}}
+			<a style="cursor: pointer;" 
+				ng-click="setMetricToChart(stat.API_Name)">
+					<i class="glyphicon glyphicon-stats"></i>
+			</a>
+			<br>
+			<a style="cursor: pointer;" 
+				ng-click="setOrderByField(stat.API_Name)">
+					{{stat.DisplayName}}
 			</a>
 		</th>
 		

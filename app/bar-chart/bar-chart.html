@@ -1,4 +1,4 @@
-<div ng-hide="show_bar_chart">
+<!-- <div ng-hide="show_bar_chart">
 	<a ng-click="toggleChartOptions()">
 		<div class="alert alert-info text-center" role="alert">
 			<h4>
@@ -6,7 +6,7 @@
 			</h4>
 		</div>
 	</a>
-</div>
+</div> -->
 <div class="row" ng-show="show_bar_chart">
 	<div class="col-sm-12">
 		<a class="btn btn-info pull-right"
@@ -59,7 +59,9 @@
 		<div id="bar-chart" style="margin-top: 1em;"></div>
 		
 		<footer class="pull-right" ng-show="metric">
-			Charting <code>{{metric}}</code> at <code>{{$parent.situation}}</code> during <code>{{ $parent.season }} </code> given TOI <code>>{{$parent.TOIMin}}</code> minutes via <strong>puckalytics.com</strong>
+			<h4>
+				Charting <code>{{metric}}</code> at <code>{{$parent.situation}}</code> during <code>{{ $parent.season }} </code> given TOI <code>>{{$parent.TOIMin}}</code> minutes via <strong>puckalytics.com</strong>
+			</h4>
 		</footer>
 	</div>	
 </div>
