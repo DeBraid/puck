@@ -50,10 +50,12 @@
 		</a></th>
 
 		<th class="text-center" ng-repeat="stat in skaterStats | filter:statFilter">
-			<a style="cursor: pointer;" 
+			<set-new-metric metric="stat">
+			</set-new-metric>
+			<!-- <a style="cursor: pointer;" 
 				ng-click="setMetricToChart(stat.API_Name)">
 					<i class="glyphicon glyphicon-stats"></i>
-			</a>
+			</a> -->
 			<br>
 			<a style="cursor: pointer;" 
 				ng-click="setOrderByField(stat.API_Name)">
