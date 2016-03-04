@@ -18,6 +18,10 @@ function SkaterModeDirective () {
         controller: SkaterModeController,
     }
 }
+/*
+	box and whisker examples: 
+	http://bl.ocks.org/jensgrubert/7789216
+*/
 
 function SkaterModeController($scope, $state) {
 	$scope.$watch( 'data' , init );
@@ -48,25 +52,20 @@ function SkaterModeController($scope, $state) {
 			.key(function(d) { return sorted_arr.push(d[metric]); })
 			.entries(peer_group);
 
-		// console.log('metric_data', metric_data);
-		var range = d3.extent(metric_data, function(d) { return d.key; });
-		// console.log('range', range);
-		var foo = peerQuartiles(sorted_arr);
-		console.log('quartiles foo', foo);
+		var quartiles_arr = peerQuartiles(sorted_arr);
+		console.log('quartiles_arr', quartiles_arr);
+
 		function peerQuartiles(d) {
-			console.log('d in peerQuartiles', d);
+			// console.log('d in peerQuartiles', d);
+			var extent = d3.extent(d, function(datum) { return datum; });
 			return [
-				range[0],
-				d3.quantile(d, .25),
-				d3.quantile(d, .5),
-				d3.quantile(d, .75),
-				range[1]
+				extent[0],
+				d3.quantile(d, .25).toFixed(3),
+				d3.quantile(d, .5).toFixed(3),
+				d3.quantile(d, .75).toFixed(3),
+				extent[1]
 			];
 		}
-		// angular.forEach(nested_data, function (player) {
-		// 	console.log('player.key', player.key);
-		// });
-
 	}
 }
 
