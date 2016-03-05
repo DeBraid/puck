@@ -36,8 +36,9 @@ function BarChartController($scope, $state) {
         console.log('running draw_chart_from_table_header_click', value);
 
         $scope.show_bar_chart = true;
-        $scope.pending_metric = value;
-        metric = value;
+        // $scope.pending_metric = value;
+        // metric = value;
+        $scope.metric = value;
     });
     
 

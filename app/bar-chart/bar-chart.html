@@ -15,7 +15,27 @@
 		</a>
 		<div class="alert alert-info" role="alert">
 			<h4 style="cursor: pointer;">
-				<a class="btn btn-default" 
+				Chart 
+				<span class="dropdown" dropdown style="margin: 0 1em;">
+					<a href="" class="dropdown-toggle" dropdown-toggle>
+						<span ng-show="metric">
+							<input type="text" size="5" ng-model="metric">
+						</span>
+						<span ng-show="pending_metric && !metric">
+							<input type="text" size="5" ng-model="pending_metric">
+						</span>
+						<span class="glyphicon glyphicon-chevron-down"></span>
+					</a>
+					<ul class="dropdown-menu" dropdown-menu>
+						<li ng-repeat="met in metrics"> 
+							<a ng-click="setMetricFromListClick($event, met)">
+								{{ met }}
+							</a>
+						</li>
+					</ul>
+				</span>
+				<!-- old -->
+				<!-- <a class="btn btn-default" 
 					style="font-size: 0.8em;" 
 					ng-click="showChart()">
 					<span class="glyphicon glyphicon-sort-by-attributes-alt" 
@@ -28,12 +48,12 @@
 				</a> 
 				<span ng-hide="pending_metric">
 					<input type="text" size=10 ng-model="metric" placeholder="metric">
-				</span>
+				</span> -->
 				 with 
 				 <input type="text" ng-model="chart_length" size=5> 
 				 of {{ $parent.filtereddata.length }} {{section_name}} 
 
-				<span class="dropdown" dropdown>
+				<!-- <span class="dropdown" dropdown>
 					<a href="" class="dropdown-toggle" dropdown-toggle>
 						<span ng-show="!metric">
 							select Metric
@@ -50,7 +70,7 @@
 							</a>
 						</li>
 					</ul>
-				</span>
+				</span> -->
 			</h4>
 		</div> <!-- END ALERT -->
 	</div>
