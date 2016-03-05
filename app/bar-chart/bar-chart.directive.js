@@ -19,7 +19,7 @@ function BarChartDirective () {
 }
 
 function BarChartController($scope, $state) {
-    var metric;
+    // var metric;
     $scope.show_bar_chart = false;
     var section = $scope.section_name = $state.current.name;
     $scope.chart_length = 10;
@@ -27,32 +27,15 @@ function BarChartController($scope, $state) {
         $scope.chart_length = 30;
     }
 
-    $scope.$on('order_by_field_update', function (event, value) {        
-        $scope.pending_metric = value;
-        metric = value;
-    });
-
     $scope.$on('draw_chart_from_table_header_click', function (event, value) {        
-        console.log('running draw_chart_from_table_header_click', value);
-
+        // console.log('running draw_chart_from_table_header_click', value);
         $scope.show_bar_chart = true;
-        // $scope.pending_metric = value;
-        // metric = value;
         $scope.metric = value;
     });
-    
 
-    $scope.showChart = function () {
-        if (!metric) {
-            metric = $scope.pending_metric;    
-        }
-        $scope.pending_metric = false;
-        $scope.metric = metric;
-    }
     $scope.toggleChartOptions = function () {
         $scope.show_bar_chart = !$scope.show_bar_chart;
     }
-    
 }
 
 function BarChartLink (
@@ -75,13 +58,17 @@ function BarChartLink (
     
     scope.$watch('data', updateChartingData);
     scope.$watch('metric', updateChartingData);
+    scope.$watch('chart_length', function () {
+        updateChartingData(scope.metric);
+    });
     
     function updateChartingData(newVal, oldVal) {
         var data = scope.data;
         if (!data.length) {return;}
-    
+        console.log('updateChartingData newVal', newVal);
         scope.charting_data.length = 0;    
         scope.widerLeftColumn = false;
+
         if ( scope.metrics.indexOf(newVal) > -1 ) {
             setChartingData();
         }
