@@ -28,9 +28,11 @@ function BarChartController($scope, $state) {
     }
 
     $scope.$on('draw_chart_from_table_header_click', function (event, value) {        
-        // console.log('running draw_chart_from_table_header_click', value);
         $scope.show_bar_chart = true;
         $scope.metric = value;
+    });
+    $scope.$on('skater_metrics', function (event, metrics) {
+        $scope.metrics = metrics;
     });
 
     $scope.toggleChartOptions = function () {
@@ -52,10 +54,6 @@ function BarChartLink (
         scope.metrics.push(item.metric);
     });
     
-    scope.$on('skater_metrics', function (event, metrics) {
-        scope.metrics = metrics;
-    });
-    
     scope.$watch('data', updateChartingData);
     scope.$watch('metric', updateChartingData);
     scope.$watch('chart_length', function () {
@@ -65,7 +63,7 @@ function BarChartLink (
     function updateChartingData(newVal, oldVal) {
         var data = scope.data;
         if (!data.length) {return;}
-        console.log('updateChartingData newVal', newVal);
+        // console.log('updateChartingData newVal', newVal);
         scope.charting_data.length = 0;    
         scope.widerLeftColumn = false;
 
@@ -127,6 +125,7 @@ function BarChartLink (
         
         var data_length = render_data.length;
         var chart_length = scope.chart_length;
+
         if (chart_length && (chart_length < data_length)) {
             render_data.splice(chart_length, data_length - chart_length);
         }
