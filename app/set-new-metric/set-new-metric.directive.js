@@ -5,7 +5,7 @@ angular
     ])
     .directive('setNewMetric', setNewMetricDirective);
 
-function setNewMetricDirective($rootScope, $state, $timeout) {
+function setNewMetricDirective($rootScope) {
     return {
         restrict: 'E',
         scope: {
