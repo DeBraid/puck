@@ -79,11 +79,11 @@ function BarChartLink (
                 var name, team; 
                 if ( entity.Player_Name ) {
                     name = entity.Player_Name;
-                    team = entity['Team'];
+                    team = entity.Team;
                     scope.widerLeftColumn = true;
                 } else if ( entity.FullName ) {
                     name = entity.FullName
-                    team = entity['Team'];
+                    team = entity.Team;
                     scope.widerLeftColumn = true;
                 } else {
                     name = entity.teamname;
