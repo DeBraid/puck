@@ -156,33 +156,35 @@ function BarChartLink (
                 return i * (barHeight + barPadding);
             })
             .attr('fill', function(d) {
-                return color(d.value);
+                // return color(d.value);
+                return  '#FFF'
+            })
+            .attr('stroke', function(d) {
+                return  '#000'
             })
             .transition().duration(1000)
             .attr('width', function(d) {
                 return xScale(d.value);
             });
 
-            // NEW BLOCK for adding logo at end of line
-            svg.selectAll(".logos")
-            .data(render_data)
-            .enter().append("svg:image")
+            svg.selectAll('.logos')
+            .data(render_data).enter()
+            .append('svg:image')
             .attr("xlink:href", function (d) { 
-                // var name = d.entity.split(' ').join('_');
-                var name = 'Toronto';
-                var logo_path = 'assets/images/team-logos/';
-                var full_logo_path = logo_path + name + '.svg';
+                var full_logo_path = setLogoPath(d);
                 return full_logo_path; 
-            })
-            .attr("x", function(d) {
-                return xScale(d.value);
-            })
-            .attr("y", function(d, i) {
-                return i * (barHeight + barPadding);
             })
             .attr('width', 40)
             .attr('height', 40)
-            
+            .attr('x', left_margin + Math.round(margin / 2))
+            .attr('y', function(d, i) {
+                return (i * (barHeight + barPadding)) - 10;
+            })
+            .transition().duration(1000)
+            .attr('x', function(d) {
+                return xScale(d.value) + left_margin + Math.round(margin / 2);
+            });
+
             svg.selectAll('text.entity')
             .data(render_data).enter()
             .append('text')
@@ -198,7 +200,8 @@ function BarChartLink (
             svg.selectAll('text.value')
             .data(render_data).enter()
             .append('text')
-            .attr('fill', '#000').attr('y', function(d, i) {
+            .attr('fill', '#000')
+            .attr('y', function(d, i) {
                 return i * (barHeight + barPadding) + 15;
             })
             .attr('x', value_text_margin).text(function(d) {
@@ -207,6 +210,13 @@ function BarChartLink (
             .style("font-size", my_font_size*0.8);
 
         }, 200);
+
+        function setLogoPath(d) {
+            var name = d.entity.split(' ').join('_');
+            // var name = 'Washington';
+            var logo_path = 'assets/images/team-logos/';
+            return logo_path + name + '.svg';
+        }
     };
 
     function setMetricFromListClick ($event, met) { 
