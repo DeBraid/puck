@@ -2,11 +2,13 @@
 angular
 	.module('puckalyticsMainApp.skaterMode', [
 		'ui.router',
-        'ui.bootstrap'
+        'ui.bootstrap',
+        'puckalyticsMainApp.skaterMode'
 	])
+    // .directive('skaterMode', [ skaterModeServices, SkaterModeDirective ] );
 	.directive('skaterMode', SkaterModeDirective );
 
-function SkaterModeDirective () {
+function SkaterModeDirective (skaterModeServices) {
     return {
         restrict: 'E',
         templateUrl: 'app/skater-mode/skater-mode.html',
@@ -23,8 +25,9 @@ function SkaterModeDirective () {
 	http://bl.ocks.org/jensgrubert/7789216
 */
 
-function SkaterModeController($scope, $state) {
+function SkaterModeController($scope, $state, skaterModeServices) {
 	$scope.$watch( 'data' , init );
+    console.log('skaterModeServices', skaterModeServices);
 
 	function init(skater) {
 		if (!skater || !skater.length) { return; }
@@ -41,32 +44,32 @@ function SkaterModeController($scope, $state) {
 		return { logo_path: logo_stub + name + '.svg'};
 	}
 
-	function doMathWithPayload() {
-		console.log('doMathWithPayload(payload)', $scope.payload.length);
-		var peer_group = $scope.payload;
-		var metric = 'GF60';
-		var sorted_arr = [];
-		var metric_data = d3.nest()
-			.key(function(d) { return d[metric]; })
-			.sortKeys(d3.descending)
-			.key(function(d) { return sorted_arr.push(d[metric]); })
-			.entries(peer_group);
+	// function doMathWithPayload() {
+	// 	console.log('doMathWithPayload(payload)', $scope.payload.length);
+	// 	var peer_group = $scope.payload;
+	// 	var metric = 'GF60';
+	// 	var sorted_arr = [];
+	// 	var metric_data = d3.nest()
+	// 		.key(function(d) { return d[metric]; })
+	// 		.sortKeys(d3.descending)
+	// 		.key(function(d) { return sorted_arr.push(d[metric]); })
+	// 		.entries(peer_group);
 
-		var quartiles_arr = peerQuartiles(sorted_arr);
-		console.log('quartiles_arr', quartiles_arr);
+	// 	var quartiles_arr = peerQuartiles(sorted_arr);
+	// 	console.log('quartiles_arr', quartiles_arr);
 
-		function peerQuartiles(d) {
-			// console.log('d in peerQuartiles', d);
-			var extent = d3.extent(d, function(datum) { return datum; });
-			return [
-				extent[0],
-				d3.quantile(d, .25).toFixed(3),
-				d3.quantile(d, .5).toFixed(3),
-				d3.quantile(d, .75).toFixed(3),
-				extent[1]
-			];
-		}
-	}
+	// 	function peerQuartiles(d) {
+	// 		// console.log('d in peerQuartiles', d);
+	// 		var extent = d3.extent(d, function(datum) { return datum; });
+	// 		return [
+	// 			extent[0],
+	// 			d3.quantile(d, .25).toFixed(3),
+	// 			d3.quantile(d, .5).toFixed(3),
+	// 			d3.quantile(d, .75).toFixed(3),
+	// 			extent[1]
+	// 		];
+	// 	}
+	// }
 }
 
 function SkaterModeLink (
