@@ -76,12 +76,14 @@ function BarChartLink (
 
         function setChartingData() {
             data.map(function (entity) {    
-                var name; 
+                var name, team; 
                 if ( entity.Player_Name ) {
                     name = entity.Player_Name;
+                    team = entity['Team'];
                     scope.widerLeftColumn = true;
                 } else if ( entity.FullName ) {
                     name = entity.FullName
+                    team = entity['Team'];
                     scope.widerLeftColumn = true;
                 } else {
                     name = entity.teamname;
@@ -90,7 +92,8 @@ function BarChartLink (
                 scope.charting_data.push({
                     metric : newVal,
                     value: entity[newVal], 
-                    entity : name
+                    entity : name,
+                    team : team
                 });
             });
         }
@@ -212,10 +215,15 @@ function BarChartLink (
         }, 200);
 
         function setLogoPath(d) {
-            var name = d.entity.split(' ').join('_');
+            var team;
+            if (d.team) {
+                team = d.team;
+            } else {
+                team = d.entity;
+            }
             // var name = 'Washington';
             var logo_path = 'assets/images/team-logos/';
-            return logo_path + name + '.svg';
+            return logo_path + team.split(' ').join('_') + '.svg';
         }
     };
 
