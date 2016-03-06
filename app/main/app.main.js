@@ -10,6 +10,7 @@ var app = angular.module('puckalyticsMainApp', [
 	'puckalyticsMainApp.barChart',
 	'puckalyticsMainApp.scatterPlot',
 	'puckalyticsMainApp.copyUrl',
+	'puckalyticsMainApp.setNewMetric',
 	'puckalyticsMainApp.homepage',
 	'ui.router',
 	'ui.bootstrap',

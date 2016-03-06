@@ -19,7 +19,7 @@ function BarChartDirective () {
 }
 
 function BarChartController($scope, $state) {
-    var metric;
+    // var metric;
     $scope.show_bar_chart = false;
     var section = $scope.section_name = $state.current.name;
     $scope.chart_length = 10;
@@ -27,22 +27,17 @@ function BarChartController($scope, $state) {
         $scope.chart_length = 30;
     }
 
-    $scope.$on('order_by_field_update', function (event, value) {        
-        $scope.pending_metric = value;
-        metric = value;
+    $scope.$on('draw_chart_from_table_header_click', function (event, value) {        
+        $scope.show_bar_chart = true;
+        $scope.metric = value;
+    });
+    $scope.$on('skater_metrics', function (event, metrics) {
+        $scope.metrics = metrics;
     });
 
-    $scope.showChart = function () {
-        if (!metric) {
-            metric = $scope.pending_metric;    
-        }
-        $scope.pending_metric = false;
-        $scope.metric = metric;
-    }
     $scope.toggleChartOptions = function () {
         $scope.show_bar_chart = !$scope.show_bar_chart;
     }
-    
 }
 
 function BarChartLink (
@@ -59,19 +54,19 @@ function BarChartLink (
         scope.metrics.push(item.metric);
     });
     
-    scope.$on('skater_metrics', function (event, metrics) {
-        scope.metrics = metrics;
-    });
-    
     scope.$watch('data', updateChartingData);
     scope.$watch('metric', updateChartingData);
+    scope.$watch('chart_length', function () {
+        updateChartingData(scope.metric);
+    });
     
     function updateChartingData(newVal, oldVal) {
         var data = scope.data;
         if (!data.length) {return;}
-    
+        // console.log('updateChartingData newVal', newVal);
         scope.charting_data.length = 0;    
         scope.widerLeftColumn = false;
+
         if ( scope.metrics.indexOf(newVal) > -1 ) {
             setChartingData();
         }
@@ -81,12 +76,14 @@ function BarChartLink (
 
         function setChartingData() {
             data.map(function (entity) {    
-                var name; 
+                var name, team; 
                 if ( entity.Player_Name ) {
                     name = entity.Player_Name;
+                    team = entity.Team;
                     scope.widerLeftColumn = true;
                 } else if ( entity.FullName ) {
                     name = entity.FullName
+                    team = entity.Team;
                     scope.widerLeftColumn = true;
                 } else {
                     name = entity.teamname;
@@ -95,7 +92,8 @@ function BarChartLink (
                 scope.charting_data.push({
                     metric : newVal,
                     value: entity[newVal], 
-                    entity : name
+                    entity : name,
+                    team : team
                 });
             });
         }
@@ -130,6 +128,7 @@ function BarChartLink (
         
         var data_length = render_data.length;
         var chart_length = scope.chart_length;
+
         if (chart_length && (chart_length < data_length)) {
             render_data.splice(chart_length, data_length - chart_length);
         }
@@ -160,13 +159,35 @@ function BarChartLink (
                 return i * (barHeight + barPadding);
             })
             .attr('fill', function(d) {
-                return color(d.value);
+                // return color(d.value);
+                return  '#FFF'
+            })
+            .attr('stroke', function(d) {
+                return  '#000'
             })
             .transition().duration(1000)
             .attr('width', function(d) {
                 return xScale(d.value);
             });
-            
+
+            svg.selectAll('.logos')
+            .data(render_data).enter()
+            .append('svg:image')
+            .attr("xlink:href", function (d) { 
+                var full_logo_path = setLogoPath(d);
+                return full_logo_path; 
+            })
+            .attr('width', 40)
+            .attr('height', 40)
+            .attr('x', left_margin + Math.round(margin / 2))
+            .attr('y', function(d, i) {
+                return (i * (barHeight + barPadding)) - 10;
+            })
+            .transition().duration(1000)
+            .attr('x', function(d) {
+                return xScale(d.value) + left_margin + Math.round(margin / 2);
+            });
+
             svg.selectAll('text.entity')
             .data(render_data).enter()
             .append('text')
@@ -182,7 +203,8 @@ function BarChartLink (
             svg.selectAll('text.value')
             .data(render_data).enter()
             .append('text')
-            .attr('fill', '#000').attr('y', function(d, i) {
+            .attr('fill', '#000')
+            .attr('y', function(d, i) {
                 return i * (barHeight + barPadding) + 15;
             })
             .attr('x', value_text_margin).text(function(d) {
@@ -191,6 +213,12 @@ function BarChartLink (
             .style("font-size", my_font_size*0.8);
 
         }, 200);
+
+        function setLogoPath(d) {
+            var logo_path = 'assets/images/team-logos/';
+            var team = d.team ? d.team : d.entity;
+            return logo_path + team.split(' ').join('_') + '.svg';
+        }
     };
 
     function setMetricFromListClick ($event, met) { 

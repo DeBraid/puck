@@ -117,26 +117,7 @@ function SkatersController (
     },true);	
 	
     // Functions List:
-    function updateUrl() {
-		var absUrl = $location.absUrl();
-		var split_url = absUrl.split('#');
-		var url='';
-        for (key in $scope.active_filters) {
-			if (url=='') {
-				url = url + '?' + key + '=' + $scope.active_filters[key];
-			} else {
-				url = url + '&' + key + '=' + $scope.active_filters[key];
-			}
-        }
-		url = split_url[0] + '#/skaters' + url;
-		//console.log('updatedurl:', url);
-		
-		$scope.currentUrl = url;
-		$scope.$broadcast('skater_filter_changed', $scope.currentUrl);
-		return url;
-    }	
-	
-	function init() {
+   	function init() {
 		$scope.loading = true;
 
 		var skater_url = buildSkaterUrl();
@@ -205,6 +186,25 @@ function SkatersController (
 			$scope.loading = false;
 		}
 	};
+    
+    function updateUrl() {
+		var absUrl = $location.absUrl();
+		var split_url = absUrl.split('#');
+		var url='';
+        for (key in $scope.active_filters) {
+			if (url=='') {
+				url = url + '?' + key + '=' + $scope.active_filters[key];
+			} else {
+				url = url + '&' + key + '=' + $scope.active_filters[key];
+			}
+        }
+		url = split_url[0] + '#/skaters' + url;
+		//console.log('updatedurl:', url);
+		
+		$scope.currentUrl = url;
+		$scope.$broadcast('skater_filter_changed', $scope.currentUrl);
+		return url;
+    }	
 
 	function checkForErrors ( data ) {
 		if (angular.isArray(data)) {
