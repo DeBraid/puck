@@ -215,14 +215,8 @@ function BarChartLink (
         }, 200);
 
         function setLogoPath(d) {
-            var team;
-            if (d.team) {
-                team = d.team;
-            } else {
-                team = d.entity;
-            }
-            // var name = 'Washington';
             var logo_path = 'assets/images/team-logos/';
+            var team = d.team ? d.team : d.entity;
             return logo_path + team.split(' ').join('_') + '.svg';
         }
     };
