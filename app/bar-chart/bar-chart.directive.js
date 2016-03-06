@@ -162,6 +162,26 @@ function BarChartLink (
             .attr('width', function(d) {
                 return xScale(d.value);
             });
+
+            // NEW BLOCK for adding logo at end of line
+            svg.selectAll(".logos")
+            .data(render_data)
+            .enter().append("svg:image")
+            .attr("xlink:href", function (d) { 
+                // var name = d.entity.split(' ').join('_');
+                var name = 'Toronto';
+                var logo_path = 'assets/images/team-logos/';
+                var full_logo_path = logo_path + name + '.svg';
+                return full_logo_path; 
+            })
+            .attr("x", function(d) {
+                return xScale(d.value);
+            })
+            .attr("y", function(d, i) {
+                return i * (barHeight + barPadding);
+            })
+            .attr('width', 40)
+            .attr('height', 40)
             
             svg.selectAll('text.entity')
             .data(render_data).enter()
