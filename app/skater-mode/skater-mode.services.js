@@ -1,37 +1,41 @@
 
 angular
 	.module('puckalyticsMainApp.skaterModeServices', [])
-	.service('skaterModeServices', [ 
-		'$http' , '$location', skaterModeServices 
-	]);
+	.service('skaterModeServices', skaterModeServices );
 
-function skaterModeServices ($http, $location) {
+function skaterModeServices () {
 	return {
-		quartiles : calcQuartiles
+		quartiles : calcQuartiles,
+		extent : calcExtent,
+		sortByMetric : sortByMetric
 	}
 	
-	function calcQuartiles(payload) {
-		var peer_group = payload;
-		var metric = 'GF60';
-		var sorted_arr = [];
-		var metric_data = d3.nest()
+	// return array of quartiles 
+	function calcQuartiles(payload, metric) {
+		var sorted_arr = sortByMetric(payload, metric);
+		
+		return [
+			d3.quantile(sorted_arr, .25).toFixed(3),
+			d3.quantile(sorted_arr, .5).toFixed(3),
+			d3.quantile(sorted_arr, .75).toFixed(3)
+		];
+	}
+
+	function calcExtent(data, metric) {
+		var arr = sortByMetric(data, metric);
+		console.log('arr in extent');
+		return d3.extent(arr, function(d) { return d; });
+	}
+
+	// given array of objects, 
+	// return an a sorted flat array for given metric
+	function sortByMetric(data, metric) {
+		var arr = [];
+		d3.nest()
 			.key(function(d) { return d[metric]; })
 			.sortKeys(d3.descending)
-			.key(function(d) { return sorted_arr.push(d[metric]); })
-			.entries(peer_group);
-
-		return peerQuartiles(sorted_arr);
-
-		function peerQuartiles(d) {
-			// console.log('d in peerQuartiles', d);
-			var extent = d3.extent(d, function(datum) { return datum; });
-			return [
-				extent[0],
-				d3.quantile(d, .25).toFixed(3),
-				d3.quantile(d, .5).toFixed(3),
-				d3.quantile(d, .75).toFixed(3),
-				extent[1]
-			];
-		}
+			.key(function(d) { return arr.push(d[metric]); })
+			.entries(data);
+		return arr;				
 	}
 }

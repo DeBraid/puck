@@ -35,6 +35,8 @@ function SkaterModeController($scope, skaterModeServices) {
         
         var metric = 'GF60';
         var quartiles = skaterModeServices.quartiles($scope.payload, metric);
+        var extent = skaterModeServices.extent($scope.payload, metric);
+        console.log('SkaterMode extent', extent);
         console.log('SkaterMode quartiles', quartiles);
 	}
 	
