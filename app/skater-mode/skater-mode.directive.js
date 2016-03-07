@@ -22,18 +22,13 @@ function SkaterModeDirective (skaterModeServices) {
 
 function SkaterModeController($scope, skaterModeServices) {
     $scope.$watch( 'data' , init );
-    $scope.$watch( 'box_plot_metric' , function (val) {
-        console.log('val from box_plot_metric', val);
-        var metric = val;
-        $scope.charting_data = skaterModeServices.createRenderData($scope.payload, metric);
-    });
     function init(skater) {
         if (!skater || !skater.length) { return; }
         $scope.skater = skater[0];      
         var logo_path = setTeamImage($scope.skater);
         angular.extend( $scope.skater , logo_path );
-        // var metrics = 'GA';        
-        var metrics = ['CF60', 'CA60'];        
+        // var metrics = 'SA';        
+        var metrics = ['GFPct', 'CFPct'];        
         $scope.charting_data = skaterModeServices.createRenderData($scope.payload, metrics);
 	}
 	
@@ -59,13 +54,11 @@ function SkaterModeLink (
     var min = Infinity,
         max = -Infinity;
 
-    // var chart = skaterModeServices.box()
     var chart = d3.box()
         .whiskers(iqr(1.5))
         .width(width)
         .height(height);
 
-    // d3.csv("app/skater-mode/morley.csv", function render (error, csv) {
     function render (raw_data) {
         if (!raw_data || !raw_data.length) { return; }
         var data = [];
@@ -82,7 +75,7 @@ function SkaterModeLink (
         });
 
         chart.domain([min, max]);
-        // console.log('data', data);
+
         d3.select("#box-and-whisker-container svg").remove();
         var svg = d3.select("#box-and-whisker-container")
             .selectAll("svg")
