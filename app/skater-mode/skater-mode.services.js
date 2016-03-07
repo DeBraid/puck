@@ -8,6 +8,38 @@ function skaterModeServices() {
         quartiles: calcQuartiles,
         extent: calcExtent,
         sortByMetric: sortByMetric,
+        createRenderData: createRenderData,
+    }
+    // return array of objects for d3js chart
+    function createRenderData(payload, metric) {
+        var data = setChartingData(payload, metric);
+        // console.log(' new data createRenderData', data);
+        return data;
+    }
+    function setChartingData(data, metric) {
+        var charting_data = [];
+        data.map(function (entity, index) {    
+            var name, team; 
+            if ( entity.Player_Name ) {
+                name = entity.Player_Name;
+                team = entity.Team;
+            } else if ( entity.FullName ) {
+                name = entity.FullName
+                team = entity.Team;
+            } else {
+                name = entity.teamname;
+            }
+
+            charting_data.push({
+                plot_number : "1",
+                metric : metric,
+                value: entity[metric], 
+                entity : name,
+                index : index + 1,
+                team : team
+            });
+        });
+        return charting_data;
     }
     // return array of quartiles 
     function calcQuartiles(payload, metric) {

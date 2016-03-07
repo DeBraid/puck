@@ -25,7 +25,7 @@ function SkaterModeDirective (skaterModeServices) {
 */
 
 function SkaterModeController($scope, skaterModeServices) {
-	$scope.$watch( 'data' , init );
+    $scope.$watch( 'data' , init );
 
     function init(skater) {
         if (!skater || !skater.length) { return; }
@@ -33,11 +33,14 @@ function SkaterModeController($scope, skaterModeServices) {
         var logo_path = setTeamImage($scope.skater);
         angular.extend( $scope.skater , logo_path );
         
-        // var metric = 'GF60';
+
+        var metric = 'GF60';
         // var quartiles = skaterModeServices.quartiles($scope.payload, metric);
         // var extent = skaterModeServices.extent($scope.payload, metric);
+        var createRenderData = skaterModeServices.createRenderData($scope.payload, metric);
         // console.log('SkaterMode extent', extent);
         // console.log('SkaterMode quartiles', quartiles);
+        $scope.charting_data = createRenderData;
 	}
 	
 	function setTeamImage(skater) {
@@ -50,6 +53,9 @@ function SkaterModeController($scope, skaterModeServices) {
 function SkaterModeLink (
     scope, ele, attrs
 ) {
+    scope.$watch( 'charting_data' , function (val) {
+        render(val);
+    });
 
     var margin = {top: 10, right: 50, bottom: 20, left: 50},
     width = 120 - margin.left - margin.right,
@@ -64,15 +70,15 @@ function SkaterModeLink (
         .width(width)
         .height(height);
 
-    d3.csv("app/skater-mode/morley.csv", function(error, csv) {
-      if (error) throw error;
-
+    // d3.csv("app/skater-mode/morley.csv", function render (error, csv) {
+    function render (csv) {
+        if (!csv || !csv.length) { return; }
       var data = [];
-
+      console.log('csv', csv);
       csv.forEach(function(x) {
-        var e = Math.floor(x.Expt - 1),
-            r = Math.floor(x.Run - 1),
-            s = Math.floor(x.Speed),
+        var e = Math.floor(x.plot_number - 1),
+            r = Math.floor(x.index - 1),
+            s = Math.floor(x.value),
             d = data[e];
         if (!d) d = data[e] = [s];
         else d.push(s);
@@ -81,7 +87,7 @@ function SkaterModeLink (
       });
 
       chart.domain([min, max]);
-
+      console.log('data', data);
       var svg = d3.select("#box-and-whisker-container")
         .selectAll("svg")
           .data(data)
@@ -96,7 +102,7 @@ function SkaterModeLink (
       setInterval(function() {
         svg.datum(randomize).call(chart.duration(1000));
       }, 2000);
-    });
+    };
 
     function randomize(d) {
       if (!d.randomizer) d.randomizer = randomizer(d);
