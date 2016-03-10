@@ -29,6 +29,7 @@ function SkaterModeController($scope, skaterModeServices) {
         angular.extend( $scope.skater , logo_path );
         // var metrics = 'SA';        
         var metrics = $scope.metrics = ['CF'];        
+        var metrics = $scope.metrics = ['CF', 'CA'];        
         $scope.charting_data = skaterModeServices.createRenderData($scope.payload, metrics);
 	}
 	
@@ -57,12 +58,14 @@ function SkaterModeLink (
     var chart = d3.box()
         .whiskers(iqr(1.5))
         .width(width/2)
-        .height(height);
+        .height(height - margin.top);
 
     function render (raw_data) {
         if (!raw_data || !raw_data.length) { return; }
         var data = [];
+        console.log('raw_data.length', raw_data.length);
         raw_data.forEach(function(x) {
+            console.log();
             var e = Math.floor(x.plot_number - 1),
                 r = Math.floor(x.index - 1),
                 s = Math.floor(x.value),
@@ -93,40 +96,34 @@ function SkaterModeLink (
         .domain([min, max])
         .range([height, 0]);
     
-    var skater_val = scope.skater[scope.metrics[0]];
+    var chart_metric = scope.metrics[0];
+    var skater_val = scope.skater[chart_metric];
     var skater_name = scope.skater.Player_Name;    
     var yAxis = d3.svg.axis()
-    .scale(y)
-    .ticks(1)
-    .tickValues([0,skater_val])
-    .tickFormat(function () {
-        // return 'my formatted label';
-        return skater_name  + ": " + skater_val;  
-    })
-    .orient("right");
+        .scale(y)
+        .ticks(1)
+        .tickValues([0,skater_val])
+        .tickFormat(function (d, i) {
+            // return "" + skater_name  + ": " + skater_val;  
+            console.log('tickFormat d, i', d, i);
+            return skater_val + "  >";  
+        })
+        .orient("right");
  
      // draw y axis
     svg.append("g")
         .attr("class", "y axis")
-      .attr("transform", "translate(" + -50 + "," + 0 + ")")
+        .attr("transform", "translate(" + -50 + "," + 0 + ")")
         .call(yAxis);
-        // .selectAll(".tick text")
-        // .style("text-anchor", "start")
-        // .attr("y", 100)
-        // .append("text")
-        //   // .attr("transform", "rotate(-90)")
-        //   // .attr("y", function () {
-        //   //     return yAxis(skater_val);
-        //   // })
-        //   .attr("y", 300)
-        //   .attr("dy", ".71em")
-        //   .style("text-anchor", "right")
-        //   .style("font-size", "14px") 
-        //   .text(function() {
-        //       // return 'some foobar';
-        //       return skater_name  + ": " + skater_val;  
-        //   });                    
 
+    // add a title
+    svg.append("text")
+        .attr("x", (width / 3))             
+        .attr("y", -25)
+        .attr("text-anchor", "middle")  
+        .style("font-size", "18px") 
+        //.style("text-decoration", "underline")  
+        .text("" + chart_metric + "");    
     };
 
     // Returns a function to compute the interquartile range.

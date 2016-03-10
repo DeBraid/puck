@@ -33,8 +33,6 @@ d3.box = function() {
       var outlierIndices = whiskerIndices
           ? d3.range(0, whiskerIndices[0]).concat(d3.range(whiskerIndices[1] + 1, n))
           : d3.range(n);
-          console.log('outlierIndices', outlierIndices);
-          console.log('whiskerIndices', whiskerIndices);
       // Compute the new x-scale.
       var x1 = d3.scale.linear()
           .domain(domain && domain.call(this, d, i) || [min, max])
@@ -150,42 +148,6 @@ d3.box = function() {
           .duration(duration)
           .attr("y1", x1)
           .attr("y2", x1)
-          .style("opacity", 1e-6)
-          .remove();
-
-          // MARK THE PLAYER: 
-          var selectedPlayerIndicies = [0,985];
-          var playerDataFoo = d3.range(0, selectedPlayerIndicies[0]).concat(d3.range(selectedPlayerIndicies[1] + 1, n));
-          var playerData = playerDataFoo && playerDataFoo.map(function(i) { return d[i]; });
-          // var playerData = d3.range(selectedPlayerIndicies[1] + 1, n);
-          // ? d3.range(0, whiskerIndices[0]).concat(d3.range(whiskerIndices[1] + 1, n))
-          // : d3.range(n);
-          var player = g.selectAll("circle.player")
-          .data(playerData, Number);
-          // console.log('playerIndices', playerIndices);
-      player.enter().insert("circle", "text")
-          .attr("class", "player")
-          .attr("r", 10)
-          .attr("stroke", "red")
-          .attr("cx", width / 2)
-          .attr("cy", function(i) { return x0(d[i]); })
-          .style("opacity", 1e-6)
-        .transition()
-          .duration(duration)
-          .attr("cy", function(i) { 
-            console.log('player d[i]', d[i]);
-            return x1(d[i]); 
-          })
-          .style("opacity", 1);
-
-      player.transition()
-          .duration(duration)
-          .attr("cy", function(i) { return x1(d[i]); })
-          .style("opacity", 1);
-
-      player.exit().transition()
-          .duration(duration)
-          .attr("cy", function(i) { return x1(d[i]); })
           .style("opacity", 1e-6)
           .remove();
 
