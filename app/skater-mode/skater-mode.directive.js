@@ -88,6 +88,37 @@ function SkaterModeLink (
             .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
             .call(chart);
 
+        // the y-axis
+    var y = d3.scale.linear()
+        .domain([min, max])
+        .range([height, 0]);
+    
+    var yAxis = d3.svg.axis()
+    .scale(y)
+    .orient("left");
+    
+          
+    // add a title
+    svg.append("text")
+        .attr("x", (width / 2))             
+        .attr("y", 0 + (margin.top / 2))
+        .attr("text-anchor", "middle")  
+        .style("font-size", "18px") 
+        //.style("text-decoration", "underline")  
+        .text("foobar");
+ 
+     // draw y axis
+    svg.append("g")
+        .attr("class", "y axis")
+        .call(yAxis)
+        .append("text") // and text1
+          .attr("transform", "rotate(-90)")
+          .attr("y", 6)
+          .attr("dy", ".71em")
+          .style("text-anchor", "end")
+          .style("font-size", "16px") 
+          .text("Revenue in €");                    
+
     };
 
     // Returns a function to compute the interquartile range.
