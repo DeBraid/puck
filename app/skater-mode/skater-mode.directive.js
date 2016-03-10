@@ -30,7 +30,6 @@ function SkaterModeController($scope, skaterModeServices) {
         // var metrics = 'SA';        
         var metrics = $scope.metrics = ['CF'];        
         $scope.charting_data = skaterModeServices.createRenderData($scope.payload, metrics);
-        console.log('$scope.charting_data', $scope.charting_data);
 	}
 	
 	function setTeamImage(skater) {
@@ -76,7 +75,7 @@ function SkaterModeLink (
         });
 
         chart.domain([min, max]);
-
+        console.log('data in svg', data);
         d3.select("#box-and-whisker-container svg").remove();
         var svg = d3.select("#box-and-whisker-container")
             .selectAll("svg")
@@ -94,22 +93,39 @@ function SkaterModeLink (
         .domain([min, max])
         .range([height, 0]);
     
+    var skater_val = scope.skater[scope.metrics[0]];
+    var skater_name = scope.skater.Player_Name;    
     var yAxis = d3.svg.axis()
     .scale(y)
-    .orient("left");
+    .ticks(1)
+    .tickValues([0,skater_val])
+    .tickFormat(function () {
+        // return 'my formatted label';
+        return skater_name  + ": " + skater_val;  
+    })
+    .orient("right");
  
      // draw y axis
     svg.append("g")
         .attr("class", "y axis")
       .attr("transform", "translate(" + -50 + "," + 0 + ")")
-        .call(yAxis)
-        .append("text")
-          // .attr("transform", "rotate(-90)")
-          .attr("y", 55)
-          .attr("dy", ".71em")
-          .style("text-anchor", "right")
-          .style("font-size", "16px") 
-          .text("Metric:" + scope.metrics[0] + "");                    
+        .call(yAxis);
+        // .selectAll(".tick text")
+        // .style("text-anchor", "start")
+        // .attr("y", 100)
+        // .append("text")
+        //   // .attr("transform", "rotate(-90)")
+        //   // .attr("y", function () {
+        //   //     return yAxis(skater_val);
+        //   // })
+        //   .attr("y", 300)
+        //   .attr("dy", ".71em")
+        //   .style("text-anchor", "right")
+        //   .style("font-size", "14px") 
+        //   .text(function() {
+        //       // return 'some foobar';
+        //       return skater_name  + ": " + skater_val;  
+        //   });                    
 
     };
 
