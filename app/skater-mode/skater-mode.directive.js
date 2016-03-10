@@ -100,11 +100,11 @@ function SkaterModeLink (
     var skater_name = scope.skater.Player_Name;    
     var yAxis = d3.svg.axis()
         .scale(y)
+        .tickSubdivide(1)
+        .tickSize(0, 6, 0)
         .ticks(1)
         .tickValues([0,skater_val])
         .tickFormat(function (d, i) {
-            // return "" + skater_name  + ": " + skater_val;  
-            console.log('tickFormat d, i', d, i);
             return skater_val + "  >";  
         })
         .orient("right");
