@@ -22,14 +22,24 @@ function SkaterModeDirective (skaterModeServices) {
 
 function SkaterModeController($scope, skaterModeServices) {
     $scope.$watch( 'data' , init );
+    $scope.$on( 'update_order_by_field' , function ($event, val) {
+        console.log('update_order_by_field', val);
+        var metrics = $scope.metrics = [val];
+        $scope.charting_data = skaterModeServices.createRenderData($scope.payload, metrics);
+    } );
+    
+
     function init(skater) {
         if (!skater || !skater.length) { return; }
         $scope.skater = skater[0];      
         var logo_path = setTeamImage($scope.skater);
         angular.extend( $scope.skater , logo_path );
         // var metrics = 'SA';        
-        var metrics = $scope.metrics = ['CF'];        
-        var metrics = $scope.metrics = ['CF', 'CA'];        
+        var metrics = $scope.metrics = ['CFPctRelTM'];        
+        // var metrics = $scope.metrics = ['CF', 'CA'];        
+        // var metrics = $scope.parent.orderBy = ['CF', 'CA'];        
+        // update_order_by_field
+
         $scope.charting_data = skaterModeServices.createRenderData($scope.payload, metrics);
 	}
 	
@@ -78,7 +88,7 @@ function SkaterModeLink (
 
         chart.domain([min, max]);
 
-        d3.select("#box-and-whisker-container svg").remove();
+        d3.select("svg").remove();
         var svg = d3.select("#box-and-whisker-container")
             .selectAll("svg")
             .data(data)
@@ -103,8 +113,9 @@ function SkaterModeLink (
         .tickSubdivide(1)
         .tickSize(0, 6, 0)
         .ticks(1)
-        .tickValues([0,skater_val])
+        .tickValues([skater_val])
         .tickFormat(function (d, i) {
+            // return skater_name.split(' ')[1] + " " + skater_val + "  >";  
             return skater_val + "  >";  
         })
         .orient("right");
@@ -112,9 +123,11 @@ function SkaterModeLink (
      // draw y axis
     svg.append("g")
         .attr("class", "y axis")
-        .attr("transform", "translate(" + -50 + "," + 0 + ")")
+        .attr("transform", "translate(" + -10 + "," + 0 + ")")
         .call(yAxis);
 
+    d3.selectAll('.y.axis text')
+        .style({'fill': 'red', 'stroke': 'red'});
     // add a title
     svg.append("text")
         .attr("x", (width / 3))             
