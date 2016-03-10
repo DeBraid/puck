@@ -30,6 +30,7 @@ function SkaterModeController($scope, skaterModeServices) {
         // var metrics = 'SA';        
         var metrics = $scope.metrics = ['CF'];        
         $scope.charting_data = skaterModeServices.createRenderData($scope.payload, metrics);
+        console.log('$scope.charting_data', $scope.charting_data);
 	}
 	
 	function setTeamImage(skater) {
@@ -100,12 +101,13 @@ function SkaterModeLink (
      // draw y axis
     svg.append("g")
         .attr("class", "y axis")
+      .attr("transform", "translate(" + -50 + "," + 0 + ")")
         .call(yAxis)
         .append("text")
-          .attr("transform", "rotate(-90)")
-          .attr("y", 6)
+          // .attr("transform", "rotate(-90)")
+          .attr("y", 55)
           .attr("dy", ".71em")
-          .style("text-anchor", "end")
+          .style("text-anchor", "right")
           .style("font-size", "16px") 
           .text("Metric:" + scope.metrics[0] + "");                    
 
