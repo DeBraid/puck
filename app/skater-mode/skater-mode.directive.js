@@ -28,7 +28,7 @@ function SkaterModeController($scope, skaterModeServices) {
         var logo_path = setTeamImage($scope.skater);
         angular.extend( $scope.skater , logo_path );
         // var metrics = 'SA';        
-        var metrics = ['CF'];        
+        var metrics = $scope.metrics = ['CF'];        
         $scope.charting_data = skaterModeServices.createRenderData($scope.payload, metrics);
 	}
 	
@@ -47,8 +47,8 @@ function SkaterModeLink (
         render(val);
     });
 
-    var margin = {top: 10, right: 50, bottom: 20, left: 50},
-    width = 120 - margin.left - margin.right,
+    var margin = {top: 50, right: 50, bottom: 20, left: 100},
+    width = 300 - margin.left - margin.right,
     height = 400 - margin.top - margin.bottom;
 
     var min = Infinity,
@@ -56,7 +56,7 @@ function SkaterModeLink (
 
     var chart = d3.box()
         .whiskers(iqr(1.5))
-        .width(width)
+        .width(width/2)
         .height(height);
 
     function render (raw_data) {
@@ -96,28 +96,18 @@ function SkaterModeLink (
     var yAxis = d3.svg.axis()
     .scale(y)
     .orient("left");
-    
-          
-    // add a title
-    svg.append("text")
-        .attr("x", (width / 2))             
-        .attr("y", 0 + (margin.top / 2))
-        .attr("text-anchor", "middle")  
-        .style("font-size", "18px") 
-        //.style("text-decoration", "underline")  
-        .text("foobar");
  
      // draw y axis
     svg.append("g")
         .attr("class", "y axis")
         .call(yAxis)
-        .append("text") // and text1
+        .append("text")
           .attr("transform", "rotate(-90)")
           .attr("y", 6)
           .attr("dy", ".71em")
           .style("text-anchor", "end")
           .style("font-size", "16px") 
-          .text("Revenue in €");                    
+          .text("Metric:" + scope.metrics[0] + "");                    
 
     };
 
