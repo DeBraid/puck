@@ -28,7 +28,7 @@ function SkaterModeController($scope, skaterModeServices) {
         var logo_path = setTeamImage($scope.skater);
         angular.extend( $scope.skater , logo_path );
         // var metrics = 'SA';        
-        var metrics = ['GFPct', 'CFPct'];        
+        var metrics = ['CF'];        
         $scope.charting_data = skaterModeServices.createRenderData($scope.payload, metrics);
 	}
 	
