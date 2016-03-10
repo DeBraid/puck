@@ -49,8 +49,8 @@ function SkaterModeLink (
     });
 
     var margin = {top: 50, right: 50, bottom: 20, left: 100},
-    width = 300 - margin.left - margin.right,
-    height = 400 - margin.top - margin.bottom;
+        width = 300 - margin.left - margin.right,
+        height = 400 - margin.top - margin.bottom;
 
     var min = Infinity,
         max = -Infinity;
@@ -58,12 +58,11 @@ function SkaterModeLink (
     var chart = d3.box()
         .whiskers(iqr(1.5))
         .width(width/2)
-        .height(height - margin.top);
+        .height(height - margin.top);        
 
     function render (raw_data) {
         if (!raw_data || !raw_data.length) { return; }
         var data = [];
-        console.log('raw_data.length', raw_data.length);
         raw_data.forEach(function(x) {
             console.log();
             var e = Math.floor(x.plot_number - 1),
@@ -78,7 +77,7 @@ function SkaterModeLink (
         });
 
         chart.domain([min, max]);
-        console.log('data in svg', data);
+
         d3.select("#box-and-whisker-container svg").remove();
         var svg = d3.select("#box-and-whisker-container")
             .selectAll("svg")

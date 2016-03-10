@@ -154,7 +154,7 @@ d3.box = function() {
       // Update outliers.
       var outlier = g.selectAll("circle.outlier")
           .data(outlierIndices, Number);
-          console.log('outlierIndices', outlierIndices);
+
       outlier.enter().insert("circle", "text")
           .attr("class", "outlier")
           .attr("r", 5)
@@ -164,7 +164,6 @@ d3.box = function() {
         .transition()
           .duration(duration)
           .attr("cy", function(i) { 
-            console.log('outliers d[i]', d[i]);
             return x1(d[i]); 
           })
           .style("opacity", 1);
