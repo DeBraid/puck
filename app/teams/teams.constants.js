@@ -35,6 +35,40 @@ angular
 			{metric : 'NZPct' 	, filter : 'displayZoneStarts' 	, decimal : '2'},
 			{metric : 'DZPct' 	, filter : 'displayZoneStarts' 	, decimal : '2'},
 			{metric : 'OZPct' 	, filter : 'displayZoneStarts' 	, decimal : '2'},
+		],
+		team_colours: [
+			{
+				team: 'Boston',
+				colours: [
+					'#2C2A29',
+					'#FFB81C',
+					'#FFFFFF',
+				]
+			},
+			{
+				team: 'Calgary',
+				colours: [
+					'#C8102E',
+					'#F1BE48',
+					'#2C2A29',
+				]
+			},
+			{
+				team: 'Carolina',
+				colours: [
+					'#C8102E',
+					'#2C2A29',
+					'#8A8D8F',
+				]
+			},
+			{
+				team: 'Chicago',
+				colours: [
+					'#C8102E',
+					'#2C2A29',
+					'#FFF'
+				]
+			}
 		]
 });
 		
