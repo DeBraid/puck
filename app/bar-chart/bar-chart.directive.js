@@ -166,24 +166,14 @@ function BarChartLink (
                 return i * (barHeight + barPadding);
             })
             .attr('fill', function(d) {
-                // return color(d.value);
-                // console.log('d in fill', d);
                 var fill = '#FFF';
                 var name = d.entity;
-                // var colours = scope.team_colours;
                 var colours = scope.team_colours;
                 if (colours[name]) {
                     fill = colours[name][0];
                     // console.log('got one', name, 'fill', fill);
                 }
-                // colours.map(function(c) {
-                //     // console.log('c', c);
-                //     if (c.team == name ) {
-                //         fill = c.colours[1];
-                //     }
-                // });
                 console.log('fill', fill);
-                // return  '#FFF'
                 return  fill;
             })
             .attr('stroke', function(d) {
