@@ -23,7 +23,6 @@ function SkaterModeDirective (skaterModeServices) {
 function SkaterModeController($scope, skaterModeServices) {
     $scope.$watch( 'data' , init );
     $scope.$on( 'update_order_by_field' , function ($event, val) {
-        console.log('update_order_by_field', val);
         var metrics = $scope.metrics = [val];
         $scope.charting_data = skaterModeServices.createRenderData($scope.payload, metrics);
     } );
@@ -35,7 +34,7 @@ function SkaterModeController($scope, skaterModeServices) {
         var logo_path = setTeamImage($scope.skater);
         angular.extend( $scope.skater , logo_path );
         // var metrics = 'SA';        
-        var metrics = $scope.metrics = ['CFPctRelTM'];        
+        var metrics = $scope.metrics = ['GFPct'];        
         // var metrics = $scope.metrics = ['CF', 'CA'];        
         // var metrics = $scope.parent.orderBy = ['CF', 'CA'];        
         // update_order_by_field
@@ -74,7 +73,6 @@ function SkaterModeLink (
         if (!raw_data || !raw_data.length) { return; }
         var data = [];
         raw_data.forEach(function(x) {
-            console.log();
             var e = Math.floor(x.plot_number - 1),
                 r = Math.floor(x.index - 1),
                 s = Math.floor(x.value),
@@ -88,7 +86,7 @@ function SkaterModeLink (
 
         chart.domain([min, max]);
 
-        d3.select("svg").remove();
+        d3.selectAll("svg").remove();
         var svg = d3.select("#box-and-whisker-container")
             .selectAll("svg")
             .data(data)
