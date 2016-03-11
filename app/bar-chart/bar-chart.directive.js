@@ -174,7 +174,7 @@ function BarChartLink (
                 var colours = scope.team_colours;
                 if (colours[name]) {
                     fill = colours[name][0];
-                    console.log('got one', name, 'fill', fill);
+                    // console.log('got one', name, 'fill', fill);
                 }
                 // colours.map(function(c) {
                 //     // console.log('c', c);

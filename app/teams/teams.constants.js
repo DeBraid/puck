@@ -36,27 +36,37 @@ angular
 			{metric : 'DZPct' 	, filter : 'displayZoneStarts' 	, decimal : '2'},
 			{metric : 'OZPct' 	, filter : 'displayZoneStarts' 	, decimal : '2'},
 		],
-		team_colours: {
-			'Boston': [
-				'#2C2A29',
-				'#FFB81C',
-				'#FFFFFF',
-			],
-			'Calgary': [
-				'#C8102E',
-				'#F1BE48',
-				'#2C2A29',
-			],
-			'Carolina': [
-				'#C8102E',
-				'#2C2A29',
-				'#8A8D8F',
-			],
-			'Chicago': [
-				'#C8102E',
-				'#2C2A29',
-				'#FFF'
-			],
+		team_colours : {
+			'Anaheim' : [ '#2C292A', '#85714D', '#FC4C02'],
+			'Boston' : [ '#2C2A29', '#FFB81C', '#FFFFFF'],
+			'Buffalo' : [ '#041E42', '#FFB81C', '#818182'],
+			'Calgary' : [ '#C8102E', '#F1BE48', '#2C2A29'],
+			'Carolina' : [ '#C8102E', '#2C2A29', '#8A8D8F'],
+			'Chicago' : [ '#C8102E', '#2C2A29', '#FFFFFF'],
+			'Colorado' : [ '#6F263D', '#236192', '#2C2A29'],
+			'Columbus' : [ '#041E42', '#C8102E', '#8A8D8F'],
+			'Dallas' : [ '#2C2A29', '#154734', '#84754E'],
+			'Detroit' : [ '#C8102E', '#FFFFFF', '#C8102E'],
+			'Edmonton' : [ '#041E42', '#8B634B', '#C8102E'],
+			'Florida' : [ '#041E42', '#C8102E', '#FFB81C'],
+			'Los Angeles' : [ '#2C2A29', '#818182', '#FFFFFF'],
+			'Minnesota' : [ '#154734', '#A6192E', '#EAB000'],
+			'Montreal' : [ '#A6192E', '#001E62', '#FFFFFF'],
+			'Nashville' : [ '#041E42', '#FFB81C', '#8A8D8F'],
+			'New Jersey' : [ '#C8102E', '#2C2A29', '#FFFFFF'],
+			'NY Islanders' : [ '#003087', '#FC4C02', '#FFFFFF'],
+			'NY Rangers' : [ '#0033A0', '#C8102E', '#FFFFFF'],
+			'Ottawa' : [ '#C8102E', '#2C2A29', '#85714D'],
+			'Philadelphia' : [ '#FA4616', '#2C2A29', '#FFFFFF'],
+			'Phoenix' : [ '#862633', '#FFFFFF ', '#DDCBA4'],
+			'Pittsburgh' : [ '#2C2A29', '#CFC493', '#FFFFFF'],
+			'St. Louis' : [ '#003087', '#FFB81C', '#041E42'],
+			'San Jose' : [ '#006272', '#2C2A29', '#E57200'],
+			'Tampa Bay' : [ '#00205B', '#FFFFFF', '#00205B'],
+			'Toronto' : [ '#00205B', '#FFFFFF', '#00205B'],
+			'Vancouver' : [ '#00205B', '#06843D', '#8A8D8F'],
+			'Washington' : [ '#C8102E', '#041E42', '#FFFFFF'],
+			'Winnipeg' : ['#041E42', '#004C97', '#8A8D8F']
 		}
 });
 		
