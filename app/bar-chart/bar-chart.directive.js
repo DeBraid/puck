@@ -88,7 +88,7 @@ function BarChartLink (
                     team = entity.Team;
                     scope.widerLeftColumn = true;
                 } else {
-                    name = entity.teamname;
+                    name = team = entity.teamname;
                 }
 
                 scope.charting_data.push({
@@ -167,10 +167,10 @@ function BarChartLink (
             })
             .attr('fill', function(d) {
                 var fill = '#FFF';
-                var name = d.entity;
+                var team = d.team;
                 var colours = scope.team_colours;
-                if (colours[name]) {
-                    fill = colours[name][0];
+                if (colours[team]) {
+                    fill = colours[team][0];
                     // console.log('got one', name, 'fill', fill);
                 }
                 console.log('fill', fill);

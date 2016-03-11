@@ -58,7 +58,7 @@ angular
 			'NY Rangers' : [ '#0033A0', '#C8102E', '#FFFFFF'],
 			'Ottawa' : [ '#C8102E', '#2C2A29', '#85714D'],
 			'Philadelphia' : [ '#FA4616', '#2C2A29', '#FFFFFF'],
-			'Phoenix' : [ '#862633', '#FFFFFF ', '#DDCBA4'],
+			'Arizona' : [ '#862633', '#FFFFFF ', '#DDCBA4'],
 			'Pittsburgh' : [ '#2C2A29', '#CFC493', '#FFFFFF'],
 			'St. Louis' : [ '#003087', '#FFB81C', '#041E42'],
 			'San Jose' : [ '#006272', '#2C2A29', '#E57200'],
