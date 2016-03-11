@@ -22,6 +22,7 @@ function TeamsController (
 		filter_inputs: {},
 		//csvtxt : '',
 		searchteamname : 'w',
+		team_colours: teamsConstants.team_colours,
 		orderByField : 'GFPct',
 	    section_data_url: secretConstants.teams_data_url,
 		showFilters : true,

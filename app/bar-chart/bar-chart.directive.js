@@ -45,11 +45,13 @@ function BarChartLink (
 ) {
     var left_margin_from_foo;
     scope.widerLeftColumn = false;
+    scope.team_colours = scope.$parent.team_colours;
     scope.charting_data = [];
     scope.metrics = [];
     scope.render = render();
     scope.setMetricFromListClick = setMetricFromListClick;
     
+    console.log('scope.team_colours in bar chart', scope.team_colours);
     angular.forEach( scope.$parent.metrics , function ( item ) {
         scope.metrics.push(item.metric);
     });
@@ -149,6 +151,11 @@ function BarChartLink (
 
             svg.attr('height', height);
             
+            function customColours(colours, n) {
+                // var colours_arr = ["#3366cc", "#dc3912", "#ff9900", "#109618", "#990099", "#0099c6", "#dd4477", "#66aa00", "#b82e2e", "#316395", "#994499", "#22aa99", "#aaaa11", "#6633cc", "#e67300", "#8b0707", "#651067", "#329262", "#5574a6", "#3b3eac"];
+                var colours_arr = colours;
+                return colours_arr[n % colours_arr.length];
+            }
             svg.selectAll('rect')
             .data(render_data).enter()
             .append('rect')
@@ -160,7 +167,24 @@ function BarChartLink (
             })
             .attr('fill', function(d) {
                 // return color(d.value);
-                return  '#FFF'
+                // console.log('d in fill', d);
+                var fill = '#FFF';
+                var name = d.entity;
+                // var colours = scope.team_colours;
+                var colours = scope.team_colours;
+                if (colours[name]) {
+                    fill = colours[name][0];
+                    console.log('got one', name, 'fill', fill);
+                }
+                // colours.map(function(c) {
+                //     // console.log('c', c);
+                //     if (c.team == name ) {
+                //         fill = c.colours[1];
+                //     }
+                // });
+                console.log('fill', fill);
+                // return  '#FFF'
+                return  fill;
             })
             .attr('stroke', function(d) {
                 return  '#000'
