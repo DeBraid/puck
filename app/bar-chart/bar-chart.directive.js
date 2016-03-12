@@ -2,9 +2,10 @@
 angular
 	.module('puckalyticsMainApp.barChart', [
 		'ui.router',
-        'ui.bootstrap'
+        'ui.bootstrap',
+        'puckalyticsMainApp.teams'
 	])
-	.directive('barChart', BarChartDirective );
+	.directive('barChart', [ 'teamsConstants', BarChartDirective] );
 
 function BarChartDirective () {
     return {
@@ -18,14 +19,15 @@ function BarChartDirective () {
     }
 }
 
-function BarChartController($scope, $state) {
-    // var metric;
+function BarChartController($scope, $state, teamsConstants) {
     $scope.show_bar_chart = false;
+    $scope.team_colours = teamsConstants.team_colours;
     var section = $scope.section_name = $state.current.name;
     $scope.chart_length = 10;
-    if (section == 'teams') {
-        $scope.chart_length = 30;
-    }
+    $scope.chart_length = (section == 'teams') ? 30 : 10;
+    // if (section == 'teams') {
+    //     $scope.chart_length = 30;
+    // }
 
     $scope.$on('draw_chart_from_table_header_click', function (event, value) {        
         $scope.show_bar_chart = true;
@@ -45,7 +47,6 @@ function BarChartLink (
 ) {
     var left_margin_from_foo;
     scope.widerLeftColumn = false;
-    scope.team_colours = scope.$parent.team_colours;
     scope.charting_data = [];
     scope.metrics = [];
     scope.render = render();
