@@ -23,11 +23,7 @@ function BarChartController($scope, $state, teamsConstants) {
     $scope.show_bar_chart = false;
     $scope.team_colours = teamsConstants.team_colours;
     var section = $scope.section_name = $state.current.name;
-    $scope.chart_length = 10;
     $scope.chart_length = (section == 'teams') ? 30 : 10;
-    // if (section == 'teams') {
-    //     $scope.chart_length = 30;
-    // }
 
     $scope.$on('draw_chart_from_table_header_click', function (event, value) {        
         $scope.show_bar_chart = true;
@@ -52,7 +48,6 @@ function BarChartLink (
     scope.render = render();
     scope.setMetricFromListClick = setMetricFromListClick;
     
-    console.log('scope.team_colours in bar chart', scope.team_colours);
     angular.forEach( scope.$parent.metrics , function ( item ) {
         scope.metrics.push(item.metric);
     });
@@ -78,8 +73,9 @@ function BarChartLink (
         return;
 
         function setChartingData() {
+            var colours = scope.team_colours;
             data.map(function (entity) {    
-                var name, team; 
+                var name, team, fill, stroke; 
                 if ( entity.Player_Name ) {
                     name = entity.Player_Name;
                     team = entity.Team;
@@ -96,7 +92,9 @@ function BarChartLink (
                     metric : newVal,
                     value: entity[newVal], 
                     entity : name,
-                    team : team
+                    team : team,
+                    fill : colours[team][0],
+                    stroke : colours[team][1]
                 });
             });
         }
@@ -166,23 +164,19 @@ function BarChartLink (
             .attr('y', function(d, i) {
                 return i * (barHeight + barPadding);
             })
-            .attr('fill', function(d) {
-                var fill = '#FFF';
-                var team = d.team;
-                var colours = scope.team_colours;
-                if (colours[team]) {
-                    fill = colours[team][0];
-                    // console.log('got one', name, 'fill', fill);
-                }
-                console.log('fill', fill);
-                return  fill;
-            })
-            .attr('stroke', function(d) {
-                return  '#000'
-            })
+            .attr('fill', '#FFF')
+            .attr('stroke', '#000')
             .transition().duration(1000)
             .attr('width', function(d) {
                 return xScale(d.value);
+            })
+            .attr('fill', function(d) {
+                return  d.fill;
+            })
+            .attr('stroke-opacity', '0.9')
+            .attr('fill-opacity', '0.55')
+            .attr('stroke', function(d) {
+                return  d.stroke;
             });
 
             svg.selectAll('.logos')
