@@ -590,5 +590,10 @@ function SkatersController (
 			});
 		}, 1000);		
 	}
+
+	$scope.setSkaterModeTo = setSkaterModeTo;
+	function setSkaterModeTo($event, skater) {
+		$scope.search.name = skater.Player_Name;
+	}
 };
 

@@ -51,7 +51,7 @@ function SkaterModeLink (
     scope, ele, attrs, skaterModeServices
 ) {
     scope.$watch( 'charting_data' , function (val) {
-        console.log('watcher for charting_data GO!');
+        // console.log('watcher for charting_data GO!');
         render(val);
     });
 

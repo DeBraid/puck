@@ -37,9 +37,11 @@
 		<th>Rank</th>
 		<th ng-hide="showFilters==false">Select</th>
 		
-		<th><a href="" ng-click="setOrderByField('FullName')">
-		Player Name
-		</a></th>
+		<th>
+			<a href="" ng-click="setOrderByField('FullName')">
+				Player Name
+			</a>
+		</th>
 
 		<th><a href="" ng-click="setOrderByField('Team')">
 		Team
@@ -72,8 +74,13 @@
 		<td>{{$index +1 + (currentPage)*pageSize}}
 		<td ng-if="showFilters==true"><input type="checkbox" ng-model="player.checkboxFilter"></td>
 		<td align="left"  nowrap="nowrap">
-			<a ng-href="players/#!/?pid={{player.PID}}" target="puckalyticsplayer">
-				<strong ng-if="'FullName' == orderByField">{{player.FullName}}</strong>
+			<!-- <a ng-href="players/#!/?pid={{player.PID}}" 
+				target="puckalyticsplayer"> -->
+			<a href="" 
+				ng-click="setSkaterModeTo($event, player)">
+				<strong ng-if="'FullName' == orderByField">
+					{{player.FullName}}
+				</strong>
 				<p ng-if="'FullName' != orderByField">{{player.FullName}}</p>
 			</a>
 		</td>
