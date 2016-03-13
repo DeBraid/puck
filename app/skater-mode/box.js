@@ -10,7 +10,8 @@ d3.box = function() {
       value = Number,
       whiskers = boxWhiskers,
       quartiles = boxQuartiles,
-      tickFormat = null;
+      tickFormat = null,
+      x1 = null;
 
   // For each small multiple…
   function box(g) {
@@ -241,7 +242,7 @@ d3.box = function() {
     if (!arguments.length) return x1;
     return x1(x);
   };
-  
+
   box.width = function(x) {
     if (!arguments.length) return width;
     width = x;
