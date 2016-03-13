@@ -26,6 +26,7 @@ function SkatersController (
 	var defaults = {
 		setOrderByField : setOrderByField,
 		orderByField : 'CFPct',
+		skater_mode : false,
 		error_message : null,
 		showFilters : true,
 		reverseSort : true,
@@ -592,8 +593,17 @@ function SkatersController (
 	}
 
 	$scope.setSkaterModeTo = setSkaterModeTo;
-	function setSkaterModeTo($event, skater) {
-		$scope.search.name = skater.Player_Name;
+	function setSkaterModeTo($event, skater, reset) {
+		if (reset) {
+			$scope.search.name = '';
+			$scope.skater_mode = false;	
+		} else {
+			$scope.search.name = skater.Player_Name;
+			$scope.skater_mode = true;
+		}
+	}
+	function resetSkaterMode() {
+		
 	}
 };
 

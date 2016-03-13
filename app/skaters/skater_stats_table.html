@@ -78,10 +78,21 @@
 				target="puckalyticsplayer"> -->
 			<a href="" 
 				ng-click="setSkaterModeTo($event, player)">
-				<strong ng-if="'FullName' == orderByField">
+				<!-- <strong ng-if="'FullName' == orderByField">
 					{{player.FullName}}
-				</strong>
-				<p ng-if="'FullName' != orderByField">{{player.FullName}}</p>
+				</strong> -->
+				<p ng-if="'FullName' != orderByField">
+					<span class=" ('FullName' == orderByField) ? 'bold-text' : '' ">
+						{{player.FullName}}
+					</span>
+					<a ng-if="skater_mode" 
+						class=" btn btn-sm btn-danger pull-right"
+						ng-click="setSkaterModeTo($event, '', 'reset')">
+						<i class="glyphicon glyphicon-remove"></i>
+					</a>
+				</p>
+					<!-- <span>{{ skater_mode }}</span> -->
+
 			</a>
 		</td>
 		<td nowrap="nowrap">
