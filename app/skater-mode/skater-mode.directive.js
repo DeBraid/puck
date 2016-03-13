@@ -41,7 +41,7 @@ function SkaterModeController($scope, skaterModeServices) {
 	
 	function setTeamImage(skater) {
 		var name = skater['Team'].split(' ').join('_');
-		var logo_stub = '/assets/images/team-logos/';
+		var logo_stub = 'assets/images/team-logos/';
 		return { logo_path: logo_stub + name + '.svg'};
 	}
 }
