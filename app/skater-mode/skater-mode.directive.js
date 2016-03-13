@@ -64,7 +64,18 @@ function SkaterModeLink (
     var chart = d3.box()
         .whiskers(iqr(1.5))
         .width(width/2)
-        .height(height);        
+        .height(height);      
+    
+    d3.select('#skater-marker-placeholder')
+        .append('svg')
+        .attr({ height: 30 , width: 30 })
+        .append('circle')
+        .attr({
+            'id' : 'skater-marker',
+            'cx' : '15',
+            'cy' : '15',
+            'r' : '7.5',
+        });          
 
     function render (raw_data) {
         if (!raw_data || !raw_data.length) { return; }
@@ -83,9 +94,15 @@ function SkaterModeLink (
 
         chart.domain([min, max]);
 
-        d3.selectAll('svg').remove();
-        var svg = d3.select('#box-and-whisker-container')
-            .selectAll('svg')
+        var chart_metric = scope.chart_metric = scope.metrics[0];
+        var skater_val = scope.skater_val = scope.skater[chart_metric];
+        var skater_name = scope.skater.Player_Name;
+        var container = d3.select('#box-and-whisker-container');
+
+        container
+            .selectAll('svg').remove();
+
+        var svg = container.selectAll('svg')
             .data(data)
             .enter().append('svg')
             .attr('class', 'box')
@@ -96,54 +113,25 @@ function SkaterModeLink (
             .call(chart);
 
         // the y-axis
-    var y = d3.scale.linear()
-        .domain([min, max])
-        .range([height, 0]);
-    
-    var chart_metric = scope.chart_metric = scope.metrics[0];
-    var skater_val = scope.skater_val = scope.skater[chart_metric];
-    var skater_name = scope.skater.Player_Name;    
-    // var yAxis = d3.svg.axis()
-    //     .scale(y)
-    //     .tickSubdivide(1)
-    //     .tickSize(0, 6, 0)
-    //     .ticks(1)
-    //     .tickValues([skater_val])
-    //     .tickFormat(function (d, i) {
-    //         // return skater_name.split(' ')[1] + ' ' + skater_val + '  >';  
-    //         return skater_val + '  >';  
-    //     })
-    //     .orient('right');
- 
-     // draw y axis
-    // svg.append('g')
-    //     .attr('class', 'y axis')
-    //     .attr('transform', 'translate(' + -10 + ',' + 0 + ')')
-    //     .call(yAxis);
+        // var y = d3.scale.linear()
+        //     .domain([min, max])
+        //     .range([height, 0]);
 
-    
-    // add a title
-    svg.append('text')
-        .attr('x', (width / 3))             
-        .attr('y', -25)
-        .attr('text-anchor', 'middle')  
-        .style('font-size', '18px') 
-        //.style('text-decoration', 'underline')  
-        .text('' + chart_metric + '');    
+        d3.selectAll('.box')
+            .data([skater_val])
+                .append('circle')
+                .attr({
+                    'id' : 'skater-marker',
+                    'r' : '7.5', 
+                })
+                .attr('cx', chart.width()/2+margin.left)
+                .attr('cy', function(d){
+                    // using same scale as box plot.
+                    return chart.x1(d) + margin.top;
+                });
 
-    d3.selectAll('.box')
-        .data([skater_val])
-            .append('circle')
-            .attr('cx', chart.width()/2+margin.left)
-            .attr('cy', function(d){
-                // using same scale that was used to draw the box plot.
-                return chart.x1(d) + margin.top;
-            }) 
-            .attr('r', 7.5)
-            .attr('id', 'skater-val');
-
-    d3.selectAll('#skater-val')
-        .style({'fill': 'red', 'stroke': 'red'}); 
+        d3.selectAll('#skater-marker')
+            .style({'fill': 'red', 'stroke': 'red'}); 
 
     };
 
