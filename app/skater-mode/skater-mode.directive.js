@@ -2,30 +2,44 @@
 angular
 	.module('puckalyticsMainApp.skaterMode', [
 		'ui.router',
-        'ui.bootstrap'
+        'ui.bootstrap',
+        'puckalyticsMainApp.skaterMode'
 	])
 	.directive('skaterMode', SkaterModeDirective );
 
-function SkaterModeDirective () {
+function SkaterModeDirective (skaterModeServices) {
     return {
         restrict: 'E',
         templateUrl: 'app/skater-mode/skater-mode.html',
         scope: {
             data: '=data',
+            payload: '=payload',
         },
         link: SkaterModeLink,
         controller: SkaterModeController,
     }
 }
 
-function SkaterModeController($scope, $state) {
-	$scope.$watch( 'data' , init );
+function SkaterModeController($scope, skaterModeServices) {
+    $scope.$watch( 'data' , init );
+    $scope.$on( 'update_order_by_field' , function ($event, val) {
+        var metrics = $scope.metrics = [val];
+        $scope.charting_data = skaterModeServices.createRenderData($scope.payload, metrics);
+    } );
+    
 
-	function init(skater) {
-		if (!skater || !skater.length) { return; }
-		$scope.skater = skater[0];
-		var logo_path = setTeamImage($scope.skater);
-		angular.extend( $scope.skater , logo_path );
+    function init(skater) {
+        if (!skater || !skater.length) { return; }
+        $scope.skater = skater[0];      
+        var logo_path = setTeamImage($scope.skater);
+        angular.extend( $scope.skater , logo_path );
+        // var metrics = 'SA';        
+        var metrics = $scope.metrics = ['GFPct'];        
+        // var metrics = $scope.metrics = ['CF', 'CA'];        
+        // var metrics = $scope.parent.orderBy = ['CF', 'CA'];        
+        // update_order_by_field
+
+        $scope.charting_data = skaterModeServices.createRenderData($scope.payload, metrics);
 	}
 	
 	function setTeamImage(skater) {
@@ -36,154 +50,121 @@ function SkaterModeController($scope, $state) {
 }
 
 function SkaterModeLink (
-    scope, ele, attrs
+    scope, ele, attrs, skaterModeServices
 ) {
-    // var left_margin_from_foo;
-    // scope.widerLeftColumn = false;
-    // scope.charting_data = [];
-    // scope.metrics = [];
-    // scope.render = render();
-    // scope.setMetricFromListClick = setMetricFromListClick;
-    
-    // angular.forEach( scope.$parent.metrics , function ( item ) {
-    //     scope.metrics.push(item.metric);
-    // });
-    
-    // scope.$on('skater_metrics', function (event, metrics) {
-    //     scope.metrics = metrics;
-    // });
-    
-    // scope.$watch('data', updateChartingData);
-    // scope.$watch('metric', updateChartingData);
-    
-    // function updateChartingData(newVal, oldVal) {
-    //     var data = scope.data;
-    //     if (!data.length) {return;}
-    
-    //     scope.charting_data.length = 0;    
-    //     scope.widerLeftColumn = false;
-    //     if ( scope.metrics.indexOf(newVal) > -1 ) {
-    //         setChartingData();
-    //     }
+    scope.$watch( 'charting_data' , function (val) {
+        console.log('watcher for charting_data GO!');
+        render(val);
+    });
 
-    //     render(scope.charting_data);
-    //     return;
+    var margin = {top: 50, right: 50, bottom: 20, left: 100},
+        width = 300 - margin.left - margin.right,
+        height = 400 - margin.top - margin.bottom;
 
-    //     function setChartingData() {
-    //         data.map(function (entity) {    
-    //             var name; 
-    //             if ( entity.Player_Name ) {
-    //                 name = entity.Player_Name;
-    //                 scope.widerLeftColumn = true;
-    //             } else if ( entity.FullName ) {
-    //                 name = entity.FullName
-    //                 scope.widerLeftColumn = true;
-    //             } else {
-    //                 name = entity.teamname;
-    //             }
+    var min = Infinity,
+        max = -Infinity;
 
-    //             scope.charting_data.push({
-    //                 metric : newVal,
-    //                 value: entity[newVal], 
-    //                 entity : name
-    //             });
-    //         });
-    //     }
-    // }
+    var chart = d3.box()
+        .whiskers(iqr(1.5))
+        .width(width/2)
+        .height(height);        
 
-    // function render (render_data) {
-    //     // console.log('running render with render_data', render_data);
-    //     if (!render_data) return;
-    //     d3.selectAll('#bar-chart svg').remove();
-
-    //     var renderTimeout;
-    //     var margin = parseInt(attrs.margin) || 20,
-    //         barHeight = parseInt(attrs.barHeight) || 20,
-    //         barPadding = parseInt(attrs.barPadding) || 5; 
-        
-    //     var left_margin = 175,
-    //         my_font_size = 18,
-    //         value_text_margin = left_margin*0.7;
-
-    //     if (scope.widerLeftColumn) {
-    //         left_margin = 250;
-    //         my_font_size = 15;
-    //         value_text_margin = left_margin*0.85;
-    //     }
-        
-    //     var svg = d3.select('#bar-chart')
-    //         .append('svg').style('width', '100%');
-
-    //     render_data.sort(function(a, b) {
-    //         return parseFloat(b.value) - parseFloat(a.value);
-    //     });
-        
-    //     var data_length = render_data.length;
-    //     var chart_length = scope.chart_length;
-    //     if (chart_length && (chart_length < data_length)) {
-    //         render_data.splice(chart_length, data_length - chart_length);
-    //     }
-
-    //     if (renderTimeout) clearTimeout(renderTimeout);
-
-    //     renderTimeout = setTimeout(function() {
-    //         var container_width = d3.select('#bar-chart-container').node().getBoundingClientRect().width;
-    //         var width = container_width - left_margin*0.5,
-    //             height = render_data.length * (barHeight + barPadding),
-    //             color = d3.scale.category20b(),
-    //             min = d3.min(render_data, function(d) { return d.value; }),
-    //             max = d3.max(render_data, function(d) { return d.value; });
+    function render (raw_data) {
+        if (!raw_data || !raw_data.length) { return; }
+        var data = [];
+        raw_data.forEach(function(x) {
+            var e = Math.floor(x.plot_number - 1),
+                r = Math.floor(x.index - 1),
+                s = Math.floor(x.value),
+                d = data[e];
             
-    //         var xScale = d3.scale.linear()
-    //                 .domain([min,max])
-    //                 .range([left_margin*0.5, width-left_margin]);
+            if (!d) d = data[e] = [s];
+            else d.push(s);
+            if (s > max) max = s;
+            if (s < min) min = s;
+        });
 
-    //         svg.attr('height', height);
-            
-    //         svg.selectAll('rect')
-    //         .data(render_data).enter()
-    //         .append('rect')
-    //         .attr('height', barHeight)
-    //         .attr('width', width/2)
-    //         .attr('x', left_margin + Math.round(margin / 2))
-    //         .attr('y', function(d, i) {
-    //             return i * (barHeight + barPadding);
-    //         })
-    //         .attr('fill', function(d) {
-    //             return color(d.value);
-    //         })
-    //         .transition().duration(1000)
-    //         .attr('width', function(d) {
-    //             return xScale(d.value);
-    //         });
-            
-    //         svg.selectAll('text.entity')
-    //         .data(render_data).enter()
-    //         .append('text')
-    //         .attr('fill', '#000').attr('y', function(d, i) {
-    //             return i * (barHeight + barPadding) + 15;
-    //         })
-    //         .attr('x', left_margin*0.05)
-    //         .text(function(d) {
-    //             return d.entity;
-    //         })
-    //         .style("font-size", my_font_size);
+        chart.domain([min, max]);
 
-    //         svg.selectAll('text.value')
-    //         .data(render_data).enter()
-    //         .append('text')
-    //         .attr('fill', '#000').attr('y', function(d, i) {
-    //             return i * (barHeight + barPadding) + 15;
-    //         })
-    //         .attr('x', value_text_margin).text(function(d) {
-    //             return parseFloat(d.value).toFixed(2);
-    //         })
-    //         .style("font-size", my_font_size*0.8);
+        d3.selectAll('svg').remove();
+        var svg = d3.select('#box-and-whisker-container')
+            .selectAll('svg')
+            .data(data)
+            .enter().append('svg')
+            .attr('class', 'box')
+            .attr('width', width + margin.left + margin.right)
+            .attr('height', height + margin.bottom + margin.top)
+            .append('g')
+            .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
+            .call(chart);
 
-    //     }, 200);
-    // };
+        // the y-axis
+    var y = d3.scale.linear()
+        .domain([min, max])
+        .range([height, 0]);
+    
+    var chart_metric = scope.chart_metric = scope.metrics[0];
+    var skater_val = scope.skater_val = scope.skater[chart_metric];
+    var skater_name = scope.skater.Player_Name;    
+    // var yAxis = d3.svg.axis()
+    //     .scale(y)
+    //     .tickSubdivide(1)
+    //     .tickSize(0, 6, 0)
+    //     .ticks(1)
+    //     .tickValues([skater_val])
+    //     .tickFormat(function (d, i) {
+    //         // return skater_name.split(' ')[1] + ' ' + skater_val + '  >';  
+    //         return skater_val + '  >';  
+    //     })
+    //     .orient('right');
+ 
+     // draw y axis
+    // svg.append('g')
+    //     .attr('class', 'y axis')
+    //     .attr('transform', 'translate(' + -10 + ',' + 0 + ')')
+    //     .call(yAxis);
 
-    // function setMetricFromListClick ($event, met) { 
-    //     scope.metric = met;
-    // } 
+    
+    // add a title
+    svg.append('text')
+        .attr('x', (width / 3))             
+        .attr('y', -25)
+        .attr('text-anchor', 'middle')  
+        .style('font-size', '18px') 
+        //.style('text-decoration', 'underline')  
+        .text('' + chart_metric + '');    
+
+    d3.selectAll('.box')
+        .data([skater_val])
+            .append('circle')
+            .attr('cx', chart.width()/2+margin.left)
+            .attr('cy', function(d){
+                // using same scale that was used to draw the box plot.
+                return chart.x1(d) + margin.top;
+            }) 
+            .attr('r', 7.5)
+            .attr('id', 'skater-val');
+
+    d3.selectAll('#skater-val')
+        .style({'fill': 'red', 'stroke': 'red'}); 
+
+    };
+
+    // Returns a function to compute the interquartile range.
+    function iqr(k) {
+      return function(d, i) {
+        var q1 = d.quartiles[0],
+            q3 = d.quartiles[2],
+            iqr = (q3 - q1) * k,
+            i = -1,
+            j = d.length;
+        while (d[++i] < q1 - iqr);
+        while (d[--j] > q3 + iqr);
+        return [i, j];
+      };
+    }
+
+    function setMetricFromListClick ($event, met) { 
+        scope.metric = met;
+    } 
 }

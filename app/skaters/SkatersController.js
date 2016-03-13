@@ -327,6 +327,7 @@ function SkatersController (
 		$scope.orderByField = field;
 		$scope.active_filters['orderby'] = field;
 		$scope.active_filters['sortorder'] = $scope.reverseSort;
+		$scope.$broadcast('update_order_by_field', $scope.orderByField)
 		updateUrl();
 	}
 
