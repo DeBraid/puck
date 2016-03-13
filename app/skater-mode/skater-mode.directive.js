@@ -3,9 +3,10 @@ angular
 	.module('puckalyticsMainApp.skaterMode', [
 		'ui.router',
         'ui.bootstrap',
-        'puckalyticsMainApp.skaterMode'
+        'puckalyticsMainApp.skaterMode',
+        'puckalyticsMainApp.teams',
 	])
-	.directive('skaterMode', SkaterModeDirective );
+	.directive('skaterMode', [ 'teamsConstants', SkaterModeDirective ] );
 
 function SkaterModeDirective (skaterModeServices) {
     return {
@@ -20,14 +21,14 @@ function SkaterModeDirective (skaterModeServices) {
     }
 }
 
-function SkaterModeController($scope, skaterModeServices) {
+function SkaterModeController($scope, skaterModeServices, teamsConstants) {
+    $scope.team_colours = teamsConstants.team_colours;
     $scope.$watch( 'data' , init );
     $scope.$on( 'update_order_by_field' , function ($event, val) {
         var metrics = $scope.metrics = [val];
         $scope.charting_data = skaterModeServices.createRenderData($scope.payload, metrics);
     });
     
-
     function init(skater) {
         if (!skater || !skater.length) { return; }
         $scope.skater = skater[0];      
@@ -54,6 +55,7 @@ function SkaterModeLink (
         render(val);
     });
 
+    var fill, stroke;
     var margin = {top: 50, right: 50, bottom: 20, left: 100},
         width = 300 - margin.left - margin.right,
         height = 400 - margin.top - margin.bottom;
@@ -97,6 +99,15 @@ function SkaterModeLink (
         var chart_metric = scope.chart_metric = scope.metrics[0];
         var skater_val = scope.skater_val = scope.skater[chart_metric];
         var skater_name = scope.skater.Player_Name;
+        var team = scope.skater.Team;
+        var colours = scope.team_colours[team];
+        // console.log('team',team);
+        // console.log('scope.team_colours', scope.team_colours);
+        // console.log('scope.team_colours[team]', scope.team_colours[team]);
+        fill = colours[0];
+        stroke = colours[1];
+        console.log('fill', fill);
+        console.log('stroke', stroke);
         var container = d3.select('#box-and-whisker-container');
 
         container
@@ -112,11 +123,6 @@ function SkaterModeLink (
             .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
             .call(chart);
 
-        // the y-axis
-        // var y = d3.scale.linear()
-        //     .domain([min, max])
-        //     .range([height, 0]);
-
         d3.selectAll('.box')
             .data([skater_val])
                 .append('circle')
@@ -131,7 +137,13 @@ function SkaterModeLink (
                 });
 
         d3.selectAll('#skater-marker')
-            .style({'fill': 'red', 'stroke': 'red'}); 
+            .style({ 
+                'fill': fill, 
+                'fill-opacity': '0.8',
+                'stroke': stroke,
+                'stroke-width': '4px',
+                'stroke-opacity': '0.65'
+            }); 
 
     };
 
