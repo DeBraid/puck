@@ -35,7 +35,8 @@ d3.box = function() {
           ? d3.range(0, whiskerIndices[0]).concat(d3.range(whiskerIndices[1] + 1, n))
           : d3.range(n);
       // Compute the new x-scale.
-      var x1 = d3.scale.linear()
+      // removed var, defined above
+      x1 = d3.scale.linear()
           .domain(domain && domain.call(this, d, i) || [min, max])
           .range([height, 0]);
 
