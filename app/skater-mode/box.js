@@ -237,6 +237,11 @@ d3.box = function() {
     d3.timer.flush();
   }
 
+  box.x1 = function(x) {
+    if (!arguments.length) return x1;
+    return x1(x);
+  };
+  
   box.width = function(x) {
     if (!arguments.length) return width;
     width = x;
