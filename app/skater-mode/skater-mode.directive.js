@@ -101,13 +101,8 @@ function SkaterModeLink (
         var skater_name = scope.skater.Player_Name;
         var team = scope.skater.Team;
         var colours = scope.team_colours[team];
-        // console.log('team',team);
-        // console.log('scope.team_colours', scope.team_colours);
-        // console.log('scope.team_colours[team]', scope.team_colours[team]);
         fill = colours[0];
         stroke = colours[1];
-        console.log('fill', fill);
-        console.log('stroke', stroke);
         var container = d3.select('#box-and-whisker-container');
 
         container
