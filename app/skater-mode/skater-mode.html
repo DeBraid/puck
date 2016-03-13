@@ -1,10 +1,17 @@
 <div class="col-sm-12">
-	<h2>
-		<img src="{{ skater.logo_path }}" style="width: 80px; height: 80px;">
-		{{ skater.Player_Name}}, {{ skater.Pos}}
-		<span style="font-weight: 300;">{{ skater.Team }}</span>
-	</h2>
-		<!-- <input type="text" ng-model="box_plot_metric"> -->
+	<div class="col-sm-1">
+		<img src="{{ skater.logo_path }}" 
+			style="width: 80px; height: 80px;">
+	</div>
+	<div class="col-sm-11">
+		<h2>
+			{{ skater.Player_Name}}, {{ skater.Pos}}
+			<span style="font-weight: 300;">{{ skater.Team }}</span>
+		</h2>
+		<p>
+			<code>{{ chart_metric }}</code>: {{ skater_val }}
+		</p>
+	</div>
 	<div class="row">
 		<div id="box-and-whisker-container">
 		<!-- chart here! -->
