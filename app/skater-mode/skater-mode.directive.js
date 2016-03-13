@@ -25,7 +25,7 @@ function SkaterModeController($scope, skaterModeServices) {
     $scope.$on( 'update_order_by_field' , function ($event, val) {
         var metrics = $scope.metrics = [val];
         $scope.charting_data = skaterModeServices.createRenderData($scope.payload, metrics);
-    } );
+    });
     
 
     function init(skater) {
@@ -33,11 +33,8 @@ function SkaterModeController($scope, skaterModeServices) {
         $scope.skater = skater[0];      
         var logo_path = setTeamImage($scope.skater);
         angular.extend( $scope.skater , logo_path );
-        // var metrics = 'SA';        
         var metrics = $scope.metrics = ['GFPct'];        
-        // var metrics = $scope.metrics = ['CF', 'CA'];        
-        // var metrics = $scope.parent.orderBy = ['CF', 'CA'];        
-        // update_order_by_field
+        // var metrics = $scope.metrics = ['CF', 'CA'];
 
         $scope.charting_data = skaterModeServices.createRenderData($scope.payload, metrics);
 	}
