@@ -21,6 +21,10 @@ For local development run the following two commands in distinct terminals (*Mac
 
 * start chrome with `--disable-web-security` flag to avoid CORS blocking. Copy and Paste: `/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --disable-web-security` (else CORS blocking API call)
 
+## or 
+
+* install this [chrome extension][1] to allow CORS: [1][https://chrome.google.com/webstore/detail/allow-control-allow-origi/nlfbmbojpeacfghkpbjhddihlkkiljbi]
+
 
 ## To Do
 
