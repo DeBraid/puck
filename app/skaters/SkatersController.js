@@ -71,7 +71,7 @@ function SkatersController (
 		paginateData : paginateData,
 		showAllData : showAllData,
 		downloadCSV : downloadCSV,
-		//displayStat : displayStat,
+		setSkaterModeTo : setSkaterModeTo,
 	};
 	
 
@@ -95,6 +95,11 @@ function SkatersController (
 
 		updateUrl();
     	init();
+	});
+
+	$scope.$on('search_for_team', function (evt, team) {
+		$scope.search.team = team;
+		setSkaterModeTo({}, {}, 'reset');
 	});
 
     $scope.$watch('skaterStats', function(){
@@ -592,7 +597,6 @@ function SkatersController (
 		}, 1000);		
 	}
 
-	$scope.setSkaterModeTo = setSkaterModeTo;
 	function setSkaterModeTo($event, skater, reset) {
 		if (reset) {
 			$scope.search.name = '';
@@ -601,9 +605,6 @@ function SkatersController (
 			$scope.search.name = skater.Player_Name;
 			$scope.skater_mode = true;
 		}
-	}
-	function resetSkaterMode() {
-		
 	}
 };
 

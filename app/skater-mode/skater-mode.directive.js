@@ -22,6 +22,8 @@ function SkaterModeDirective (skaterModeServices) {
 }
 
 function SkaterModeController($scope, skaterModeServices, teamsConstants) {
+    $scope.navigateToTeam = navigateToTeam;
+
     $scope.team_colours = teamsConstants.team_colours;
     $scope.$watch( 'data' , init );
     $scope.$on( 'update_order_by_field' , function ($event, val) {
@@ -39,6 +41,10 @@ function SkaterModeController($scope, skaterModeServices, teamsConstants) {
 
         $scope.charting_data = skaterModeServices.createRenderData($scope.payload, metrics);
 	}
+
+    function navigateToTeam($event, team) {
+        $scope.$emit('search_for_team', team);
+    }
 	
 	function setTeamImage(skater) {
 		var name = skater['Team'].split(' ').join('_');
