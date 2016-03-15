@@ -311,6 +311,7 @@ function SkatersController (
 		} else {
 			$scope.displayFilter[stat] = true;
 		}
+		$scope.active_filters["dcustom"]=$scope.displayFilter.displayCustom;
 		$scope.active_filters["dgoals"]=$scope.displayFilter.displayGoals;
 		$scope.active_filters["dcorsi"]=$scope.displayFilter.displayCorsi;
 		$scope.active_filters["dpcts"]=$scope.displayFilter.displayPcts;
@@ -507,6 +508,15 @@ function SkatersController (
 				$scope.displayFilter.displayCorsi = false;
 			}
 			$scope.active_filters['dcorsi'] = $scope.displayFilter.displayCorsi;
+		}
+
+		if ($location.search()['dcustom']) {
+			if ($location.search()['dcustom'] == 'true') {
+				$scope.displayFilter.displayCustom = true;
+			} else if ($location.search()['dcustom'] == 'false') {
+				$scope.displayFilter.displayCustom = false;
+			}
+			$scope.active_filters['dcustom'] = $scope.displayFilter.displayCustom;
 		}
 		
 		if ($location.search()['dpcts']) {

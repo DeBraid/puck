@@ -31,6 +31,20 @@
 				</span>
 				
 				<div class="btn-group" id="skater-button">
+					<!-- <button type="button" 
+						ng-class="{'btn btn-success': displayFilter.displayGoals, 'btn btn-danger': !displayFilter.displayGoals}" 
+						ng-click="toggleStatDisplay('displayGoals')" 
+						uib-btn-checkbox btn-checkbox-true="1" 
+						btn-checkbox-false="0">
+							Custom
+					</button>
+					 -->
+					<button type="button" 
+						ng-class="{'btn btn-success': displayFilter.displayCustom, 'btn btn-danger': !displayFilter.displayCustom}" 
+						ng-click="toggleStatDisplay('displayCustom')">
+							Custom
+					</button>
+
 					<button type="button" ng-class="{'btn btn-success': displayFilter.displayGoals, 'btn btn-danger': !displayFilter.displayGoals}" ng-click="toggleStatDisplay('displayGoals')" uib-btn-checkbox btn-checkbox-true="1" btn-checkbox-false="0">Goals</button>
 					<button type="button" ng-class="{'btn btn-success': displayFilter.displayCorsi, 'btn btn-danger': !displayFilter.displayCorsi}" ng-click="toggleStatDisplay('displayCorsi')">Corsi</button>
 					<button type="button" ng-class="{'btn btn-success': displayFilter.displayTM, 'btn btn-danger': !displayFilter.displayTM}" ng-click="toggleStatDisplay('displayTM')">TM Stats</button>

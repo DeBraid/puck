@@ -2,11 +2,18 @@ angular
 	.module('puckalyticsMainApp.skaters')
 	.constant('skatersConstants', {
 		skater_metrics_object : [
+			{API_Name : 'GFPct',		API_Section: 'goals',	DisplayWhen: 'displayCustom',				DisplayName: 'GF%',			decimal: '2',	Min:'0', Max:'100'},
+			{API_Name : 'GF60RelTM',	API_Section: 'goals',	DisplayWhen: 'displayCustom',		DisplayName: 'GF60 RelTM',	decimal: '2',	Min:'-99', Max:'99'},
+			{API_Name : 'GA60RelTM',	API_Section: 'goals',	DisplayWhen: 'displayCustom',		DisplayName: 'GA60 RelTM',	decimal: '2',	Min:'-99', Max:'99'},
+			{API_Name : 'CFPct',		API_Section: 'corsi',	DisplayWhen: 'displayCustom',				DisplayName: 'CF%',			decimal: '2',	Min:'0', Max:'100'},
+			{API_Name : 'CF60RelTM',	API_Section: 'corsi',	DisplayWhen: 'displayCustom',		DisplayName: 'CF60 RelTM',	decimal: '2',	Min:'-999', Max:'999'},
+			{API_Name : 'CA60RelTM',	API_Section: 'corsi',	DisplayWhen: 'displayCustom',		DisplayName: 'CA60 RelTM',	decimal: '2',	Min:'-999', Max:'999'},
+			{API_Name : 'ipoints60',	API_Section: 'individual',	DisplayWhen: 'displayCustom',		DisplayName: 'Points per60',		decimal: '2',	Min:'0', Max:'200'},
+			{API_Name : 'iprimarypoints60',	API_Section: 'individual',	DisplayWhen: 'displayCustom',	DisplayName: 'Pri.Pts  per60',	decimal: '2',	Min:'0', Max:'200'},
 			{API_Name : 'GP',			API_Section: 'goals',	DisplayWhen: 'displayInfo',				DisplayName: 'GP',			decimal: '0',	Min:'0', Max:'9999'},
 			{API_Name : 'TOIDec',			API_Section: 'goals',	DisplayWhen: 'displayInfo',				DisplayName: 'TOI',			decimal: '2',	Min:'0', Max:'9999'},
 			{API_Name : 'GF',			API_Section: 'goals',	DisplayWhen: 'displayGoals',				DisplayName: 'GF',			decimal: '0',	Min:'0', Max:'9999'},
 			{API_Name : 'GA',			API_Section: 'goals',	DisplayWhen: 'displayGoals',				DisplayName: 'GA',			decimal: '0',	Min:'0', Max:'9999'},
-			{API_Name : 'GF60',			API_Section: 'goals',	DisplayWhen: 'displayGoals',				DisplayName: 'GF60',		decimal: '2',	Min:'0', Max:'99'},
 			{API_Name : 'GA60',			API_Section: 'goals',	DisplayWhen: 'displayGoals',				DisplayName: 'GA60',		decimal: '2',	Min:'0', Max:'99'},
 			{API_Name : 'GFPct',		API_Section: 'goals',	DisplayWhen: 'displayGoals',				DisplayName: 'GF%',			decimal: '2',	Min:'0', Max:'100'},
 			{API_Name : 'TMGF60',		API_Section: 'goals',	DisplayWhen: 'displayTM',	DisplayName: 'TM GF60',		decimal: '2',	Min:'0', Max:'99'},
@@ -87,10 +94,11 @@ angular
 			{API_Name : 'OZFOPct',		API_Section: 'faceoffs',	DisplayWhen: 'displayZoneStarts',		DisplayName: 'OZFO%',		decimal: '2',	Min:'0', Max:'100'},
 		],
 		display_filter_object : {
+			displayCustom : false,
 			displayInfo : true,
 			displayGoals : true,
 			displayCorsi : true,
-			displayPcts : true,
+			displayPcts : false,
 			displayTM : false,
 			displayOpp : false,
 			displayRelTM : false,
