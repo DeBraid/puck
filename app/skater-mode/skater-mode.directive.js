@@ -1,4 +1,4 @@
-
+    
 angular
 	.module('puckalyticsMainApp.skaterMode', [
 		'ui.router',
@@ -63,8 +63,8 @@ function SkaterModeLink (
 
     var fill, stroke;
     var margin = {top: 50, right: 50, bottom: 20, left: 100},
-        width = 300 - margin.left - margin.right,
-        height = 400 - margin.top - margin.bottom;
+        width = 225 - margin.left - margin.right,
+        height = 350 - margin.top - margin.bottom;
 
     var min = Infinity,
         max = -Infinity;
@@ -72,7 +72,7 @@ function SkaterModeLink (
     var chart = d3.box()
         .whiskers(iqr(1.5))
         .width(width/2)
-        .height(height);      
+        .height(height);
     
     d3.select('#skater-marker-placeholder')
         .append('svg')
