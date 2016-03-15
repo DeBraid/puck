@@ -62,7 +62,7 @@ function SkaterModeLink (
     });
 
     var fill, stroke;
-    var margin = {top: 50, right: 50, bottom: 20, left: 100},
+    var margin = {top: 20, right: 40, bottom: 20, left: 40 },
         width = 225 - margin.left - margin.right,
         height = 350 - margin.top - margin.bottom;
 
@@ -109,7 +109,8 @@ function SkaterModeLink (
         var colours = scope.team_colours[team];
         fill = colours[0];
         stroke = colours[1];
-        var container = d3.select('#box-and-whisker-container');
+        var chart_container = '#box-and-whisker-container';
+        var container = d3.select(chart_container);
 
         container
             .selectAll('svg').remove();
