@@ -7,7 +7,18 @@ angular
 
 function get_data_service ($http, $location) {
 	return {
-		stats : getStatsFromDB
+		stats : getStatsFromDB,
+		withFullUrl : withFullUrl
+	}
+	
+	function withFullUrl(request_url) {
+		var config = {
+			method: 'GET',
+			url: request_url
+		};
+		
+		return $http(config)
+			.then(success, error); 
 	}
 	
 	function getStatsFromDB (request_url, season, situation, TOIMin, skater_params) {
@@ -33,17 +44,16 @@ function get_data_service ($http, $location) {
 				full_url = full_url + skater_params;
 			};				
 			return full_url;
-		}
-
-		function success(response) {
-			// console.log('stats success response', response);
-			return response.data;
-		}
-
-		function error(response) {
-			// console.log('stats error response', response);
-			return response;
-		}		
-		
+		}	
 	}
+
+	function success(response) {
+		// console.log('stats success response', response);
+		return response.data;
+	}
+
+	function error(response) {
+		// console.log('stats error response', response);
+		return response;
+	}		
 }

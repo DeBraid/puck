@@ -7,6 +7,7 @@ var app = angular.module('puckalyticsMainApp', [
 	'puckalyticsMainApp.skaterModeServices',
 	'puckalyticsMainApp.goalies',
 	'puckalyticsMainApp.teams',
+	'puckalyticsMainApp.playoffs',
 	'puckalyticsMainApp.filterMenu',
 	'puckalyticsMainApp.barChart',
 	'puckalyticsMainApp.scatterPlot',

@@ -17,6 +17,11 @@ function MainAppRouterConfig (
             controller: 'HomepageController',
             controllerAs: 'home'
         })
+        .state('playoffs', {
+            url: '/playoffs',
+            templateUrl: 'app/playoffs/playoffs.html',
+            controller: 'PlayoffsController'
+        })
         .state('skaters', {
             url: '/skaters?season=201516&situation=5v5&TOIMin=200', // + createUrl(skater_params),
             //params: skater_params,
