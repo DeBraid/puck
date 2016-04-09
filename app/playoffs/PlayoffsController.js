@@ -29,36 +29,46 @@ function PlayoffsController (
 		},		
 		
 	]
+	var non_playoff_teams = [
+		'Ottawa', 'Colorado', 'New Jersey', 
+		'Montreal', 'Buffalo', 'Arizona', 
+		'Winnipeg', 'Calgary', 'Columbus', 
+		'Vancouver', 'Edmonton', 'Toronto',
+	]
+	
 	var defaults = {
+		loading : false,
 		links : links,
+		playoff_teams : [],
+		non_playoff_teams : non_playoff_teams,
 		url: 'http://puckalytics.com/php/getplayerdata2.php?season=201516&sit=5v5&minutes=1200&info=1&goal=1'
 	};
 
-	// Actions :
-	// 1. put defaults on scope
 	angular.extend( $scope , defaults );
 
-	// 3. main fn - bootstrap the controller
 	init();
 
-    // Functions List:
 	function init() {
 		$scope.loading = true;
 		
 		getData
 			.withFullUrl($scope.url)
 			.then(checkForErrors)
-			.then(extractPlayoffTeams);
+			.then(extractPlayoffTeams)
+			.then(function () { $scope.loading = false; });
 
-		function extractPlayoffTeams ( response ) {
-			var skaters = response;
-			angular.forEach(skaters, function (skater) {
-				if (skater.Team) {
-					console.log('skater.Team', skater.Team);
-				}
-			})
-		}
-	};
+	}
+
+	function extractPlayoffTeams ( response ) {
+		var skaters = response;
+		angular.forEach(skaters, function (skater) {
+			var team = skater.Team;
+			if ( non_playoff_teams.indexOf( team ) < 0 ) {
+				// console.log('team', team);
+				$scope.playoff_teams.push(team);
+			}
+		})
+	}
 	
 	function checkForErrors ( data ) {
 		if (angular.isArray(data)) {

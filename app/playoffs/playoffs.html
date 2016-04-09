@@ -10,6 +10,34 @@
 </ul>
 
 <div class="row">
-	Playoff Teams
+	<span ng-show="loading">
+		Loading ...
+		Excluding the duds: 
+		<p>
+			<span ng-repeat="team in non_playoff_teams">
+				{{ team }}, 
+			</span>
+		</p>
+	</span>
+	<span ng-hide="loading">
+		<h3>Playoff Teams</h3>
+		<ul ng-repeat="team in playoff_teams">
+			<li>
+				
+			</li>
+		</ul>
+		
+	</span>
 	
+</div>
+
+<div class="row">
+	Injuries: 
+	<ul>
+		<li>Rangers MacD</li>
+		<li>WASH Backy?</li>
+		<li>Pitt Malkin, Maatta, Matt Murray replacing Fleury</li>
+		<li>Tampa Bay: Stralman, Stamkos (less sever Hedman, Callahan</li>
+		<li></li>
+	</ul>
 </div>
