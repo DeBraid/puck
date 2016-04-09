@@ -62,6 +62,22 @@ function PlayoffsController (
 
 	function shapeDataForCharting(data) {
 		console.log('shapeDataForCharting data', data);
+		var teams = {
+			team : '',
+			players : []
+		};
+		angular.forEach($scope.playoff_teams, function (team) {
+			var this_team = {
+				team_name : team,
+				players: []
+			}
+			angular.forEach(data, function (player) {
+				if (team == player.Team) {
+					this_team.players.push(player.Player_Name);
+				}
+			});
+			console.log('this_team', this_team);
+		});
 	}
 
 	function extractPlayoffTeams ( response ) {
