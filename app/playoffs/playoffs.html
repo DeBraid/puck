@@ -1,43 +1,64 @@
-<h2>Playoffs</h2>
 
-<h4>Links</h4>
-<ul>
-	<li ng-repeat="link in links">
-		<a href="{{ link.href }}">
-			{{ link.title }}
-		</a>
-	</li>
-</ul>
-
-<div class="row">
-	<span ng-show="loading">
-		Loading ...
-		Excluding the duds: 
-		<p>
-			<span ng-repeat="team in non_playoff_teams">
-				{{ team }}, 
-			</span>
-		</p>
-	</span>
-	<span ng-hide="loading">
-		<h3>Playoff Teams</h3>
-		<ul ng-repeat="team in playoff_teams">
-			<li>
-				
-			</li>
-		</ul>
-		
-	</span>
-	
+<div class="panel panel-info">
+    <div class="panel-heading">
+        <h3>2016 Stanley Cup Playoffs</h3>
+    </div>
+    <div class="panel-body">
+	    <div class="panel panel-default">
+		    <div class="panel-heading">
+		        <h3 class="panel-title">
+		            Links
+		        </h3>
+		    </div>
+		    <div class="panel-body">
+		        <ul>
+				    <li ng-repeat="link in links">
+				        <a href="{{ link.href }}">
+				            {{ link.title }}
+				        </a>
+				    </li>
+				</ul>
+		    </div>
+		</div>
+    </div>
 </div>
 
 <div class="row">
-	Injuries: 
-	<ul>
-		<li>Rangers MacD</li>
-		<li>WASH Backy?</li>
-		<li>Pitt Malkin, Maatta, Matt Murray replacing Fleury</li>
-		<li>Tampa Bay: Stralman, Stamkos (less sever Hedman, Callahan</li>
-		<li></li>
-	</ul>
+    <div class="col-sm-12">
+        <span ng-show="loading">
+            <h2>
+                Excluding the {{ non_playoff_teams.length }} non-playoff duds:
+            </h2>
+            <span ng-repeat="team in non_playoff_teams">
+                {{ team }},
+            </span>
+        </span>
+        <span ng-hide="loading">
+            <h2>
+                {{ playoff_teams.length }} possible Playoff Teams
+            </h2>
+            <span ng-repeat="team in playoff_teams track by $index">
+                {{ team }}
+            </span>
+        </span>
+    </div>
+</div>
+<div class="row">
+    Injuries:
+    <ul>
+        <li>
+            Rangers MacD
+        </li>
+        <li>
+            WASH Backy?
+        </li>
+        <li>
+            Pitt Malkin, Maatta, Matt Murray replacing Fleury
+        </li>
+        <li>
+            Tampa Bay: Stralman, Stamkos (less sever Hedman, Callahan
+        </li>
+        <li>
+        </li>
+    </ul>
 </div>

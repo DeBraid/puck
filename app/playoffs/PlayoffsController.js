@@ -55,21 +55,28 @@ function PlayoffsController (
 			.withFullUrl($scope.url)
 			.then(checkForErrors)
 			.then(extractPlayoffTeams)
+			.then(shapeDataForCharting)
 			.then(function () { $scope.loading = false; });
 
 	}
 
+	function shapeDataForCharting(data) {
+		console.log('shapeDataForCharting data', data);
+	}
+
 	function extractPlayoffTeams ( response ) {
 		var skaters = response;
+		var playoff_teams = [];
 		angular.forEach(skaters, function (skater) {
 			var team = skater.Team;
 			if ( non_playoff_teams.indexOf( team ) < 0 ) {
-				// console.log('team', team);
-				$scope.playoff_teams.push(team);
+				playoff_teams.push(team);
 			}
-		})
+		});
+		$scope.playoff_teams = _.uniq(playoff_teams);
+		return response;
 	}
-	
+
 	function checkForErrors ( data ) {
 		if (angular.isArray(data)) {
 			$scope.error_message = null;
