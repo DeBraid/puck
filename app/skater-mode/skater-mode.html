@@ -1,27 +1,23 @@
 <div class="col-sm-12">
 	<div class="row">
-		<div class="col-sm-2">
+		<div class="col-sm-6">
 			<a ng-click="navigateToTeam($event, skater.Team)"
 				style="cursor: pointer;">
 				<img src="{{ skater.logo_path }}" 
 					style="width: 125px; height: 100px;">
 			</a>
-		</div>
-		<div class="col-sm-10">
-			<h2>
+			<span style="font-size: 2em;">
 				{{ skater.Player_Name }}, {{ skater.Pos }} 
-				<span id="skater-marker-placeholder">
-				</span>
-			</h2>
+				<span id="skater-marker-placeholder"></span>
+			</span>
+			<img ng-src="{{ skater.headshot }}" alt="Skater Photo" class="img-responsive" style="max-height: 300px;">
 		</div>
-	</div>
-	<div class="row">
-		<div class="col-sm-3" id="box-and-whisker-container">
-			<h4 class="text-center">
+		<div class="col-sm-6" id="box-and-whisker-container">
+			<h4>
 				<code>{{ chart_metric }}</code>: {{ skater_val }}
 			</h4>
+			<div id="box-and-whisker-container-1"></div>
+			<div id="box-and-whisker-container-2"></div>
 		</div>
-		<div class="col-sm-3" id="box-and-whisker-container-1"></div>
-		<div class="col-sm-3" id="box-and-whisker-container-2"></div>
 	</div>
 </div>

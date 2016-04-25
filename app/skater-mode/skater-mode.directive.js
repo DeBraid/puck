@@ -21,7 +21,9 @@ function SkaterModeDirective (skaterModeServices) {
     }
 }
 
-function SkaterModeController($scope, skaterModeServices, teamsConstants) {
+function SkaterModeController(
+    $scope, $sce, skaterModeServices, teamsConstants
+) {
     $scope.navigateToTeam = navigateToTeam;
 
     $scope.team_colours = teamsConstants.team_colours;
@@ -33,12 +35,11 @@ function SkaterModeController($scope, skaterModeServices, teamsConstants) {
     
     function init(skater) {
         if (!skater || !skater.length) { return; }
-        $scope.skater = skater[0];      
-        var logo_path = setTeamImage($scope.skater);
-        angular.extend( $scope.skater , logo_path );
+        $scope.skater = skater[0];              
+        $scope.skater.logo_path = setTeamImage($scope.skater);
+        $scope.skater.headshot = setSkaterHeadshot($scope.skater.Player_Name);
+        
         var metrics = $scope.metrics = ['GFPct'];        
-        // var metrics = $scope.metrics = ['CF', 'CA'];
-
         $scope.charting_data = skaterModeServices.createRenderData($scope.payload, metrics);
 	}
 
@@ -49,8 +50,15 @@ function SkaterModeController($scope, skaterModeServices, teamsConstants) {
 	function setTeamImage(skater) {
 		var name = skater['Team'].split(' ').join('_');
 		var logo_stub = 'assets/images/team-logos/';
-		return { logo_path: logo_stub + name + '.svg'};
+		return logo_stub + name + '.svg';
 	}
+
+    function setSkaterHeadshot(name) {
+        var base_img_src = 'http://tsnimages.tsn.ca/ImageProvider/PlayerHeadshot?seoId=';
+        var name_src = name.replace(/\s+/g, '-');
+        var src = base_img_src + name_src;
+        return $sce.trustAsResourceUrl(src);
+    }
 }
 
 function SkaterModeLink (
