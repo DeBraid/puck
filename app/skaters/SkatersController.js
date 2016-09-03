@@ -102,6 +102,10 @@ function SkatersController (
 		setSkaterModeTo({}, {}, 'reset');
 	});
 
+	$scope.$on('set_skater_mode_from_barchart', function (evt, name) {
+		setSkaterModeTo({}, { Player_Name: name });
+	});
+	
     $scope.$watch('skaterStats', function(){
         $scope.filtereddata = $filter('filter')($scope.playerdata, tableFilter);
     },true);
@@ -614,6 +618,7 @@ function SkatersController (
 		} else {
 			$scope.search.name = skater.Player_Name;
 			$scope.skater_mode = true;
+			$scope.$apply();
 		}
 	}
 };

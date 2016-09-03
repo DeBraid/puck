@@ -207,6 +207,10 @@ function BarChartLink (
             .text(function(d) {
                 return d.entity;
             })
+            .on('click', function (player, arg) {
+                var name = player.entity;
+                scope.$emit('set_skater_mode_from_barchart', name);
+            })
             .style("font-size", my_font_size);
 
             svg.selectAll('text.value')
