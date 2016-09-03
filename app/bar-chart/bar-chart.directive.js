@@ -200,7 +200,7 @@ function BarChartLink (
             svg.selectAll('text.entity')
             .data(render_data).enter()
             .append('text')
-            .attr('fill', '#000').attr('y', function(d, i) {
+            .attr('y', function(d, i) {
                 return i * (barHeight + barPadding) + 15;
             })
             .attr('x', left_margin*0.05)
@@ -211,7 +211,17 @@ function BarChartLink (
                 var name = player.entity;
                 scope.$emit('set_skater_mode_from_barchart', name);
             })
-            .style("font-size", my_font_size);
+            .on("mouseover", function(d) {
+                d3.select(this).style("text-decoration", "underline");
+            })
+            .on("mouseout", function(d) {
+                d3.select(this).style("text-decoration", "none");
+            })
+            .style({
+                "font-size": my_font_size,
+                "fill": '#337ab7',
+                "cursor": 'pointer',
+            });
 
             svg.selectAll('text.value')
             .data(render_data).enter()
