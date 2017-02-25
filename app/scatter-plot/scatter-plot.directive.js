@@ -17,7 +17,7 @@ function ScatterPlotDirective() {
 }
 
 function ScatterPlotController ($scope) {
-    $scope.show_scatter_plot = false;
+    $scope.show_scatter_plot = true;
     $scope.toggleScatterPlot = function () {
         $scope.show_scatter_plot = !$scope.show_scatter_plot;
     }
@@ -27,16 +27,15 @@ function ScatterPlotLink(scope, ele, attrs) {
     scope.render_data = [];
     scope.setMetricFromListClick = setMetricFromListClick;
     scope.metrics = scope.$parent.metrics;
-    // scope.x_metric = 'SA';
-    // scope.y_metric = 'CF';
+    scope.x_metric = 'GFPct';
+    scope.y_metric = 'CFPct';
 
     var margin = {
         top: 20,
         right: 20,
         bottom: 30,
         left: 30
-    },
-    height = 500 - margin.top - margin.bottom;
+    };
     var cValue = function(d) { return d.entity;},
         color = d3.scale.category20b();
     
@@ -68,12 +67,11 @@ function ScatterPlotLink(scope, ele, attrs) {
         d3.selectAll('#scatter-plot-container svg').remove();
 
         var chart = d3.select("#scatter-plot-container");
-        var width = chart.node().getBoundingClientRect().width;
-        var plot_width = width - margin.right - margin.left;
-        
+        var width = chart.node().getBoundingClientRect().width - margin.right - margin.left;
+        var height = 500 - margin.top - margin.bottom;
         // setup x
         var xValue = function(d) { return d.x; },
-            xScale = d3.scale.linear().range([0, plot_width]),
+            xScale = d3.scale.linear().range([0, width]),
             xMap = function(d) { return xScale(xValue(d)); }, 
             xAxis = d3.svg.axis()
                 .scale(xScale)
@@ -88,24 +86,25 @@ function ScatterPlotLink(scope, ele, attrs) {
                 .tickSize(1)
                 .orient("left");
 
+        var svgTransform = "translate(" + margin.left + "," + margin.top + ")";
         var svg = chart.append("svg")
             .attr("width", width + margin.left + margin.right)
             .attr("height", height + margin.top + margin.bottom)
             .append("g")
-            .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+            .attr("transform", svgTransform);
         // add the tooltip area to the webpage
         var tooltip = chart.append("div")
             .attr("class", "tooltip").style("opacity", 0);
         // don't want dots overlapping axis, so add in buffer to data domain
-        xScale.domain([d3.min(data, xValue), d3.max(data, xValue)]);
-        yScale.domain([d3.min(data, yValue)*0.95, d3.max(data, yValue)*0.95]);
+        xScale.domain([d3.min(data, xValue)-1, d3.max(data, xValue)+1]);
+        yScale.domain([d3.min(data, yValue)-1, d3.max(data, yValue)+1]);
         
         // x-axis
         svg.append("g").attr("class", "x axis")
             .attr("transform", "translate(0," + height + ")")
             .call(xAxis)
             .append("text").attr("class", "label")
-            .attr("x", plot_width).attr("y", -6)
+            .attr("x", width).attr("y", -6)
             .style({
                 "text-anchor" : "end",
                 "font-size" : "25",
@@ -135,9 +134,6 @@ function ScatterPlotLink(scope, ele, attrs) {
                 'fill' : '#faebcc',
                 'shape-rendering' : 'crispEdges',
             });
-            
-            
-            
             
         // draw logos via svgs
         svg.selectAll(".logos")
