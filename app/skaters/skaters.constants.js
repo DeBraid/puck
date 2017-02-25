@@ -3,9 +3,9 @@ angular
 	.constant('skatersConstants', {
 		skater_metrics_object : [
 			{API_Name : 'GFPct',		API_Section: 'goals',	DisplayWhen: 'displayCustom',				DisplayName: 'GF%',			decimal: '2',	Min:'0', Max:'100'},
+			{API_Name : 'CFPct',		API_Section: 'corsi',	DisplayWhen: 'displayCustom',				DisplayName: 'CF%',			decimal: '2',	Min:'0', Max:'100'},
 			{API_Name : 'GF60RelTM',	API_Section: 'goals',	DisplayWhen: 'displayCustom',		DisplayName: 'GF60 RelTM',	decimal: '2',	Min:'-99', Max:'99'},
 			{API_Name : 'GA60RelTM',	API_Section: 'goals',	DisplayWhen: 'displayCustom',		DisplayName: 'GA60 RelTM',	decimal: '2',	Min:'-99', Max:'99'},
-			{API_Name : 'CFPct',		API_Section: 'corsi',	DisplayWhen: 'displayCustom',				DisplayName: 'CF%',			decimal: '2',	Min:'0', Max:'100'},
 			{API_Name : 'CF60RelTM',	API_Section: 'corsi',	DisplayWhen: 'displayCustom',		DisplayName: 'CF60 RelTM',	decimal: '2',	Min:'-999', Max:'999'},
 			{API_Name : 'CA60RelTM',	API_Section: 'corsi',	DisplayWhen: 'displayCustom',		DisplayName: 'CA60 RelTM',	decimal: '2',	Min:'-999', Max:'999'},
 			{API_Name : 'ipoints60',	API_Section: 'individual',	DisplayWhen: 'displayCustom',		DisplayName: 'Points per60',		decimal: '2',	Min:'0', Max:'200'},

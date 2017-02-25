@@ -4,7 +4,7 @@ angular
 	.constant('MainAppConstants', {		
 		teams_params: {
 			teamname: '',
-			season: '201516',
+			season: '201617',
 			situation: '5v5',
 			TOIMin : '100',
 			TOIMax : '99999',
@@ -81,7 +81,7 @@ angular
 			team : '',
 			player_name  : '',
 			position : '',
-			season : '201516',
+			season : '201617',
 			situation : '5v5',
 			GPMin : '0',
 			GPMax : '9999',

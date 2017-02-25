@@ -72,6 +72,7 @@ angular
 			{
 				title: 'Single Seasons',
 				values: [
+					{ value : '201617' , label : '2016-17' },
 					{ value : '201516' , label : '2015-16' },
 					{ value : '201415' , label : '2014-15' },
 					{ value : '201314' , label : '2013-14' },
@@ -85,6 +86,7 @@ angular
 			},{
 				title: '2 Seasons',
 				values : [
+					{ value : '201517' , label : '2015-17(2yr)' },
 					{ value : '201416' , label : '2014-16(2yr)' },
 					{ value : '201315' , label : '2013-15(2yr)' },
 					{ value : '201214' , label : '2012-14(2yr)' },
@@ -97,6 +99,7 @@ angular
 			},{
 				title : "3 Seasons",
 				values: [
+					{value  : "201417" , label : '2014-17(3yr)'},
 					{value  : "201316" , label : '2013-16(3yr)'},
 					{value  : "201215" , label : '2012-15(3yr)'},
 					{value  : "201114" , label : '2011-14(3yr)'},
@@ -108,6 +111,7 @@ angular
 			},{
 				title : "4 Seasons",
 				values: [
+					{value  : "201317" , label : '2013-17(4yr)'},
 					{value  : "201216" , label : '2012-16(4yr)'},
 					{value  : "201115" , label : '2011-15(4yr)'},
 					{value  : "201014" , label : '2010-14(4yr)'},
