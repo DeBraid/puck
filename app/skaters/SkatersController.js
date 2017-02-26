@@ -62,7 +62,7 @@ function SkatersController (
 			team : '',
 			pos : ''
 		},
-		season: '201516',
+		season: '201617',
 		situation: '5v5',
 		TOIMin: 200,
 		setCurrentPage : setCurrentPage,
