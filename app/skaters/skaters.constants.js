@@ -14,6 +14,7 @@ angular
 			{API_Name : 'TOIDec',			API_Section: 'goals',	DisplayWhen: 'displayInfo',				DisplayName: 'TOI',			decimal: '2',	Min:'0', Max:'9999'},
 			{API_Name : 'GF',			API_Section: 'goals',	DisplayWhen: 'displayGoals',				DisplayName: 'GF',			decimal: '0',	Min:'0', Max:'9999'},
 			{API_Name : 'GA',			API_Section: 'goals',	DisplayWhen: 'displayGoals',				DisplayName: 'GA',			decimal: '0',	Min:'0', Max:'9999'},
+			{API_Name : 'GF60',			API_Section: 'goals',	DisplayWhen: 'displayGoals',				DisplayName: 'GF60',		decimal: '2',	Min:'0', Max:'99'},
 			{API_Name : 'GA60',			API_Section: 'goals',	DisplayWhen: 'displayGoals',				DisplayName: 'GA60',		decimal: '2',	Min:'0', Max:'99'},
 			{API_Name : 'GFPct',		API_Section: 'goals',	DisplayWhen: 'displayGoals',				DisplayName: 'GF%',			decimal: '2',	Min:'0', Max:'100'},
 			{API_Name : 'TMGF60',		API_Section: 'goals',	DisplayWhen: 'displayTM',	DisplayName: 'TM GF60',		decimal: '2',	Min:'0', Max:'99'},
