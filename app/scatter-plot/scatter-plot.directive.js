@@ -96,8 +96,8 @@ function ScatterPlotLink(scope, ele, attrs) {
         var tooltip = chart.append("div")
             .attr("class", "tooltip").style("opacity", 0);
         // don't want dots overlapping axis, so add in buffer to data domain
-        xScale.domain([d3.min(data, xValue)-1, d3.max(data, xValue)+1]);
-        yScale.domain([d3.min(data, yValue)-1, d3.max(data, yValue)+1]);
+        xScale.domain([d3.min(data, xValue)*0.95, d3.max(data, xValue)*1.05]);
+        yScale.domain([d3.min(data, yValue)*0.98, d3.max(data, yValue)*1.02]);
         
         // x-axis
         svg.append("g").attr("class", "x axis")
