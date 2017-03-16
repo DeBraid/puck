@@ -109,12 +109,12 @@ function BarChartLink (
             barHeight = parseInt(attrs.barHeight) || 20,
             barPadding = parseInt(attrs.barPadding) || 5; 
         
-        var left_margin = 175,
+        var left_margin = 200,
             my_font_size = 18,
             value_text_margin = left_margin*0.7;
 
         if (scope.widerLeftColumn) {
-            left_margin = 250;
+            left_margin = 265;
             my_font_size = 15;
             value_text_margin = left_margin*0.85;
         }
