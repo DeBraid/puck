@@ -41,7 +41,6 @@ function BarChartController($scope, $state, teamsConstants) {
 function BarChartLink (
     scope, ele, attrs
 ) {
-    var left_margin_from_foo;
     scope.widerLeftColumn = false;
     scope.charting_data = [];
     scope.metrics = [];
