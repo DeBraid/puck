@@ -204,8 +204,9 @@ function BarChartLink (
                 return i * (barHeight + barPadding) + 15;
             })
             .attr('x', left_margin*0.05)
-            .text(function(d) {
-                return d.entity;
+            .text(function(d, i) {
+                var rank = i + 1;
+                return rank + '. ' + d.entity;
             })
             .on('click', function (player, arg) {
                 var name = player.entity;
